@@ -86,6 +86,10 @@
         .banner-header {
             text-align: center;
             margin-bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
         }
 
         .banner-title {
@@ -96,6 +100,59 @@
             letter-spacing: -0.02em;
             opacity: 0;
             animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        /* Foto Karla Kryla */
+        .kryl-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #333 0%, #111 100%);
+            border: 3px solid #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .kryl-photo:hover {
+            transform: scale(1.05);
+            border-color: #999;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.7);
+        }
+
+        .kryl-photo::before {
+            content: 'K';
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ccc;
+            font-family: serif;
+        }
+
+        .kryl-photo::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .kryl-photo:hover::after {
+            opacity: 1;
+        }
+
+        .author-dates {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
         }
 
         .quotes-container {
@@ -113,15 +170,15 @@
         }
 
         .quote:nth-child(1) {
-            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+            animation: fadeInUp 0.8s ease-out 0.8s forwards;
         }
 
         .quote:nth-child(2) {
-            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+            animation: fadeInUp 0.8s ease-out 1s forwards;
         }
 
         .quote:nth-child(3) {
-            animation: fadeInUp 0.8s ease-out 0.8s forwards;
+            animation: fadeInUp 0.8s ease-out 1.2s forwards;
         }
 
         .quote:hover {
@@ -157,7 +214,7 @@
             color: #ccc;
             text-align: center;
             opacity: 0;
-            animation: fadeInUp 0.8s ease-out 1s forwards;
+            animation: fadeInUp 0.8s ease-out 1.4s forwards;
         }
 
         .closing-text strong {
@@ -177,7 +234,7 @@
             font-size: 0.9rem;
             color: #888;
             opacity: 0;
-            animation: fadeInUp 0.8s ease-out 1.2s forwards;
+            animation: fadeInUp 0.8s ease-out 1.6s forwards;
         }
 
         /* Zpětný odkaz */
@@ -185,7 +242,7 @@
             text-align: center;
             margin: 3rem 0;
             opacity: 0;
-            animation: fadeInUp 0.8s ease-out 1.4s forwards;
+            animation: fadeInUp 0.8s ease-out 1.8s forwards;
         }
 
         .back-link a {
@@ -224,6 +281,15 @@
                 left: -0.7rem;
             }
 
+            .kryl-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .kryl-photo::before {
+                font-size: 3rem;
+            }
+
             nav .nav-container {
                 gap: 1rem;
                 flex-wrap: wrap;
@@ -248,6 +314,15 @@
             background: linear-gradient(90deg, transparent 0%, #555 50%, transparent 100%);
             transition: all 0.3s ease;
         }
+
+        /* Foto upload notice - můžeš smazat až nahradíš skutečnou fotkou */
+        .photo-placeholder-note {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -263,7 +338,16 @@
     <section class="kryl-banner">
         <div class="container">
             <header class="banner-header">
-                <h2 class="banner-title">Slova Karla Kryla, která nás učí myslet a nepodlehnout</h2>
+                <!-- Foto Karla Kryla -->
+                <div class="kryl-photo"></div>
+                <div class="photo-placeholder-note">
+                    Pro skutečnou fotku: vytvoř složku "images" na GitHubu a nahrej "karel-kryl.jpg"
+                </div>
+                
+                <div>
+                    <h2 class="banner-title">Slova Karla Kryla, která nás učí myslet a nepodlehnout</h2>
+                    <div class="author-dates">Karel Kryl (1944–1994)</div>
+                </div>
             </header>
             
             <div class="quotes-container">
@@ -285,7 +369,7 @@
             </div>
             
             <div class="author-note">
-                Karel Kryl (1944–1994)
+                „Básník s kytarou"
             </div>
         </div>
     </section>
