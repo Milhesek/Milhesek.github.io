@@ -259,6 +259,129 @@
             color: #fff;
         }
 
+        /* AI Neural Network Animation - Jemný dech */
+        .ai-neural-network {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        .neural-svg {
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+        }
+
+        .neural-circle {
+            fill: none;
+            stroke-width: 2;
+            opacity: 0.7;
+        }
+
+        .outer-ring {
+            stroke: #4a9eff;
+            stroke-dasharray: 15,8;
+            animation: breathe-rotate 35s linear infinite, breathe-pulse 6s ease-in-out infinite;
+        }
+
+        .middle-ring {
+            stroke: #6bb6ff;
+            stroke-dasharray: 10,5;
+            animation: breathe-rotate-reverse 40s linear infinite, breathe-pulse 5s ease-in-out infinite 1s;
+        }
+
+        .inner-ring {
+            stroke: #87ceeb;
+            stroke-dasharray: 6,3;
+            animation: breathe-rotate 30s linear infinite, breathe-pulse 4s ease-in-out infinite 2s;
+        }
+
+        .core-circle {
+            stroke: #ffd700;
+            stroke-width: 3;
+            fill: rgba(255, 215, 0, 0.1);
+            animation: breathe-core 7s ease-in-out infinite;
+        }
+
+        .data-node {
+            fill: #4a9eff;
+            opacity: 0.8;
+            animation: breathe-nodes 8s ease-in-out infinite;
+        }
+
+        .connection-line {
+            stroke: #6bb6ff;
+            stroke-width: 1;
+            opacity: 0.4;
+            stroke-dasharray: 4,2;
+            animation: breathe-flow 25s linear infinite;
+        }
+
+        /* Breathing Animations - Jemný dech */
+        @keyframes breathe-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes breathe-rotate-reverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        @keyframes breathe-pulse {
+            0%, 100% { 
+                opacity: 0.4; 
+                stroke-width: 2;
+            }
+            50% { 
+                opacity: 0.8; 
+                stroke-width: 2.5;
+            }
+        }
+
+        @keyframes breathe-core {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: scale(1.1);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes breathe-nodes {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            33% { 
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            66% { 
+                transform: scale(0.8);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes breathe-flow {
+            0% { 
+                stroke-dashoffset: 0;
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% { 
+                stroke-dashoffset: 20;
+                opacity: 0.2;
+            }
+        }
+
         /* Responsive design */
         @media (max-width: 768px) {
             .kryl-banner {
@@ -288,6 +411,11 @@
 
             .kryl-photo::before {
                 font-size: 3rem;
+            }
+
+            .ai-neural-network {
+                width: 150px;
+                height: 150px;
             }
 
             nav .nav-container {
@@ -340,11 +468,9 @@
             <header class="banner-header">
                 <!-- Foto Karla Kryla -->
                 <div class="kryl-photo"></div>
-                <img src="https://imagebox.cz.osobnosti.cz/foto/karel-kryl/O475888-0f247.jpg" 
-     class="kryl-photo" 
-     alt="Karel Kryl">
-               
-        </div>
+                <div class="photo-placeholder-note">
+                    Pro skutečnou fotku: vytvoř složku "images" na GitHubu a nahrej "karel-kryl.jpg"
+                </div>
                 
                 <div>
                     <h2 class="banner-title">Slova Karla Kryla, která nás učí myslet a nepodlehnout</h2>
