@@ -82,7 +82,16 @@
         .conversations-list {
             margin: 3rem 0;
         }
-
+/* AI Neural Network Animation - Jemný dech */
+.ai-neural-network {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+}
+/* + všechny další CSS pravidla pro animace */
         .conversation-item {
             background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
             border: 1px solid #333;
@@ -365,6 +374,11 @@
                 Zachycené konverzace, které odhalují hlubší souvislosti našich dní.
             </p>
         </header>
+        <div class="ai-neural-network">
+    <svg class="neural-svg" viewBox="0 0 200 200">
+        <!-- celá SVG struktura -->
+    </svg>
+</div>
 
         <!-- Seznam rozhovorů -->
         <section class="conversations-list" id="conversations-list">
