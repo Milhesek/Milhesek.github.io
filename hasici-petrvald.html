@@ -854,54 +854,36 @@
             </div>
         </div>
 
-        <!-- Historické kořeny - přeneseno z hlavní stránky -->
-        <div class="section">
-            <h2>🏛️ Historické kořeny - nejstarší fotografie</h2>
-            
-            <div class="historical-gallery" style="max-width: 1000px; margin: 0 auto;">
-                <!-- Fotografie 1925 -->
-                <div class="historical-item" style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 40px;">
-                    <div style="text-align: center;">
-                        <h3 style="color: #667eea; margin-bottom: 20px;">📷 Hasičský sbor Petřvald - 1925 (70. výročí)</h3>
-                        <img src="images/Hasicsky_sbor_1925.jpg" alt="Hasičský sbor Petřvald 1925" 
-                             style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.2);">
-                        <p style="color: #666; line-height: 1.6; margin-top: 20px; font-style: italic;">
-                            Velká skupinová fotografie členů hasičského sboru z roku 1925 při oslavách 70. výročí založení.
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Fotografie 1930 -->
-                <div class="historical-item" style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 40px;">
-                    <div style="text-align: center;">
-                        <h3 style="color: #667eea; margin-bottom: 20px;">📷 Hasičský sbor Petřvald - skupinová fotografie 1930</h3>
-                        <img src="images/Hasici_sbor_1930.jpg" alt="Hasičský sbor Petřvald 1930" 
-                             style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.2);">
-                        <p style="color: #666; line-height: 1.6; margin-top: 20px; font-style: italic;">
-                            Skupinová fotografie členů hasičského sboru z roku 1930.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-<!-- Fotografie 1935 - Čestné členstvo -->
-<div class="historical-item" style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 40px;">
-    <div style="text-align: center;">
-        <h3 style="color: #667eea; margin-bottom: 20px;">📷 Čestné členstvo hasičského sboru - 1935 (80. výročí)</h3>
-        <img src="images/Cestne_clenstvo_1935.jpg" alt="Čestné členstvo hasičského sboru Petřvald 1935" 
-             style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.2);">
-        <p style="color: #666; line-height: 1.6; margin-top: 20px; font-style: italic;">
-            Fotografie čestných členů hasičského sboru z roku 1935 při oslavách významného 80. výročí založení sboru.
-        </p>
-    </div>
-</div>
-    <!-- Footer -->
+        <!-- Footer -->
     <div class="footer">
         <p>&copy; 2025 Miloslav Hesek. Všechna práva vyhrazena.</p>
         <p class="copyright">Historický objev dokumentován 21. června 2025</p>
     </div>
+<script>
+function showGallery(galleryId) {
+    // Skrýt všechny galerie
+    var galleries = document.getElementsByClassName('gallery-content');
+    for (var i = 0; i < galleries.length; i++) {
+        galleries[i].classList.remove('active');
+    }
+    
+    // Odebrat aktivní třídu ze všech tlačítek
+    var tabs = document.getElementsByClassName('gallery-tab');
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+    }
+    
+    // Zobrazit vybranou galerii
+    document.getElementById(galleryId).classList.add('active');
+    
+    // Aktivovat kliknuté tlačítko
+    event.target.classList.add('active');
+}
 
+function openLightbox(img) {
+    // Lightbox funkce - pokud chcete rozklikávací fotografie
+    console.log('Otevřít lightbox pro:', img.alt);
+}
+</script>
 </body>
 </html>
