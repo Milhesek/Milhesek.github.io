@@ -879,6 +879,90 @@ function showGallery(galleryId) {
 }
 
 function openLightbox(img) {
-    console.log('Otevřít lightbox pro:', img.alt);
+    // Vytvořit lightbox overlay
+    var lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.style.cssText = `
+        display: block;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.9);
+        cursor: pointer;
+    `;
+    
+    // Vytvořit obsah lightboxu
+    var content = document.createElement('div');
+    content.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90%;
+        max-height: 90%;
+        text-align: center;
+    `;
+    
+    // Vytvořit větší obrázek
+    var bigImg = document.createElement('img');
+    bigImg.src = img.src;
+    bigImg.alt = img.alt;
+    bigImg.style.cssText = `
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        max-height: 80vh;
+        object-fit: contain;
+    `;
+    
+    // Vytvořit popisek
+    var caption = document.createElement('div');
+    caption.textContent = img.alt;
+    caption.style.cssText = `
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 1.2em;
+        font-weight: bold;
+    `;
+    
+    // Vytvořit zavírací křížek
+    var closeBtn = document.createElement('span');
+    closeBtn.innerHTML = '×';
+    closeBtn.style.cssText = `
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s;
+    `;
+    
+    // Zavření lightboxu
+    function closeLightbox() {
+        document.body.removeChild(lightbox);
+    }
+    
+    closeBtn.onclick = closeLightbox;
+    lightbox.onclick = closeLightbox;
+    
+    // Zabránit zavření při kliknutí na obrázek
+    content.onclick = function(e) {
+        e.stopPropagation();
+    };
+    
+    // Sestavit lightbox
+    content.appendChild(bigImg);
+    content.appendChild(caption);
+    lightbox.appendChild(content);
+    lightbox.appendChild(closeBtn);
+    
+    // Přidat do stránky
+    document.body.appendChild(lightbox);
 }
 </script>
