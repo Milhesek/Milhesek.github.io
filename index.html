@@ -1,1 +1,378 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miloslav Hesek - Profesionální profil & Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .nav-pills {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-pill {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-pill:hover, .nav-pill.active {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .intro-text {
+            font-size: 1.1em;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #666;
+        }
+        
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .experience-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .experience-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .project-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .project-card p {
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .project-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .project-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        .analytics-project {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .contact-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .contact-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 2em;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        .highlight-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+            
+            .nav-pills {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Miloslav Hesek</h1>
+            <p class="subtitle">Profesionální profil & Portfolio</p>
+            <nav class="nav-pills">
+                <a href="#profil" class="nav-pill active">Profil</a>
+                <a href="#projekty" class="nav-pill">Projekty</a>
+                <a href="#analytika" class="nav-pill">Analytické projekty</a>
+                <a href="#kontakt" class="nav-pill">Kontakt</a>
+            </nav>
+        </header>
+
+        <section id="profil" class="content-section">
+            <h2 class="section-title">Profesionální profil</h2>
+            <div class="intro-text">
+                <p>Vítejte na mém profesionálním profilu! Jsem Miloslav Hesek a specializuji se na moderní technologie a inovativní řešení. S dlouholetými zkušenostmi v oboru se věnuji projektům, které přinášejí skutečnou hodnotu.</p>
+                <p>Moje práce se zaměřuje na kvalitu, efektivitu a inovace. Věřím v sílu týmové spolupráce a neustálého vzdělávání. Každý projekt vnímám jako příležitost k růstu a zdokonalování.</p>
+            </div>
+        </section>
+
+        <section id="zkusenosti" class="content-section">
+            <h2 class="section-title">Profesní zkušenosti</h2>
+            <div class="experience-grid">
+                <div class="experience-item">
+                    <h3>Vedení klíčových projektů</h3>
+                    <p>Vedení klíčových projektů a koordinace týmových aktivit. Odpovědnost za strategické plánování a implementaci inovativních řešení.</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Projektová koordinace</h3>
+                    <p>Řízení střednědobých projektů, koordinace mezi odděleními a zajištění splnění stanovených cílů v termínu a rozpočtu.</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Business analýza</h3>
+                    <p>Analýza obchodních procesů, příprava doporučení pro optimalizaci a podporu rozhodovacích procesů managementu.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projekty" class="content-section">
+            <h2 class="section-title">Realizované projekty</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Modernizace procesů</h3>
+                    <p>Komplexní projekt zaměřený na modernizaci a optimalizaci klíčových procesů s významným dopadem na efektivitu organizace.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Analytický nástroj</h3>
+                    <p>Vývoj a implementace pokročilého analytického nástroje pro podporu strategického rozhodování a business intelligence.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Strategické změny</h3>
+                    <p>Dlouhodobý projekt koordinace a implementace strategických změn s pozitivním dopadem na celkovou výkonnost.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="analytika" class="content-section">
+            <h2 class="section-title">Analytické projekty <span class="highlight-badge">NOVÉ</span></h2>
+            <div class="intro-text">
+                <p>Tato sekce představuje moje nejnovější práce v oblasti datové analýzy, vizualizace a zpravodajského zpracování. Každý projekt demonstruje praktické využití moderních technologií pro řešení reálných problémů.</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card analytics-project">
+                    <h3>Interaktivní přehled aktuálního dění</h3>
+                    <p>Komplexní analytický dashboard pro sledování a vizualizaci geopolitických událostí. Kombinuje ověřování informací, datovou vizualizaci a interaktivní prezentaci složitých dat.</p>
+                    <p><strong>Technologie:</strong> HTML5, CSS3, JavaScript, Chart.js, responzivní design</p>
+                    <a href="/projects/news-dashboard.html" class="project-link">🔍 Zobrazit projekt</a>
+                </div>
+                <div class="project-card analytics-project" style="opacity: 0.7; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                    <h3>Budoucí analytické projekty</h3>
+                    <p>Prostor je připraven pro další analytické nástroje, datové vizualizace a interaktivní dashboardy.</p>
+                    <div class="project-link" style="background: rgba(0,0,0,0.1); cursor: default;">📊 Připravuje se</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kontakt" class="content-section">
+            <h2 class="section-title">Kontaktní informace</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>E-mail</strong>
+                    miloslav.hesek@email.cz
+                </div>
+                <div class="contact-item">
+                    <strong>Telefon</strong>
+                    +420 xxx xxx xxx
+                </div>
+                <div class="contact-item">
+                    <strong>Lokalita</strong>
+                    Ostrava, 735 41<br>
+                    Moravskoslezský kraj, ČR
+                </div>
+                <div class="contact-item">
+                    <strong>Dostupnost</strong>
+                    Otevřen zajímavým<br>
+                    organizačním procesům
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Plynulé scrollování pro navigaci
+        document.querySelectorAll('.nav-pill').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Odstranění active třídy ze všech odkazů
+                document.querySelectorAll('.nav-pill').forEach(l => l.classList.remove('active'));
+                
+                // Přidání active třídy k aktuálnímu odkazu
+                this.classList.add('active');
+                
+                // Plynulé scrollování k sekci
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Zvýraznění aktivní sekce při scrollování
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.content-section');
+            const navLinks = document.querySelectorAll('.nav-pill');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
 
