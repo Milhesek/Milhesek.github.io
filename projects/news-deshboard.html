@@ -1,239 +1,336 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Válka na Ukrajině: Přehled událostí - Miloslav Hesek</title>
+    <title>Interaktivní přehled aktuálního dění</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A thematic dashboard structure is used to group related news items into logical sections: "Válka na Ukrajině," "Mezinárodní Scéna," and "Česká Stopa." This approach avoids a simple linear scroll and allows users to quickly navigate to topics of interest via a top navigation bar. The most data-rich and impactful story (the Kyiv attack) is placed at the top for immediate visibility. This structure was chosen to transform a list of disconnected news items into a coherent, explorable overview, enhancing user understanding and engagement by grouping content by relevance and geographical scope. -->
+    <!-- Visualization & Content Choices: 
+        - Kyiv Attack: Goal: Compare/Inform. Method: Bar chart (Chart.js) for projectile data, stat cards for human cost. Interaction: Hover tooltips. Justification: Visualizes attack scale and defense effectiveness clearly.
+        - SBU Operations: Goal: Organize/Compare. Method: Side-by-side cards labeled "Potvrzeno" vs. "Nepotvrzeno". Interaction: None. Justification: Clearly separates verified from unverified claims to prevent misinformation.
+        - Kherson Influence: Goal: Inform. Method: Icon-driven cards (HTML/CSS). Interaction: None. Justification: Icons make topics (media control, forced citizenship) instantly recognizable.
+        - Patel Claims: Goal: Organize/Inform. Method: Collapsible text block (JS toggle). Interaction: Click to reveal context. Justification: Presents the initial claim but encourages exploration of the disputed context.
+        - Penza Drone Strike: Goal: Compare. Method: Two-column layout for conflicting narratives. Interaction: None. Justification: Directly presents the information warfare aspect.
+        - Other items (Politics, Economics): Goal: Inform. Method: Simple text cards with highlighted key stats/quotes. Interaction: None. Justification: Prioritizes clarity and readability for text-heavy information.
+        - Library/Method: Chart.js for visualizations, Vanilla JS for interactions, all graphics via HTML/Tailwind. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Světle šedé pozadí */
-            color: #333;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.5rem;
-        }
-        .header-nav {
-            background-color: #333;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .nav-link {
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #a78bfa; /* Světlejší fialová při najetí myší */
-        }
-        .breadcrumb a {
-            color: #667eea;
-            text-decoration: none;
-        }
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-        .breadcrumb span {
-            color: #666;
-        }
-        .section-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        .stats-card {
-            background-color: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        }
-        .stats-card.red {
-            background-color: #ffebee; /* Light Red */
-            color: #c62828; /* Dark Red */
-            border: 1px solid #ef9a9a;
-        }
-        .stats-card.yellow {
-            background-color: #fffde7; /* Light Yellow */
-            color: #fbc02d; /* Dark Yellow */
-            border: 1px solid #fff59d;
-        }
-        .stats-card.blue {
-            background-color: #e3f2fd; /* Light Blue */
-            color: #1976d2; /* Dark Blue */
-            border: 1px solid #90caf9;
-        }
-        .stats-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            background-color: #f8fafc; /* slate-50 */
         }
         .chart-container {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            padding: 2rem;
-            margin-top: 2rem;
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover {
+            color: #1d4ed8; /* blue-700 */
+        }
+        .nav-link.active {
+            color: #1d4ed8; /* blue-700 */
+            border-bottom-color: #1d4ed8; /* blue-700 */
+        }
+        .stat-card-icon {
+            font-size: 2rem;
+            line-height: 1;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="text-slate-800">
 
-    <!-- Navigation Bar -->
-    <nav class="header-nav text-white">
-        <div class="container flex justify-between items-center">
-            <a href="../index.html" class="text-xl font-bold text-purple-300 hover:text-purple-100 transition duration-300 rounded-md p-2">Miloslav Hesek</a>
-            <div class="flex space-x-6">
-                <a href="../index.html" class="nav-link text-lg font-medium text-white hover:text-purple-300 rounded-md p-2">Domů</a>
-                <a href="../citaty.html" class="nav-link text-lg font-medium text-white hover:text-purple-300 rounded-md p-2">Citáty</a>
-                <a href="../hasici-petrvald.html" class="nav-link text-lg font-medium text-white hover:text-purple-300 rounded-md p-2">Historický objev</a>
-                <a href="../rozhovory-ai.html" class="nav-link text-lg font-medium text-white hover:text-purple-300 rounded-md p-2">Rozhovory s IA</a>
-                <a href="news-deshboard.html" class="nav-link text-lg font-medium text-purple-300 hover:text-purple-100 rounded-md p-2" aria-current="page">News Dashboard</a>
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-900">Přehled Událostí</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#ukrajina" class="nav-link text-slate-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Válka na Ukrajině</a>
+                        <a href="#svet" class="nav-link text-slate-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Mezinárodní Scéna</a>
+                        <a href="#cesko" class="nav-link text-slate-600 px-3 py-2 rounded-md text-sm font-medium border-b-2 border-transparent">Česká Stopa</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
-
-    <!-- Main Content Area -->
-    <main class="container my-8">
-        <!-- Back to Projects Button -->
-        <div class="mb-6">
-            <a href="../index.html#projects" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200">
-                &larr; Zpět na projekty
-            </a>
-        </div>
-
-        <!-- Breadcrumbs -->
-        <nav class="text-sm mb-6 breadcrumb" aria-label="Breadcrumb">
-            <ol class="list-none p-0 inline-flex">
-                <li class="flex items-center">
-                    <a href="../index.html" class="text-blue-600 hover:text-blue-800">Domů</a>
-                    <svg class="fill-current w-3 h-3 mx-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 69.257c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.476 239.029c9.373 9.372 9.373 24.568 0 33.942z"/></svg>
-                </li>
-                <li class="flex items-center">
-                    <a href="../index.html#projects" class="text-blue-600 hover:text-blue-800">Analytické projekty</a>
-                    <svg class="fill-current w-3 h-3 mx-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 69.257c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.476 239.029c9.373 9.372 9.373 24.568 0 33.942z"/></svg>
-                </li>
-                <li class="flex items-center">
-                    <span class="text-gray-500">Přehled aktuálního dění</span>
-                </li>
-            </ol>
         </nav>
+    </header>
 
-        <!-- Main Content Section -->
-        <div class="section-card">
-            <h1 class="text-3xl font-bold mb-4 text-gray-800">Válka na Ukrajině</h1>
-            <p class="text-gray-600 mb-6">
-                Tato sekce shrnuje klíčové vojenské a politické události přímo související s ruskou invazí. Zahrnuje
-                analýzu posledního masivního útoku na Kyjev, odhalení špionáže v řadách ukrajinské armády, ruské
-                snahy o kontrolu okupovaných území a ukrajinské protiúdery na ruském území.
-            </p>
+    <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        
+        <section id="ukrajina" class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">Válka na Ukrajině</h2>
+            <p class="text-slate-600 mb-8 max-w-3xl">Tato sekce shrnuje klíčové vojenské a politické události přímo související s ruskou invazí. Zahrnuje analýzu posledního masivního útoku na Kyjev, odhalení špionáže v řadách ukrajinské armády, ruské snahy o kontrolu okupovaných území a ukrajinské protiúdery na ruském území.</p>
 
-            <h2 class="text-2xl font-semibold mb-4 text-gray-700">Masivní útok na Kyjev (31.7.2025)</h2>
-            <p class="text-gray-600 mb-6">
-                Rusko podniklo jeden z největších kombinovaných útoků na hlavní město. Následující vizualizace a data ukazují rozsah útoku a úspěšnost ukrajinské
-                protivzdušné obrany.
-            </p>
-
-            <!-- Statistics Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="stats-card red">
-                    <div class="stats-icon">💔</div>
-                    <div class="text-3xl font-bold">11-13</div>
-                    <div class="text-sm">Zabitých civilistů</div>
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg mb-8">
+                <h3 class="text-2xl font-bold text-slate-900 mb-4">Masivní útok na Kyjev (31. 7. 2025)</h3>
+                <p class="text-slate-600 mb-6">Rusko podniklo jeden z největších kombinovaných útoků na hlavní město. Následující vizualizace a data ukazují rozsah útoku a úspěšnost ukrajinské protivzdušné obrany.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-center">
+                    <div class="bg-red-50 p-4 rounded-xl">
+                        <div class="stat-card-icon text-red-600">💀</div>
+                        <p class="text-3xl font-bold text-red-800">11-13</p>
+                        <p class="text-sm font-medium text-red-700">Zabitých civilistů</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-xl">
+                        <div class="stat-card-icon text-yellow-600">🩹</div>
+                        <p class="text-3xl font-bold text-yellow-800">130+</p>
+                        <p class="text-sm font-medium text-yellow-700">Zraněných osob</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl">
+                        <div class="stat-card-icon text-blue-600">💥</div>
+                        <p class="text-3xl font-bold text-blue-800">27</p>
+                        <p class="text-sm font-medium text-blue-700">Zasažených míst</p>
+                    </div>
                 </div>
-                <div class="stats-card yellow">
-                    <div class="stats-icon">🩹</div>
-                    <div class="text-3xl font-bold">130+</div>
-                    <div class="text-sm">Zraněných osob</div>
-                </div>
-                <div class="stats-card blue">
-                    <div class="stats-icon">💥</div>
-                    <div class="text-3xl font-bold">27</div>
-                    <div class="text-sm">Zasažených míst</div>
-                </div>
-            </div>
 
-            <!-- Chart Section -->
-            <div class="chart-container">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-700">Bilance ruského útoku: Vypuštěné vs. sestřelené prostředky</h2>
-                <div class="relative" style="height: 400px;">
-                    <canvas id="attackChart"></canvas>
+                <div class="chart-container">
+                    <canvas id="kyivAttackChart"></canvas>
                 </div>
             </div>
-        </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Operace SBU: Špionáž a kolaborace</h3>
+                    <p class="text-slate-600 mb-4">Ukrajinská bezpečnostní služba (SBU) pokračuje v odhalování vnitřních hrozeb. Následující případy ukazují na přetrvávající snahy Ruska infiltrovat ukrajinské ozbrojené síly.</p>
+                    
+                    <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg mb-4">
+                        <h4 class="font-bold text-green-800">Potvrzeno: Zatčení majora letectva</h4>
+                        <p class="text-sm text-green-700">SBU zadržela majora letectva, který údajně předával Rusku informace o polohách a plánech stíhaček F-16 a Mirage 2000. Hrozí mu doživotí za velezradu.</p>
+                    </div>
+
+                    <div class="border-l-4 border-orange-500 bg-orange-50 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-orange-800">Nepotvrzeno: Odsouzení zdravotní sestry</h4>
+                        <p class="text-sm text-orange-700">Tvrzení o sestře odsouzené na doživotí za špionáž se nepodařilo ověřit. Existuje však případ sestry Iryny Danylovyč, kterou naopak uvěznily ruské okupační úřady na Krymu.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Ruský vliv v okupovaném Chersonu</h3>
+                    <p class="text-slate-600 mb-4">V okupovaných částech Chersonské oblasti Rusko systematicky upevňuje svou kontrolu pomocí nátlakových taktik zaměřených na civilní obyvatelstvo.</p>
+                    
+                    <div class="flex items-start mb-4">
+                        <div class="text-3xl mr-4">📡</div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">Informační kontrola</h4>
+                            <p class="text-sm text-slate-600">Okupační úřady nutí obyvatele k "bezplatné" výměně satelitů za přijímače "Russkij Mir", které vysílají výhradně ruskou propagandu.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="text-3xl mr-4">🛂</div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">Nucená pasportizace</h4>
+                            <p class="text-sm text-slate-600">Rodičům, kteří si nevyzvednou ruské pasy, je vyhrožováno odebráním rodičovských práv a odepřením základních služeb.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg lg:col-span-2">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Ukrajinský úder na Radiozavod v Penze</h3>
+                    <p class="text-slate-600 mb-4">Ukrajina demonstruje schopnost zasahovat cíle hluboko na ruském území. Útok na vojenský závod v Penze je příkladem informační války, kde se tvrzení obou stran výrazně liší.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border-t-4 border-blue-600 bg-blue-50 p-4 rounded-b-lg">
+                            <h4 class="font-bold text-blue-800">Ukrajinské tvrzení</h4>
+                            <p class="text-sm text-blue-700">SBU potvrdila úspěšný dronový útok na závod PJSC Radiozavod, který vyrábí klíčové systémy pro ruskou armádu. Hlášeno bylo nejméně 11 explozí.</p>
+                        </div>
+                        <div class="border-t-4 border-red-600 bg-red-50 p-4 rounded-b-lg">
+                            <h4 class="font-bold text-red-800">Ruské tvrzení</h4>
+                            <p class="text-sm text-red-700">Regionální gubernátor potvrdil pouze požár v "průmyslovém podniku" a tvrdil, že nedošlo k žádným škodám na zařízení.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="svet" class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">Mezinárodní Scéna</h2>
+            <p class="text-slate-600 mb-8 max-w-3xl">Tato sekce se věnuje významným událostem, které přesahují hranice jednoho konfliktu. Zahrnuje politická tvrzení v USA, přírodní katastrofy, dopady mezinárodních sankcí, ekonomické prognózy a zásadní změny v digitální politice.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Tvrzení Kashe Patela (USA)</h3>
+                    <p class="text-slate-600 mb-4">Bývalý ředitel FBI Kash Patel přišel s výbušným tvrzením o nálezu dokumentů, které mají dokazovat spiknutí proti Donaldu Trumpovi v roce 2016.</p>
+                    <details class="bg-slate-50 rounded-lg">
+                        <summary class="cursor-pointer font-semibold p-3 text-slate-700">Patelovo tvrzení a kontext</summary>
+                        <div class="p-3 border-t border-slate-200 text-sm">
+                            <p class="mb-2">Patel tvrdí, že objevil "spalovací vaky" s dokumenty dokazujícími, že kampaň Hillary Clintonové zkonstruovala kauzu "Russiagate".</p>
+                            <p class="font-semibold">Protichůdné informace:</p>
+                            <ul class="list-disc list-inside text-slate-600">
+                                <li>Zvláštní prokurátor Durham dospěl k závěru, že klíčový důkaz byl "pravděpodobně zfalšován".</li>
+                                <li>FBI původní informace odmítla jako "nedůvěryhodné".</li>
+                                <li>Celá kauza je silně zpolitizovaná a slouží jako nástroj v boji o politický narativ.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Přírodní katastrofy na Kamčatce</h3>
+                    <p class="text-slate-600 mb-4">Ruský poloostrov Kamčatka zažil bezprecedentní sérii geologických událostí, které demonstrují extrémní nestabilitu regionu.</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">🌊</span>
+                            <p>Silné zemětřesení o síle <strong>8,8 stupně</strong>.</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">🌋</span>
+                            <p>Následná erupce sopky <strong>Klučevskaja</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Dopad sankcí: Microsoft vs. Rosněfť</h3>
+                    <p class="text-slate-600">Případ ukazuje komplexnost a extrateritoriální dopad sankcí EU. Microsoft dočasně pozastavil IT služby indické rafinerii Nayara Energy (49% vlastněné Rosněftí), ale po právní hrozbě je obnovil.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Zelenského výzva a ekonomika Ruska</h3>
+                    <p class="text-slate-600">Prezident Zelenskyj vyzval k úplné konfiskaci ruských aktiv. Současně MMF výrazně snížil prognózu růstu ruské ekonomiky pro rok 2025 na pouhých <strong>0,9 %</strong>, což signalizuje dopad války a sankcí.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Austrálie zakazuje sociální sítě</h3>
+                    <p class="text-slate-600">Austrálie přijala jeden z nejpřísnějších zákonů na světě a zakazuje dětem mladším 16 let zakládat účty na sociálních sítích, včetně Facebooku, TikToku a nově i YouTube, kvůli obavám o duševní zdraví.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Ukrajinská domácí politika</h3>
+                    <p class="text-slate-600">Ukrajinský parlament, v reakci na veřejné protesty a mezinárodní tlak, jednomyslně schválil zákon zachovávající nezávislost protikorupčních organizací NABU a SAP, což je klíčový krok pro integraci do EU.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cesko" class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">Česká Stopa</h2>
+            <p class="text-slate-600 mb-8 max-w-3xl">Tato sekce se zaměřuje na informace s přímou vazbou na Českou republiku. V současné době obsahuje jedno nepotvrzené tvrzení, které vyžaduje další ověření.</p>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-yellow-500">
+                <h3 class="text-xl font-bold text-slate-900 mb-3">Nepotvrzeno: Financování Daniela Sterzika (Vidlák)</h3>
+                <p class="text-slate-600">V původní zprávě se objevilo tvrzení, že "podle investigace magazínu Respekt financuje politickou kariéru Daniela Sterzika (Vidlák) slovenský podnikatel Jan Sábol, který podniká v Rusku a spoluvlastní jednu z firem společně s Andrejem Babišem."</p>
+                <p class="mt-4 font-semibold text-yellow-800 bg-yellow-100 p-3 rounded-lg">Stav ověření: Tuto informaci se z dostupných podkladů nepodařilo ověřit. Jedná se o spekulativní tvrzení, které vyžaduje další žurnalistickou práci a potvrzení ze strany magazínu Respekt nebo jiných nezávislých zdrojů.</p>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white text-center p-6 mt-12 rounded-t-xl shadow-inner">
-        <p>&copy; 2025 Miloslav Hesek. Všechna práva vyhrazena.</p>
+    <footer class="bg-slate-800 text-slate-300 mt-16">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 Interaktivní přehled. Vytvořeno pro demonstrační účely.</p>
+            <p>Data vycházejí z analytické zprávy ověřující události z konce července 2025.</p>
+        </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Chart.js data and configuration
-        const ctx = document.getElementById('attackChart').getContext('2d');
-        const attackChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Vypuštěno', 'Sestřeleno'],
-                datasets: [
-                    {
-                        label: 'Drony',
-                        data: [309, 288],
-                        backgroundColor: ['#f87171', '#34d399'], // Red for launched, Green for intercepted
-                        borderRadius: 8,
+        document.addEventListener('DOMContentLoaded', () => {
+            const kyivAttackData = {
+                labels: ['Drony', 'Řízené střely'],
+                datasets: [{
+                    label: 'Vypuštěno',
+                    data: [309, 8],
+                    backgroundColor: 'rgba(239, 68, 68, 0.6)', // red-500
+                    borderColor: 'rgba(220, 38, 38, 1)', // red-600
+                    borderWidth: 1
+                }, {
+                    label: 'Sestřeleno',
+                    data: [288, 3],
+                    backgroundColor: 'rgba(34, 197, 94, 0.6)', // green-500
+                    borderColor: 'rgba(22, 163, 74, 1)', // green-600
+                    borderWidth: 1
+                }]
+            };
+
+            const kyivAttackConfig = {
+                type: 'bar',
+                data: kyivAttackData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Bilance ruského útoku: Vypuštěné vs. sestřelené prostředky',
+                            font: { size: 16 },
+                            color: '#1e293b', // slate-800
+                            padding: { bottom: 20 }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 12 },
+                            padding: 10,
+                            cornerRadius: 4
+                        }
                     },
-                    {
-                        label: 'Rakety',
-                        data: [8, 3],
-                        backgroundColor: ['#fb923c', '#06b6d4'], // Orange for launched, Cyan for intercepted
-                        borderRadius: 8,
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: false,
-                        text: 'Bilance ruského útoku: Vypuštěné vs. sestřelené prostředky'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                label += context.raw;
-                                return label;
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Počet kusů',
+                                color: '#475569' // slate-600
+                            },
+                            grid: {
+                                color: '#e2e8f0' // slate-200
+                            }
+                        },
+                        x: {
+                             grid: {
+                                display: false
                             }
                         }
                     }
-                },
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 50
-                        },
-                        title: {
-                            display: true,
-                            text: 'Počet kusů'
-                        }
-                    }
                 }
-            }
+            };
+
+            const kyivAttackChartCtx = document.getElementById('kyivAttackChart').getContext('2d');
+            new Chart(kyivAttackChartCtx, kyivAttackConfig);
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
         });
     </script>
+
 </body>
 </html>
