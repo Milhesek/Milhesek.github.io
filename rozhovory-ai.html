@@ -1,1 +1,1042 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rozhovory s IA - Miloslav Hesek</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Navigace */
+        nav {
+            background: #000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        nav a.active {
+            color: #fff;
+        }
+
+        /* Hlavní obsah */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #ccc;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* AI Neural Network Animation - Jemný dech */
+        .ai-neural-network {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 2rem auto;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        .neural-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Outer ring - velmi pomalá rotace (35s) */
+        .outer-ring {
+            animation: gentleRotate 35s linear infinite;
+        }
+
+        /* Middle ring - střední rotace opačným směrem (25s) */
+        .middle-ring {
+            animation: gentleRotateReverse 25s linear infinite;
+        }
+
+        /* Inner ring - rychlejší rotace (15s) */
+        .inner-ring {
+            animation: gentleRotate 15s linear infinite;
+        }
+
+        /* Connection lines - jemný flow efekt */
+        .flow-line {
+            stroke-dasharray: 6,4;
+            animation: flowingData 25s ease-in-out infinite;
+        }
+
+        /* Data nodes - organické dýchání */
+        .data-node:nth-child(1) { animation: gentleBreathing 8s ease-in-out infinite 0s; }
+        .data-node:nth-child(2) { animation: gentleBreathing 8s ease-in-out infinite 1s; }
+        .data-node:nth-child(3) { animation: gentleBreathing 8s ease-in-out infinite 2s; }
+        .data-node:nth-child(4) { animation: gentleBreathing 8s ease-in-out infinite 3s; }
+        .data-node:nth-child(5) { animation: gentleBreathing 8s ease-in-out infinite 1.5s; }
+        .data-node:nth-child(6) { animation: gentleBreathing 8s ease-in-out infinite 2.5s; }
+        .data-node:nth-child(7) { animation: gentleBreathing 8s ease-in-out infinite 3.5s; }
+        .data-node:nth-child(8) { animation: gentleBreathing 8s ease-in-out infinite 0.5s; }
+
+        /* AI core - centrální pulzování */
+        .ai-core {
+            animation: coreBreathing 6s ease-in-out infinite;
+        }
+
+        /* Keyframes pro jemné animace */
+        @keyframes gentleRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes gentleRotateReverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        @keyframes gentleBreathing {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.7; 
+            }
+            50% { 
+                transform: scale(1.3); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes coreBreathing {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.8; 
+            }
+            50% { 
+                transform: scale(1.1); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes flowingData {
+            0% { 
+                stroke-dashoffset: 0; 
+                opacity: 0.3; 
+            }
+            50% { 
+                stroke-dashoffset: -20; 
+                opacity: 0.7; 
+            }
+            100% { 
+                stroke-dashoffset: -40; 
+                opacity: 0.3; 
+            }
+        }
+
+        /* Vyhledávání a filtry */
+        .search-controls {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #4a9eff;
+        }
+
+        .search-input::placeholder {
+            color: #888;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            background: rgba(255,255,255,0.1);
+            color: #ddd;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-tag:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .filter-tag.active {
+            background: #4a9eff;
+            color: #000;
+            border-color: #4a9eff;
+        }
+
+        .clear-filters {
+            background: none;
+            border: 1px solid #666;
+            color: #ccc;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .clear-filters:hover {
+            border-color: #ff6b4a;
+            color: #ff6b4a;
+        }
+
+        /* Seznam rozhovorů */
+        .conversations-list {
+            margin: 3rem 0;
+        }
+
+        .conversation-item {
+            background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .conversation-item:hover {
+            border-color: #555;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .conversation-item.hidden {
+            display: none;
+        }
+
+        .conversation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .conversation-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+
+        .conversation-date {
+            font-size: 0.9rem;
+            color: #888;
+            background: rgba(255,255,255,0.05);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .conversation-preview {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .conversation-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.1);
+            color: #ddd;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: rgba(74, 158, 255, 0.3);
+        }
+
+        /* Jednotlivý rozhovor */
+        .conversation-full {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border-radius: 10px;
+            padding: 3rem;
+            margin: 2rem 0;
+            border: 1px solid #333;
+            display: none;
+        }
+
+        .conversation-full.active {
+            display: block;
+        }
+
+        .conversation-meta {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .conversation-number {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+
+        .conversation-full-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .conversation-full-date {
+            font-size: 1rem;
+            color: #aaa;
+        }
+
+        /* Dialog */
+        .dialog {
+            margin: 2rem 0;
+        }
+
+        .dialog-turn {
+            margin-bottom: 2rem;
+            padding: 1.5rem 0;
+        }
+
+        .dialog-speaker {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .dialog-speaker.miloslav {
+            color: #4a9eff;
+        }
+
+        .dialog-speaker.ai {
+            color: #ff6b4a;
+        }
+
+        .dialog-text {
+            color: #e0e0e0;
+            line-height: 1.8;
+            font-size: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid #333;
+        }
+
+        .dialog-turn.miloslav .dialog-text {
+            border-left-color: #4a9eff;
+        }
+
+        .dialog-turn.ai .dialog-text {
+            border-left-color: #ff6b4a;
+        }
+
+        /* Reflexe */
+        .reflection {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .reflection-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .reflection-text {
+            color: #ccc;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* Tlačítka */
+        .btn {
+            background: none;
+            border: 1px solid #4a9eff;
+            color: #4a9eff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #4a9eff;
+            color: #000;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .back-link a {
+            color: #4a9eff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .back-link a:hover {
+            color: #fff;
+        }
+
+        /* Žádné výsledky */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        .no-results.hidden {
+            display: none;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 2rem 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .conversation-item {
+                padding: 1.5rem;
+            }
+
+            .conversation-full {
+                padding: 1.5rem;
+            }
+
+            .conversation-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav .nav-container {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .search-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                min-width: auto;
+            }
+
+            .filter-tags {
+                justify-content: center;
+            }
+
+            .ai-neural-network {
+                width: 150px;
+                height: 150px;
+            }
+
+            .dialog-text {
+                font-size: 0.95rem;
+                padding-left: 0.8rem;
+            }
+
+            .dialog-turn {
+                padding: 1rem 0;
+            }
+        }
+
+        /* Animace při načtení */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Toggle indicator */
+        .toggle-indicator {
+            font-size: 1.2rem;
+            color: #4a9eff;
+            margin-left: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .conversation-item.expanded .toggle-indicator {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html">Domů</a>
+            <a href="citaty.html">Citáty</a>
+            <a href="rozhovory-ai.html" class="active">Rozhovory s IA</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <header class="page-header fade-in">
+            <h1 class="page-title">Rozhovory s umělou inteligencí</h1>
+            <p class="page-subtitle">
+                Dialogy o současném světě, geopolitice a lidském myšlení. 
+                Zachycené konverzace, které odhalují hlubší souvislosti našich dní.
+            </p>
+        </header>
+    
+        <div class="ai-neural-network">
+            <svg class="neural-svg" viewBox="0 0 200 200">
+                <defs>
+                    <radialGradient id="blueGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:#87ceeb;stop-opacity:0.8"/>
+                        <stop offset="100%" style="stop-color:#4a9eff;stop-opacity:0.3"/>
+                    </radialGradient>
+                    <radialGradient id="goldGradient" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:#ffd700;stop-opacity:0.9"/>
+                        <stop offset="100%" style="stop-color:#ffb347;stop-opacity:0.6"/>
+                    </radialGradient>
+                    <filter id="softGlow">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge> 
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                
+                <g class="outer-ring" style="transform-origin: 100px 100px;">
+                    <circle cx="100" cy="100" r="85" fill="none" stroke="url(#blueGradient)" 
+                            stroke-width="1" stroke-dasharray="8,4" opacity="0.4"/>
+                </g>
+                
+                <g class="middle-ring" style="transform-origin: 100px 100px;">
+                    <circle cx="100" cy="100" r="60" fill="none" stroke="url(#blueGradient)" 
+                            stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6"/>
+                </g>
+                
+                <g class="inner-ring" style="transform-origin: 100px 100px;">
+                    <circle cx="100" cy="100" r="35" fill="none" stroke="url(#blueGradient)" 
+                            stroke-width="2" stroke-dasharray="4,2" opacity="0.8"/>
+                </g>
+                
+                <g class="connection-lines">
+                    <line class="flow-line" x1="100" y1="15" x2="100" y2="185" stroke="#4a9eff" stroke-width="0.8" opacity="0.3"/>
+                    <line class="flow-line" x1="15" y1="100" x2="185" y2="100" stroke="#4a9eff" stroke-width="0.8" opacity="0.3"/>
+                    <line class="flow-line" x1="30" y1="30" x2="170" y2="170" stroke="#4a9eff" stroke-width="0.8" opacity="0.3"/>
+                    <line class="flow-line" x1="170" y1="30" x2="30" y2="170" stroke="#4a9eff" stroke-width="0.8" opacity="0.3"/>
+                </g>
+                
+                <g class="data-nodes">
+                    <circle class="data-node" cx="100" cy="25" r="4" fill="#87ceeb" filter="url(#softGlow)"/>
+                    <circle class="data-node" cx="175" cy="100" r="4" fill="#87ceeb" filter="url(#softGlow)"/>
+                    <circle class="data-node" cx="100" cy="175" r="4" fill="#87ceeb" filter="url(#softGlow)"/>
+                    <circle class="data-node" cx="25" cy="100" r="4" fill="#87ceeb" filter="url(#softGlow)"/>
+                    <circle class="data-node" cx="140" cy="40" r="3" fill="#4a9eff" filter="url(#softGlow)"/>
+                    <circle class="data-node" cx="160" cy="140" r="3" fill="#4a9eff" filter="url(#softGlow)"/>
+                    <circle class="data-node" cx="60" cy="160" r="3" fill="#4a9eff" filter="url(#softGlow)"/>
+                    <circle class="data-node" cx="40" cy="60" r="3" fill="#4a9eff" filter="url(#softGlow)"/>
+                </g>
+                
+                <g class="ai-core" style="transform-origin: 100px 100px;">
+                    <circle cx="100" cy="100" r="15" fill="url(#goldGradient)" filter="url(#softGlow)"/>
+                    <text x="100" y="105" text-anchor="middle" font-family="Arial, sans-serif" 
+                          font-size="10" font-weight="bold" fill="#2c3e50">AI</text>
+                </g>
+            </svg>
+        </div>
+    
+        <div class="search-controls fade-in">
+            <div class="search-box">
+                <div class="search-icon">🔍</div>
+                <input type="text" class="search-input" placeholder="Vyhledejte v rozhovorech..." id="searchInput">
+            </div>
+            <div class="filter-tags" id="filterTags">
+                <div class="filter-tag" data-tag="geopolitika">Geopolitika</div>
+                <div class="filter-tag" data-tag="usa">USA</div>
+                <div class="filter-tag" data-tag="ukrajina">Ukrajina</div>
+                <div class="filter-tag" data-tag="trump">Trump</div>
+                <div class="filter-tag" data-tag="putin">Putin</div>
+                <div class="filter-tag" data-tag="sport">Sport</div>
+                <div class="filter-tag" data-tag="politika">Politika</div>
+                <div class="filter-tag" data-tag="diplomacie">Diplomacie</div>
+                <button class="clear-filters" id="clearFilters">Vymazat filtry</button>
+            </div>
+        </div>
+    
+        <section class="conversations-list" id="conversations-list">
+            
+            <article class="conversation-item fade-in" data-conversation="3" data-tags="geopolitika,média,propaganda,rusko">
+                <div class="conversation-header">
+                    <h2 class="conversation-title">Analýza výroku: Od "krvežíznivého Bruselu" k pochopení dnešní společnosti <span class="toggle-indicator">▼</span></h2>
+                    <span class="conversation-date">31. srpna 2025</span>
+                </div>
+                <p class="conversation-preview">
+                    Hloubková analýza výroku Dmitrije Medvěděva, která odhaluje mechanismy propagandy, politické rétoriky a důvody nespokojenosti části evropské společnosti...
+                </p>
+                <div class="conversation-tags">
+                    <span class="tag" data-tag="geopolitika">Geopolitika</span>
+                    <span class="tag" data-tag="média">Média</span>
+                    <span class="tag" data-tag="propaganda">Propaganda</span>
+                    <span class="tag" data-tag="rusko">Rusko</span>
+                </div>
+            </article>
+    
+            <article class="conversation-item fade-in" data-conversation="1" data-tags="geopolitika,usa,ukrajina,trump,putin">
+                <div class="conversation-header">
+                    <h2 class="conversation-title">Geopolitika a ztráta důvěry v USA <span class="toggle-indicator">▼</span></h2>
+                    <span class="conversation-date">30. března 2025</span>
+                </div>
+                <p class="conversation-preview">
+                    Diskuse o současné geopolitické situaci, vztazích mezi USA, Ukrajinou a Ruskem. 
+                    Analýza chování světových lídrů a obav z možného globálního konfliktu...
+                </p>
+                <div class="conversation-tags">
+                    <span class="tag" data-tag="geopolitika">Geopolitika</span>
+                    <span class="tag" data-tag="usa">USA</span>
+                    <span class="tag" data-tag="ukrajina">Ukrajina</span>
+                    <span class="tag" data-tag="trump">Trump</span>
+                    <span class="tag" data-tag="putin">Putin</span>
+                </div>
+            </article>
+    
+            <article class="conversation-item fade-in" data-conversation="2" data-tags="sport,politika,diplomacie,vejmelka,koštoval">
+                <div class="conversation-header">
+                    <h2 class="conversation-title">Sport, politika a diplomatické postoje <span class="toggle-indicator">▼</span></h2>
+                    <span class="conversation-date">15. dubna 2025</span>
+                </div>
+                <p class="conversation-preview">
+                    Diskuse o případu hokejisty Vejmelky s Pavlovou podobiznou na helmě a kontroverzních vyjádřeních českého velvyslance v Rusku. Úvaha o propojení sportu s politikou a významu jasných postojů...
+                </p>
+                <div class="conversation-tags">
+                    <span class="tag" data-tag="sport">Sport</span>
+                    <span class="tag" data-tag="politika">Politika</span>
+                    <span class="tag" data-tag="diplomacie">Diplomacie</span>
+                    <span class="tag" data-tag="vejmelka">Vejmelka</span>
+                    <span class="tag" data-tag="koštoval">Koštoval</span>
+                </div>
+            </article>
+        </section>
+    
+        <div class="no-results hidden" id="noResults">
+            <p>Nenalezeny žádné rozhovory odpovídající vašemu hledání.</p>
+            <p>Zkuste jiné klíčové slovo nebo vymažte filtry.</p>
+        </div>
+    
+        <div id="conversation-1" class="conversation-full">
+            <div class="conversation-meta">
+                <div class="conversation-number">Rozhovor #1</div>
+                <h2 class="conversation-full-title">Geopolitika a ztráta důvěry v USA</h2>
+                <div class="conversation-full-date">30. března 2025</div>
+            </div>
+    
+            <div class="dialog">
+                </div>
+    
+            <div class="reflection">
+                </div>
+    
+            <div class="back-link">
+                <button class="btn" onclick="hideConversation(1)">← Zpět na seznam</button>
+            </div>
+        </div>
+    
+        <div id="conversation-2" class="conversation-full">
+            <div class="conversation-meta">
+                <div class="conversation-number">Rozhovor #2</div>
+                <h2 class="conversation-full-title">Sport, politika a diplomatické postoje</h2>
+                <div class="conversation-full-date">15. dubna 2025</div>
+            </div>
+    
+            <div class="dialog">
+                </div>
+    
+            <div class="reflection">
+                 </div>
+    
+            <div class="back-link">
+                <button class="btn" onclick="hideConversation(2)">← Zpět na seznam</button>
+            </div>
+        </div>
+        
+        <div id="conversation-3" class="conversation-full">
+            <div class="conversation-meta">
+                <div class="conversation-number">Rozhovor #3</div>
+                <h2 class="conversation-full-title">Analýza výroku: Od "krvežíznivého Bruselu" k pochopení dnešní společnosti</h2>
+                <div class="conversation-full-date">31. srpna 2025</div>
+            </div>
+    
+            <div class="dialog">
+                <div class="dialog-turn ai">
+                    <div class="dialog-speaker ai">AI Shrnutí:</div>
+                    <div class="dialog-text">
+                        Tento článek shrnuje a analyzuje konverzaci o výroku Dmitrije Medvěděva. Zabývá se ověřením citátu, rozdíly v propagandistické rétorice, váhou psaného slova v politice a zkoumá komplexní důvody, proč část evropské populace rezonuje s narativy přicházejícími od států vnímaných jako agresoři.
+                    </div>
+                </div>
+    
+                <div class="dialog-turn miloslav">
+                    <div class="dialog-speaker miloslav">Miloslav:</div>
+                    <div class="dialog-text">Je výrok o „krvežíznivém Bruselu“ skutečně text Dmitrije Medvěděva?</div>
+                </div>
+    
+                <div class="dialog-turn ai">
+                    <div class="dialog-speaker ai">AI:</div>
+                    <div class="dialog-text">Ano, je to potvrzeno. Jedná se o překlad jeho výroku, který publikoval na sociálních sítích, kde kritizoval Rakousko za debatu o vstupu do NATO a obvinil EU, že tuto debatu podněcuje.</div>
+                </div>
+    
+                <div class="dialog-turn miloslav">
+                    <div class="dialog-speaker miloslav">Miloslav:</div>
+                    <div class="dialog-text">V této souvislosti, je to "krvežíznivý Brusel" nebo "krvežíznivý Kreml"?</div>
+                </div>
+    
+                <div class="dialog-turn ai">
+                    <div class="dialog-speaker ai">AI:</div>
+                    <div class="dialog-text">Obě spojení existují, ale používají je opačné strany. "Krvežíznivý Brusel" je termín ruské propagandy, který má vykreslit EU a Západ jako agresory. Naopak termíny jako "agresivní" či "zločinný Kreml" používají kritici Ruska k popsání jeho vojenských akcí, zejména invaze na Ukrajinu.</div>
+                </div>
+    
+                <div class="dialog-turn miloslav">
+                    <div class="dialog-speaker miloslav">Miloslav:</div>
+                    <div class="dialog-text">Jak je možné, že 25-30 % obyvatel ČR a EU je v takových prohlášeních na straně agresora?</div>
+                </div>
+    
+                <div class="dialog-turn ai">
+                    <div class="dialog-speaker ai">AI:</div>
+                    <div class="dialog-text">Je to způsobeno kombinací faktorů: hlubokou nedůvěrou ve vlastní vlády a média, cílenou dezinformací, strachem z války, ekonomickou frustrací a touhou po jednoduchých řešeních. Tito lidé často nevnímají Medvěděva jako agresora, ale jako někoho, kdo pojmenovává problémy, které oni sami pociťují.</div>
+                </div>
+            </div>
+    
+            <div class="reflection">
+                <div class="reflection-title">Osobní reflexe:</div>
+                <div class="reflection-text">
+                    Tento rozhovor ukazuje, jak jednoduché ověření faktu může otevřít dveře k mnohem hlubším otázkám o fungování společnosti. Medvěděvův výrok není jen propagandistický výkřik, ale i zrcadlo nastavené části naší vlastní společnosti, která ztratila důvěru a je náchylná k manipulaci. Porozumění jejich motivům je klíčové, pokud chceme jako společnost zůstat odolní.
+                </div>
+            </div>
+    
+            <div class="back-link">
+                <button class="btn" onclick="hideConversation(3)">← Zpět na seznam</button>
+            </div>
+        </div>
+
+        <div class="back-link fade-in">
+            <a href="index.html">← Zpět na hlavní stránku</a>
+        </div>
+    </div>
+
+    <script>
+        // Globální proměnné pro vyhledávání a filtrování
+        let activeFilters = new Set();
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializace vyhledávání
+            initializeSearch();
+            
+            // Inicializace filtrů
+            initializeFilters();
+            
+            // Najdeme všechny konverzace
+            const conversationItems = document.querySelectorAll('.conversation-item[data-conversation]');
+            
+            conversationItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const conversationId = this.getAttribute('data-conversation');
+                    if (conversationId) {
+                        showConversation(conversationId);
+                    }
+                });
+            });
+        });
+
+        function initializeSearch() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    performSearch();
+                });
+            }
+        }
+
+        function initializeFilters() {
+            const filterTags = document.querySelectorAll('.filter-tag');
+            const clearFilters = document.getElementById('clearFilters');
+            
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const tagValue = this.getAttribute('data-tag');
+                    toggleFilter(tagValue, this);
+                });
+            });
+            
+            if (clearFilters) {
+                clearFilters.addEventListener('click', function() {
+                    clearAllFilters();
+                });
+            }
+            
+            // Přidání click handleru pro tagy v rozhovorech
+            const conversationTags = document.querySelectorAll('.conversation-tags .tag');
+            conversationTags.forEach(tag => {
+                tag.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Zabrání spuštění click události na conversation-item
+                    const tagValue = this.getAttribute('data-tag');
+                    const filterTag = document.querySelector(`.filter-tag[data-tag="${tagValue}"]`);
+                    if (filterTag) {
+                        toggleFilter(tagValue, filterTag);
+                    }
+                });
+            });
+        }
+
+        function toggleFilter(tagValue, filterElement) {
+            if (activeFilters.has(tagValue)) {
+                activeFilters.delete(tagValue);
+                filterElement.classList.remove('active');
+            } else {
+                activeFilters.add(tagValue);
+                filterElement.classList.add('active');
+            }
+            performSearch();
+        }
+
+        function clearAllFilters() {
+            activeFilters.clear();
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                tag.classList.remove('active');
+            });
+            performSearch();
+        }
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            const conversationItems = document.querySelectorAll('.conversation-item[data-conversation]');
+            const noResults = document.getElementById('noResults');
+            let visibleCount = 0;
+
+            conversationItems.forEach(item => {
+                const title = item.querySelector('.conversation-title')?.textContent.toLowerCase() || '';
+                const preview = item.querySelector('.conversation-preview')?.textContent.toLowerCase() || '';
+                const tags = item.getAttribute('data-tags')?.toLowerCase() || '';
+                
+                // Kontrola textového vyhledávání
+                const matchesSearch = !searchTerm || 
+                    title.includes(searchTerm) || 
+                    preview.includes(searchTerm) || 
+                    tags.includes(searchTerm);
+                
+                // Kontrola filtrů
+                let matchesFilters = true;
+                if (activeFilters.size > 0) {
+                    const itemTags = tags.split(',').map(tag => tag.trim());
+                    matchesFilters = Array.from(activeFilters).some(filter => 
+                        itemTags.includes(filter)
+                    );
+                }
+                
+                if (matchesSearch && matchesFilters) {
+                    item.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            // Zobrazení/skrytí zprávy o žádných výsledcích
+            if (noResults) {
+                if (visibleCount === 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
+            }
+        }
+
+        function showConversation(id) {
+            console.log('Showing conversation:', id); // Debug
+            
+            const conversationsList = document.getElementById('conversations-list');
+            const conversationFull = document.getElementById(`conversation-${id}`);
+            const conversationItem = document.querySelector(`[data-conversation="${id}"]`);
+            
+            console.log('Elements found:', {
+                conversationsList: !!conversationsList,
+                conversationFull: !!conversationFull,
+                conversationItem: !!conversationItem
+            }); // Debug
+            
+            if (conversationFull && conversationsList) {
+                // Skrýt seznam, zobrazit rozhovor
+                conversationsList.style.display = 'none';
+                conversationFull.classList.add('active');
+                conversationFull.style.display = 'block';
+                
+                // Skrýt také vyhledávání a žádné výsledky
+                const searchControls = document.querySelector('.search-controls');
+                const noResults = document.getElementById('noResults');
+                if (searchControls) searchControls.style.display = 'none';
+                if (noResults) noResults.style.display = 'none';
+                
+                if (conversationItem) {
+                    conversationItem.classList.add('expanded');
+                }
+                
+                // Scroll na začátek rozhovoru
+                conversationFull.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                console.error('Could not find conversation elements for ID:', id);
+            }
+        }
+
+        function hideConversation(id) {
+            const conversationsList = document.getElementById('conversations-list');
+            const conversationFull = document.getElementById(`conversation-${id}`);
+            const conversationItem = document.querySelector(`[data-conversation="${id}"]`);
+            
+            if (conversationFull && conversationsList) {
+                conversationFull.classList.remove('active');
+                conversationFull.style.display = 'none';
+                conversationsList.style.display = 'block';
+                
+                // Zobrazit zpět vyhledávání
+                const searchControls = document.querySelector('.search-controls');
+                if (searchControls) searchControls.style.display = 'flex';
+                
+                if (conversationItem) {
+                    conversationItem.classList.remove('expanded');
+                }
+                
+                // Scroll zpět na seznam
+                conversationsList.scrollIntoView({ behavior: 'smooth' });
+                
+                // Přepočítat zobrazení podle aktuálních filtrů
+                performSearch();
+            }
+        }
+
+        // Smooth scrolling pro odkazy
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
