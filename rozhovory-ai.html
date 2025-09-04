@@ -977,7 +977,7 @@
 
                 <div class="dialog-turn miloslav">
                     <div class="dialog-speaker miloslav">Miloslav:</div>
-                    <div class="dialog-text">Doposud dostatečně jasně reflektovala situaci, pro mne je prohlášení našeho velvyslance v Rusku změnou a ústupem z jasné pozice v zahraniční politice ČR! A mě osobně to nepřipadá jako správná cesta k vyřešení situace v Evropě. Připomíná mi to již z minulosti známé postoje západních mocností před 2. světovou válkou, které nevedly ke zlepšení ale naopak!</div>
+                    <div class="dialog-text">Doposud dostatečně jasně reflektovala situaci, pro mne je prohlášení našeho velvyslance v Rusku změnou a ústupem z jasné pozice v zahraniční politice ČR! A mě osobně to nepřipadá jako správná cesta k vyřešení situace v Evropě. Připomíná mi to již z minulosti známé postoje západních mocností před 2. světové války, které nevedly ke zlepšení ale naopak!</div>
                 </div>
 
                 <div class="dialog-turn ai">
@@ -1039,23 +1039,206 @@
                     <div class="dialog-text">Nelze od "politiky" odpojit žádnou lidskou činnost, každého jednotlivce, protože žijeme ve společenství, nikdo nežije ve vzduchoprázdnu!</div>
                 </div>
 
-                <div class="dialog-turn ai">
-                    <div class="dialog-speaker ai">AI:</div>
-                    <div class="dialog-text">Přesně tak, Miloslave! Žádná oblast lidské činnosti není zcela izolovaná od společenského dění, a tím pádem ani od politiky. Každý člověk, ať už vědomě nebo nevědomě, nese své názory, hodnoty a zkušenosti, které se promítají do jeho rozhodování a jednání.<br><br>
-                    Sport, kultura, podnikání---všechny tyto sféry se prolínají s politickými otázkami, protože ovlivňují společnost jako celek. I když někteří tvrdí, že by určité oblasti měly být "apolitické", realita je taková, že v každém systému se politika nějakým způsobem odráží.</div>
-                </div>
+                <div class.
+                    <script>
+        // Globální proměnné pro vyhledávání a filtrování
+        let activeFilters = new Set();
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializace vyhledávání
+            initializeSearch();
+            
+            // Inicializace filtrů
+            initializeFilters();
+            
+            // Najdeme všechny konverzace
+            const conversationItems = document.querySelectorAll('.conversation-item[data-conversation]');
+            
+            conversationItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const conversationId = this.getAttribute('data-conversation');
+                    if (conversationId) {
+                        showConversation(conversationId);
+                    }
+                });
+            });
+        });
 
-                <div class="dialog-turn miloslav">
-                    <div class="dialog-speaker miloslav">Miloslav:</div>
-                    <div class="dialog-text">Ano, a hlavně ale ti, kteří jsou schopni chápat složitost současné situace, by měli více přidat v projevování se a vyjadřování jasných postojů, které budou srozumitelné i těm "druhým" a tím sem se dostal na začátek mého názoru na postoj našeho velvyslance v Rusku!</div>
-                </div>
+        function initializeSearch() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    performSearch();
+                });
+            }
+        }
 
-                <div class="dialog-turn ai">
-                    <div class="dialog-speaker ai">AI:</div>
-                    <div class="dialog-text">Ano, vracíme se k samotné podstatě veřejného projevu a jeho významu v diplomatických kruzích. Když se lidé, kteří rozumí složitosti situace, jasně vyjádří, pomáhají formovat veřejné mínění tak, aby bylo srozumitelné i těm, kteří se v problematice tolik neorientují.<br><br>
-                    A právě proto působí zdrženlivost českého velvyslance v Rusku jako zásadní změna oproti dosavadní jasné linii české zahraniční politiky. Pokud klíčové osobnosti volí příliš diplomatické formulace, místo jednoznačného pojmenování reality, mohou tím vytvářet prostor pro nejasnosti nebo dokonce pro nechtěnou normalizaci agresivní politiky Ruska.</div>
-                </div>
-            </div>
+        function initializeFilters() {
+            const filterTags = document.querySelectorAll('.filter-tag');
+            const clearFilters = document.getElementById('clearFilters');
+            
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const tagValue = this.getAttribute('data-tag');
+                    toggleFilter(tagValue, this);
+                });
+            });
+            
+            if (clearFilters) {
+                clearFilters.addEventListener('click', function() {
+                    clearAllFilters();
+                });
+            }
+            
+            // Přidání click handleru pro tagy v rozhovorech
+            const conversationTags = document.querySelectorAll('.conversation-tags .tag');
+            conversationTags.forEach(tag => {
+                tag.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Zabrání spuštění click události na conversation-item
+                    const tagValue = this.getAttribute('data-tag');
+                    const filterTag = document.querySelector(`.filter-tag[data-tag="${tagValue}"]`);
+                    if (filterTag) {
+                        toggleFilter(tagValue, filterTag);
+                    }
+                });
+            });
+        }
 
-            <div class="reflection">
-                <div class="reflection-title">O
+        function toggleFilter(tagValue, filterElement) {
+            if (activeFilters.has(tagValue)) {
+                activeFilters.delete(tagValue);
+                filterElement.classList.remove('active');
+            } else {
+                activeFilters.add(tagValue);
+                filterElement.classList.add('active');
+            }
+            performSearch();
+        }
+
+        function clearAllFilters() {
+            activeFilters.clear();
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                tag.classList.remove('active');
+            });
+            performSearch();
+        }
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            const conversationItems = document.querySelectorAll('.conversation-item[data-conversation]');
+            const noResults = document.getElementById('noResults');
+            let visibleCount = 0;
+
+            conversationItems.forEach(item => {
+                const title = item.querySelector('.conversation-title')?.textContent.toLowerCase() || '';
+                const preview = item.querySelector('.conversation-preview')?.textContent.toLowerCase() || '';
+                const tags = item.getAttribute('data-tags')?.toLowerCase() || '';
+                
+                // Kontrola textového vyhledávání
+                const matchesSearch = !searchTerm || 
+                    title.includes(searchTerm) || 
+                    preview.includes(searchTerm) || 
+                    tags.includes(searchTerm);
+                
+                // Kontrola filtrů
+                let matchesFilters = true;
+                if (activeFilters.size > 0) {
+                    const itemTags = tags.split(',').map(tag => tag.trim());
+                    matchesFilters = Array.from(activeFilters).some(filter => 
+                        itemTags.includes(filter)
+                    );
+                }
+                
+                if (matchesSearch && matchesFilters) {
+                    item.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            // Zobrazení/skrytí zprávy o žádných výsledcích
+            if (noResults) {
+                if (visibleCount === 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
+            }
+        }
+
+        function showConversation(id) {
+            console.log('Showing conversation:', id); // Debug
+            
+            const conversationsList = document.getElementById('conversations-list');
+            const conversationFull = document.getElementById(`conversation-${id}`);
+            const conversationItem = document.querySelector(`[data-conversation="${id}"]`);
+            
+            console.log('Elements found:', {
+                conversationsList: !!conversationsList,
+                conversationFull: !!conversationFull,
+                conversationItem: !!conversationItem
+            }); // Debug
+            
+            if (conversationFull && conversationsList) {
+                // Skrýt seznam, zobrazit rozhovor
+                conversationsList.style.display = 'none';
+                conversationFull.classList.add('active');
+                conversationFull.style.display = 'block';
+                
+                // Skrýt také vyhledávání a žádné výsledky
+                const searchControls = document.querySelector('.search-controls');
+                const noResults = document.getElementById('noResults');
+                if (searchControls) searchControls.style.display = 'none';
+                if (noResults) noResults.style.display = 'none';
+                
+                if (conversationItem) {
+                    conversationItem.classList.add('expanded');
+                }
+                
+                // Scroll na začátek rozhovoru
+                conversationFull.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                console.error('Could not find conversation elements for ID:', id);
+            }
+        }
+
+        function hideConversation(id) {
+            const conversationsList = document.getElementById('conversations-list');
+            const conversationFull = document.getElementById(`conversation-${id}`);
+            const conversationItem = document.querySelector(`[data-conversation="${id}"]`);
+            
+            if (conversationFull && conversationsList) {
+                conversationFull.classList.remove('active');
+                conversationFull.style.display = 'none';
+                conversationsList.style.display = 'block';
+                
+                // Zobrazit zpět vyhledávání
+                const searchControls = document.querySelector('.search-controls');
+                if (searchControls) searchControls.style.display = 'flex';
+                
+                if (conversationItem) {
+                    conversationItem.classList.remove('expanded');
+                }
+                
+                // Scroll zpět na seznam
+                conversationsList.scrollIntoView({ behavior: 'smooth' });
+                
+                // Přepočítat zobrazení podle aktuálních filtrů
+                performSearch();
+            }
+        }
+
+        // Smooth scrolling pro odkazy
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
