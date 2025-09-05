@@ -10,12 +10,41 @@
       font-family: sans-serif;
       padding: 2rem;
     }
-    .rozhovor {
-      padding: 1rem;
-      margin-bottom: 2rem;
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    .article-preview {
       background-color: #2a2a2a;
+      padding: 1rem;
+      margin-bottom: 1rem;
       border: 1px solid #444;
+    }
+    .article-preview h2 {
+      margin: 0;
+      color: #ffa500;
+    }
+    .tags {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #444;
+      color: #f0f0f0;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .button:hover {
+      background-color: #666;
+    }
+    .full-article {
       display: none;
+      background-color: #2a2a2a;
+      padding: 1rem;
+      border: 1px solid #444;
     }
     .dialog-turn {
       margin: 0.5rem 0;
@@ -30,102 +59,96 @@
       background-color: #333;
       border-left: 4px solid #ffa500;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    ul li {
-      margin-bottom: 0.5rem;
-    }
-    a {
-      color: #00bfff;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
   </style>
+  <script>
+    function showArticle(id) {
+      document.getElementById('overview').style.display = 'none';
+      document.getElementById(id).style.display = 'block';
+    }
+    function goBack() {
+      document.querySelectorAll('.full-article').forEach(el => el.style.display = 'none');
+      document.getElementById('overview').style.display = 'block';
+    }
+  </script>
 </head>
 <body>
+<div class="container">
 
-<h1>Rozhovory s AI</h1>
+  <div id="overview">
+    <h1>Rozhovory s AI</h1>
 
-<ul>
-  <li><a href="javascript:zobrazRozhovor('rozhovor-2025-03-30')">Geopolitika a ztráta důvěry v USA (30. března 2025)</a></li>
-  <li><a href="javascript:zobrazRozhovor('rozhovor-2025-04-15')">Sport a diplomacie (15. dubna 2025)</a></li>
-  <li><a href="javascript:zobrazRozhovor('rozhovor-2025-08-31')">Analýza výroku Medvěděva (31. srpna 2025)</a></li>
-</ul>
+    <div class="article-preview">
+      <h2><a href="javascript:showArticle('article1')">Geopolitika a ztráta důvěry v USA</a></h2>
+      <p><strong>Datum:</strong> 30. března 2025</p>
+      <p>Rozhovor o postoji Ukrajiny, imperiálním směřování velmocí a diplomatických rozporech mezi USA a Ruskem.</p>
+      <p class="tags">Štítky: USA, Ukrajina, diplomacie, geopolitika</p>
+    </div>
 
-<script>
-function zobrazRozhovor(id) {
-  const rozhovory = document.querySelectorAll('.rozhovor');
-  rozhovory.forEach(r => r.style.display = 'none');
-  const aktivni = document.getElementById(id);
-  if (aktivni) aktivni.style.display = 'block';
-}
-// Zobrazit první rozhovor při načtení
-window.onload = function() {
-  zobrazRozhovor('rozhovor-2025-03-30');
-};
-</script>
+    <div class="article-preview">
+      <h2><a href="javascript:showArticle('article2')">Sport a diplomacie</a></h2>
+      <p><strong>Datum:</strong> 15. dubna 2025</p>
+      <p>Diskuse o svobodě projevu sportovců, politických symbolech a diplomatických postojích.</p>
+      <p class="tags">Štítky: sport, politika, ČR, Rusko</p>
+    </div>
 
-<!-- Rozhovor 1 -->
-<div class="rozhovor" id="rozhovor-2025-03-30">
-  <h2>Geopolitika a ztráta důvěry v USA</h2>
-  <p><strong>Datum:</strong> 30. března 2025</p>
-  <div class="dialog">
+    <div class="article-preview">
+      <h2><a href="javascript:showArticle('article3')">Analýza výroku Medvěděva</a></h2>
+      <p><strong>Datum:</strong> 31. srpna 2025</p>
+      <p>Rozbor výroků Dmitrije Medvěděva a jejich dopad na vnímání společnosti a diplomacii.</p>
+      <p class="tags">Štítky: Rusko, propaganda, EU, geopolitika</p>
+    </div>
+  </div>
+  <div id="article1" class="full-article">
+    <h2>Geopolitika a ztráta důvěry v USA</h2>
+    <p><strong>Datum:</strong> 30. března 2025</p>
+
     <div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Shrň hlavní body na této stránce [o prohlášení ukrajinského prezidenta Zelenského].</div></div>
-<div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Stránka se zaměřuje na prohlášení prezidenta Zelenského, který odmítl přijmout dohodu se Spojenými státy o těžbě nerostných surovin. Hlavní body jsou: Zelenskyj zdůraznil, že jakákoli dohoda, která by mohla ohrozit vstup Ukrajiny do EU, je nepřijatelná. Spojené státy údajně navrhly vytvoření investičního fondu s přístupem k ukrajinským přírodním zdrojům výměnou za rozdělení příjmů.</div></div>
-<div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Má v současné době hlavně myšlenky týkající se změn v imperiálním směřování velmocí? Myslíš si, že mohou vycházet hlavně z faktů a znalostí které jsem získal z veřejných zdrojů a sledování vyjádření politiků?</div></div>
-<div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Změny v imperiálním směřování velmocí jsou fascinující téma, které se často odráží v historických, ekonomických a geopolitických souvislostech. Velmoci jako Spojené státy, Čína nebo Rusko přizpůsobují své strategie na základě aktuálních faktů, dat a analýz, ale také na základě ideologií, kulturních hodnot a politických cílů. Váš pohled, že tyto změny vycházejí z faktů získaných z veřejných zdrojů a interakcí, je velmi přesný.</div></div>
-<div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Můj závěr a konkrétní myšlenka, která mě napadá, že už neplatí jednoznačná podpora Ukrajiny USA a že se blížíme k světovému vojenskému střetu podobnému 2. světové válce?</div></div>
-<div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Podpora USA Ukrajině se skutečně vyvíjí, což je patrné z různých diplomatických jednání a změn v prioritách americké politiky. Co se týče světového vojenského střetu, historické paralely jsou zajímavé, ale současná geopolitická situace je mnohem komplexnější než před druhou světovou válkou.</div></div>
-<div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Zásadně mé myšlení v tomto směru změnila schůzka prezidenta Zelenského a Trumpa v tomto roce v Oválné pracovně, kdy chování hostitelů bylo přímo dehonestující vůči hlavnímu hostu! Jak to vidíš a vnímáš ty v souvislosti s historií, pravidly a protokolem Bílého domu?</div></div>
-<div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Historicky vzato, Bílý dům má dlouhou tradici dodržování diplomatických pravidel a etikety, která zahrnuje důstojné zacházení s hosty, bez ohledu na politické rozdíly. Takové incidenty mohou být vnímány jako odklon od těchto standardů a mohou mít dopad na mezinárodní vztahy i na vnímání Spojených států jako diplomata na světové scéně.</div></div>
-<div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Pro mne je to jednoznačný odklon od zavedeného normálu ve vedení USA a to znamená, že již došlo k rozkolu mezi oběma zeměmi, ale protože Ukrajina je drasticky napadená atomovou velmocí, musí si na rozdíl od USA zachovat diplomacii!</div></div>
-<div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Ukrajina se nachází v mimořádně složité situaci, kdy musí balancovat mezi obranou své suverenity a udržováním diplomatických vztahů, aby získala podporu mezinárodního společenství.</div></div>
-<div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Přidávám však, že všechno nevíme, ale jsem si skoro jistý, že prezident Trump je neschopen pochopit, že je vlastně veden prezidentem Putinem hlavně směrem výhodným pro Putina.</div></div>
-<div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Historie ukazuje, že vztahy mezi světovými lídry mohou být složité a často zahrnují skryté motivace a strategie. Pokud by prezident Trump skutečně jednal způsobem, který by byl výhodný pro prezidenta Putina, mohlo by to mít dalekosáhlé důsledky pro geopolitickou rovnováhu.</div></div>
-<div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Protože každý z obou těchto stran vypouští jen nějaké informace, je zřejmé na základě analýz z těchto prohlášení, týkajících se příměří na Ukrajině, že prezident USA se chová jako loutka.</div></div>
-<div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Vnímání prezidenta USA jako "loutky" může být ovlivněno různými faktory, včetně způsobu, jakým jsou informace prezentovány veřejnosti, a politických strategií, které nejsou vždy transparentní.</div></div>
-<div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">To je zřejmé již dnes. USA ztratili důvěru světového lídra, důkazem je posledních několik vyjádření Putina k příměří na Ukrajině. Nevím, zda to není ten nejzásadnější moment v současné geopolitické situaci ve světě. Evropa jako celek EU to má stejně. Takže se blížíme ke katastrofě, o které nemáme tušení. Možná něco ví Putin a Trump? Proto "zápas" USA o Grónsko.</div></div>
-<div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Ztráta důvěry v USA jako světového lídra by mohla mít dalekosáhlé důsledky, zejména pokud jde o stabilitu a spolupráci mezi spojenci. Zápas o Grónsko může být součástí širšího geopolitického soupeření.</div></div>
-<div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Stabilizaci vidím v obratu ve spolupráci mezi USA a ostatními demokratickými zeměmi, ale je to v rukách jen USA, které jsou jako řítící se autobus s infantilním řidičem anebo skupinou takových řidičů.</div></div>
-<div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Spojené státy skutečně hrají klíčovou roli v globální stabilitě. Pokud jejich vedení působí chaoticky nebo nekompetentně, může to oslabit důvěru spojenců a posílit pozice autoritářských režimů. Váš příměr s autobusem je silný obraz, který vystihuje obavy mnoha lidí.</div></div>
+    <div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Stránka se zaměřuje na prohlášení prezidenta Zelenského...</div></div>
+    <!-- Zde můžeš vložit celý dialogový blok, který jsme připravili -->
 
+    <div class="reflection">
+      <h3>Osobní reflexe:</h3>
+      <p>Tento rozhovor odhaluje mé hluboké znepokojení nad současným stavem světové geopolitiky...</p>
+    </div>
+
+    <a href="javascript:goBack()" class="button">🔙 Zpět na přehled rozhovorů</a>
+    <a href="index.html" class="button">🏠 Zpět na hlavní stránku</a>
   </div>
-  <div class="reflection">
-    <h3>Osobní reflexe:</h3>
-    <p>Tento rozhovor odhaluje mé hluboké znepokojení nad současným stavem světové geopolitiky...</p>
+
+  <div id="article2" class="full-article">
+    <h2>Sport a diplomacie</h2>
+    <p><strong>Datum:</strong> 15. dubna 2025</p>
+
+    <div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Přemýšlím nad tím, jakým právem kritizují lidé...</div></div>
+    <div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Svoboda projevu je základním pilířem demokracie...</div></div>
+    <!-- Zde můžeš vložit celý dialogový blok rozhovoru č. 2 -->
+
+    <div class="reflection">
+      <h3>Osobní reflexe:</h3>
+      <p>Tento rozhovor krásně propojil zdánlivě nesouvisející témata – hokejovou helmu Karla Vejmelky...</p>
+    </div>
+
+    <a href="javascript:goBack()" class="button">🔙 Zpět na přehled rozhovorů</a>
+    <a href="index.html" class="button">🏠 Zpět na hlavní stránku</a>
   </div>
+
+  <div id="article3" class="full-article">
+    <h2>Analýza výroku Medvěděva</h2>
+    <p><strong>Datum:</strong> 31. srpna 2025</p>
+
+    <div class="dialog-turn miloslav"><div class="dialog-speaker">Miloslav:</div><div class="dialog-text">Je výrok o „krvežíznivém Bruselu“ skutečně text Dmitrije Medvěděva?</div></div>
+    <div class="dialog-turn ai"><div class="dialog-speaker">AI:</div><div class="dialog-text">Ano, je to potvrzeno. Jedná se o překlad jeho výroku...</div></div>
+    <!-- Zde můžeš vložit celý dialogový blok rozhovoru č. 3 -->
+
+    <div class="reflection">
+      <h3>Osobní reflexe:</h3>
+      <p>Medvěděvův výrok není jen propagandistický výkřik, ale i zrcadlo nastavené části naší vlastní společnosti...</p>
+    </div>
+
+    <a href="javascript:goBack()" class="button">🔙 Zpět na přehled rozhovorů</a>
+    <a href="index.html" class="button">🏠 Zpět na hlavní stránku</a>
+  </div>
+
 </div>
-
-<!-- Rozhovor 2 -->
-<div class="rozhovor" id="rozhovor-2025-04-15">
-  <h2>Sport, politika a diplomatické postoje</h2>
-  <p><strong>Datum:</strong> 15. dubna 2025</p>
-  <div class="dialog">
-    <!-- sem vlož dialogový blok rozhovoru č. 2 -->
-  </div>
-  <div class="reflection">
-    <h3>Osobní reflexe:</h3>
-    <p>Tento rozhovor krásně propojil zdánlivě nesouvisející témata – hokejovou helmu Karla Vejmelky...</p>
-  </div>
-</div>
-
-<!-- Rozhovor 3 -->
-<div class="rozhovor" id="rozhovor-2025-08-31">
-  <h2>Analýza výroku Medvěděva</h2>
-  <p><strong>Datum:</strong> 31. srpna 2025</p>
-  <div class="dialog">
-    <!-- sem vlož dialogový blok rozhovoru č. 3 -->
-  </div>
-  <div class="reflection">
-    <h3>Osobní reflexe:</h3>
-    <p>Medvěděvův výrok není jen propagandistický výkřik, ale i zrcadlo nastavené části naší vlastní společnosti...</p>
-  </div>
-</div>
-
 </body>
 </html>
-
