@@ -3,76 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <title>Rozhovory s AI</title>
-  <style>
-    body {
-      background-color: #1e1e1e;
-      color: #f0f0f0;
-      font-family: sans-serif;
-      padding: 2rem;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-    }
-    .article-preview h2 {
-      margin: 0;
-      color: #ffa500;
-    }
-    .tags {
-      font-size: 0.9rem;
-      color: #aaa;
-    }
-    .button {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #444;
-      color: #f0f0f0;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    .button:hover {
-      background-color: #666;
-    }
-        background-color: #2a2a2a;
-      padding: 1rem;
-      border: 1px solid #444;
-    }
-    .dialog-turn {
-      margin: 0.5rem 0;
-    }
-    .dialog-speaker {
-      font-weight: bold;
-      color: #ffa500;
-    }
-    .reflection {
-      margin-top: 1rem;
-      padding: 1rem;
-      background-color: #333;
-      border-left: 4px solid #ffa500;
-    }.tags span {
-  display: inline-block;
-  background-color: #333;
-  color: #ddd;
-  padding: 0.3rem 0.7rem;
-  margin: 0.2rem 0.3rem;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: background-color 0.3s;
-}
-.tags span:hover {
-  background-color: #555;
-  cursor: default;
-}
-.full-article {
-  display: none;
-}
-.article-preview h2 {
-  margin: 0;
-  color: #ff69b4; 
-}
-  </style>
+ <style>
+  body {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    font-family: sans-serif;
+    padding: 2rem;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .article-preview {
+    background-color: #2a2a2a;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #444;
+  }
+
+  /* Nadpisy rozhovorů */
+  .article-preview h2 {
+    margin: 0;
+  }
+
+  /* Odkazy v nadpisech – růžová */
+  .article-preview h2 a {
+    color: #ff69b4;
+    text-decoration: none;
+  }
+
+  /* Hover efekt – světlejší růžová */
+  .article-preview h2 a:hover {
+    color: #ff85c1;
+  }
+
+  .tags {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+
+  .tags span {
+    display: inline-block;
+    background-color: #333;
+    color: #ddd;
+    padding: 0.3rem 0.7rem;
+    margin: 0.2rem 0.3rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+
+  .tags span:hover {
+    background-color: #555;
+    cursor: default;
+  }
+
+  .button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #444;
+    color: #f0f0f0;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+
+  .button:hover {
+    background-color: #666;
+  }
+
+  .dialog-turn {
+    margin: 0.5rem 0;
+  }
+
+  .dialog-speaker {
+    font-weight: bold;
+    color: #ffa500;
+  }
+
+  .reflection {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #333;
+    border-left: 4px solid #ffa500;
+  }
+
+  .full-article {
+    display: none;
+  }
+</style>
+
   <script>
     function showArticle(id) {
       document.getElementById('overview').style.display = 'none';
