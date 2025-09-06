@@ -59,7 +59,23 @@
       background-color: #333;
       border-left: 4px solid #ffa500;
     }
-  </style>
+  </style>.tags span {
+  display: inline-block;
+  background-color: #333;
+  color: #ddd;
+  padding: 0.3rem 0.7rem;
+  margin: 0.2rem 0.3rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.tags span:hover {
+  background-color: #555;
+  cursor: default;
+}
+
   <script>
     function showArticle(id) {
       document.getElementById('overview').style.display = 'none';
