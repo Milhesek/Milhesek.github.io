@@ -1,1 +1,322 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Žebříček bojové efektivity armád 2025 | Miloslav Hesek</title>
+    <meta name="description" content="Analýza bojové efektivity světových armád (2021–2025). Proč je Ukrajina na špici a Rusko padá?">
+    
+    <style>
+        /* Základní nastavení a fonty (GitHub style font stack) */
+        :root {
+            --primary-color: #24292e; /* Tmavá barva jako GitHub header */
+            --accent-color: #0969da;  /* Modrá pro odkazy */
+            --bg-color: #f6f8fa;      /* Světle šedé pozadí */
+            --card-bg: #ffffff;
+            --text-color: #24292e;
+            --border-color: #d0d7de;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigace */
+        .navbar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hlavní kontejner */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Hlavička článku */
+        header.article-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #57606a;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Sekce s vysvětlením */
+        .methodology {
+            background: #eef3f8;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 6px;
+        }
+
+        /* Karty armád */
+        .army-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .army-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .army-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            border-color: var(--accent-color);
+        }
+
+        /* Číslo pozice */
+        .rank-badge {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ccc;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .top-3 .rank-badge {
+            color: #f1e05a; /* Zlatá pro top 3 */
+        }
+
+        .country-title {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .details {
+            font-size: 1rem;
+            color: #444;
+        }
+        
+        .details ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        
+        .details li {
+            margin-bottom: 5px;
+        }
+
+        /* Zvýraznění negativ */
+        .negative {
+            color: #cf222e;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #57606a;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsivita */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .container { margin-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html">← Miloslav Hesek (Úvod)</a>
+        <span>AI Analýzy</span>
+    </nav>
+
+    <div class="container">
+        
+        <header class="article-header">
+            <h1>Žebříček bojové efektivity (2021–2025)</h1>
+            <p class="subtitle">Realita moderního bojiště: Proč papírová čísla lžou a kdo skutečně umí bojovat?</p>
+        </header>
+
+        <div class="methodology">
+            <h3>📊 Jak vznikl tento žebříček?</h3>
+            <p>Nehodnotíme velikost armády ("firepower"), ale <strong>reálnou efektivitu</strong> v moderních konfliktech. Klíčová kritéria:</p>
+            <ul>
+                <li>Kombinované operace (drony + dělostřelectvo + pěchota)</li>
+                <li>Adaptace na technologie a inovace pod tlakem</li>
+                <li>Logistika a reálné výsledky v letech 2021–2025</li>
+            </ul>
+        </div>
+
+        <div class="army-list">
+            
+            <article class="army-card top-3">
+                <span class="rank-badge">#1</span>
+                <h2 class="country-title">🇺🇦 Ukrajina</h2>
+                <div class="details">
+                    Nejintenzivnější válečné zkušenosti současnosti.
+                    <ul>
+                        <li><strong>Inovace:</strong> Špičkové využití dronů, EW a decentralizovaného velení.</li>
+                        <li><strong>Adaptabilita:</strong> Extrémně vysoká schopnost učit se v reálném čase.</li>
+                        <li><strong>Výsledek:</strong> Dokázala zastavit a zatlačit "papírově" silnějšího protivníka.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="army-card top-3">
+                <span class="rank-badge">#2</span>
+                <h2 class="country-title">🇮🇱 Izrael</h2>
+                <div class="details">
+                    Mistři koordinace a technologií.
+                    <ul>
+                        <li><strong>Synergie:</strong> Dokonalá spolupráce letectva, pozemních sil a zpravodajství.</li>
+                        <li><strong>Technologie:</strong> Rychlá integrace nejnovějších systémů.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="army-card top-3">
+                <span class="rank-badge">#3</span>
+                <h2 class="country-title">🇺🇸 USA</h2>
+                <div class="details">
+                    Globální dosah a logistika.
+                    <ul>
+                        <li><strong>Profesionalita:</strong> Nejlepší logistické zázemí na světě.</li>
+                        <li><strong>Připravenost:</strong> I bez velkých přímých konfliktů udržují nejvyšší standardy a integrují AI a drony.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="army-card">
+                <span class="rank-badge">#4</span>
+                <h2 class="country-title">🇹🇷 Turecko</h2>
+                <div class="details">
+                    <ul>
+                        <li><strong>Dronová velmoc:</strong> Systémy Bayraktar změnily pravidla hry v několika konfliktech (Kavkaz, Libye).</li>
+                        <li><strong>Aktivita:</strong> Reálné bojové zkušenosti na několika frontách současně.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="army-card">
+                <span class="rank-badge">#5</span>
+                <h2 class="country-title">🇵🇱 Polsko</h2>
+                <div class="details">
+                    Nejrychleji rostoucí síla v Evropě.
+                    <ul>
+                        <li><strong>Modernizace:</strong> Masivní nákupy (K2, HIMARS, F-35) a přechod na západní doktrínu.</li>
+                        <li><strong>Motivace:</strong> Vysoká připravenost a strategická pozice.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="army-card">
+                <span class="rank-badge">#6</span>
+                <h2 class="country-title">🇰🇷 Jižní Korea</h2>
+                <div class="details">
+                    <ul>
+                        <li><strong>Průmysl:</strong> Vyrábí špičkové moderní tanky a houfnice (K9 Thunder).</li>
+                        <li><strong>Disciplína:</strong> Neustálá pohotovost kvůli napětí na poloostrově udržuje armádu v kondici.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="army-card">
+                <span class="rank-badge">#7</span>
+                <h2 class="country-title">🇬🇧 Velká Británie</h2>
+                <div class="details">
+                    Malá, ale elitní.
+                    <ul>
+                        <li><strong>Profesionálové:</strong> Důraz na výcvik speciálních sil a letectva.</li>
+                        <li><strong>Spolupráce:</strong> Klíčový hráč NATO s vysokou interoperabilitou.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="army-card">
+                <span class="rank-badge">#8</span>
+                <h2 class="country-title">🇫🇷 Francie</h2>
+                <div class="details">
+                    <ul>
+                        <li><strong>Expedice:</strong> Jediná armáda v EU schopná samostatných operací v zámoří (Afrika).</li>
+                        <li><strong>Nezávislost:</strong> Vlastní jaderné odstrašení a silný vojenský průmysl.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="army-card">
+                <span class="rank-badge">#9</span>
+                <h2 class="country-title">🇨🇳 Čína</h2>
+                <div class="details">
+                    Obrovský potenciál s otazníkem.
+                    <ul>
+                        <li><strong>Technologie:</strong> Rychle dohání západ v hi-tech výzbroji.</li>
+                        <li><strong>Nezkušenost:</strong> Chybí reálné bojové zkušenosti a prověření velení v krizích.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="army-card">
+                <span class="rank-badge">#10</span>
+                <h2 class="country-title">🇷🇺 Rusko</h2>
+                <div class="details">
+                    Střet s realitou.
+                    <ul>
+                        <li><strong>Slabiny:</strong> Katastrofální logistika, zkostnatělé velení a nízká morálka.</li>
+                        <li><strong>Ztráty:</strong> Obrovské opotřebení techniky. Papírová síla se nepromítla do efektivity.</li>
+                    </ul>
+                </div>
+            </article>
+
+        </div>
+
+        <footer>
+            <p>Generováno pomocí AI • Autor webu: Miloslav Hesek</p>
+            <p><a href="index.html" style="color: #0969da; text-decoration: none;">Zpět na hlavní stránku</a></p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
