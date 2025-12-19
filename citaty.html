@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Citáty - Kryl & Mencken</title>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W2PHTVS32G"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-W2PHTVS32G');
+    </script>
     <style>
         /* Základní reset */
         * {
@@ -17,13 +26,13 @@
             background: #000;
             color: #fff;
             line-height: 1.6;
-            padding-bottom: 50px; /* Aby patička nebyla nalepená dole */
+            padding-bottom: 50px;
         }
 
         /* Navigace */
         nav {
             background: #000;
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem; /* Větší padding */
             border-bottom: 1px solid #333;
             position: sticky;
             top: 0;
@@ -46,7 +55,7 @@
             text-decoration: none;
             transition: color 0.3s;
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1.2rem; /* Zvětšeno */
         }
 
         nav a:hover, nav a.active {
@@ -55,7 +64,7 @@
 
         /* Společné styly pro bannery */
         .banner-section {
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
             margin: 2rem 0;
             position: relative;
             overflow: hidden;
@@ -73,7 +82,7 @@
 
         .banner-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -81,18 +90,19 @@
         }
 
         .banner-title {
-            font-size: 2rem;
+            font-size: 2.8rem; /* Zvětšeno */
             font-weight: 600;
             color: #fff;
             margin-bottom: 0.5rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            line-height: 1.2;
         }
 
         /* Foto / Avatar */
         .photo-circle {
-            width: 150px;
-            height: 150px;
+            width: 160px; /* Zvětšeno */
+            height: 160px; /* Zvětšeno */
             border-radius: 50%;
             background: linear-gradient(135deg, #333 0%, #111 100%);
             border: 3px solid #666;
@@ -112,14 +122,14 @@
         }
 
         .photo-circle span {
-            font-size: 4rem;
+            font-size: 5rem; /* Zvětšeno */
             font-weight: bold;
             color: #ccc;
             font-family: serif;
         }
 
         .author-dates {
-            font-size: 0.9rem;
+            font-size: 1.1rem; /* Zvětšeno */
             color: #888;
             opacity: 0;
             animation: fadeInUp 0.8s ease-out 0.6s forwards;
@@ -127,18 +137,17 @@
 
         /* Citáty */
         .quotes-container {
-            margin: 2.5rem 0;
+            margin: 3rem 0;
         }
 
         .quote {
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             padding: 1.5rem 0;
-            border-left: 2px solid transparent;
-            padding-left: 1.5rem;
-            opacity: 0; /* Pro animaci */
+            border-left: 3px solid transparent; /* Silnější linka */
+            padding-left: 2rem;
+            opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out forwards;
-            /* Zpoždění pro animaci se nastavuje níže přes nth-child */
         }
 
         /* Nastavení animace pro více citátů */
@@ -148,35 +157,40 @@
 
         .quote:hover {
             border-left-color: #4a9eff;
-            transform: translateX(10px) !important; /* !important aby přebil animaci */
+            transform: translateX(10px) !important;
             transition: transform 0.3s ease, border-left-color 0.3s;
         }
 
         .quote-text {
-            font-size: 1.15rem;
+            font-size: 1.6rem; /* VÝRAZNĚ ZVĚTŠENO */
             font-style: italic;
             color: #e0e0e0;
-            line-height: 1.7;
+            line-height: 1.5;
             position: relative;
+            letter-spacing: 0.02em;
         }
 
         .quote-text::before {
             content: '"';
-            font-size: 2rem;
+            font-size: 3rem; /* Zvětšeno */
             color: #555;
             position: absolute;
-            left: -1rem;
-            top: -0.2rem;
+            left: -1.5rem;
+            top: -0.5rem;
             font-family: serif;
         }
 
         .closing-text {
-            margin-top: 3rem;
+            margin-top: 4rem;
             padding-top: 2rem;
             border-top: 1px solid #333;
-            font-size: 1rem;
+            font-size: 1.25rem; /* Zvětšeno */
             color: #ccc;
             text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
         }
 
         .highlight {
@@ -186,145 +200,10 @@
 
         .author-note {
             text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            font-size: 1.1rem; /* Zvětšeno */
             color: #666;
             font-style: italic;
         }
 
         /* Zpětný odkaz */
-        .back-link {
-            text-align: center;
-            margin: 3rem 0;
-        }
-
-        .back-link a {
-            color: #4a9eff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            border: 1px solid #4a9eff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-
-        .back-link a:hover {
-            background: #4a9eff;
-            color: #000;
-        }
-
-        /* Animace */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responzivita */
-        @media (max-width: 768px) {
-            .banner-title { font-size: 1.5rem; }
-            .quote-text { font-size: 1rem; }
-            .photo-circle { width: 100px; height: 100px; }
-            .photo-circle span { font-size: 2.5rem; }
-        }
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="nav-container">
-            <a href="index.html">← Zpět na web</a>
-            <a href="#kryl">Karel Kryl</a>
-            <a href="#mencken">H. L. Mencken</a>
-        </div>
-    </nav>
-
-    <section id="kryl" class="banner-section">
-        <div class="container">
-            <header class="banner-header">
-                <div class="photo-circle">
-                    <span>K</span>
-                </div>
-                <div>
-                    <h2 class="banner-title">Karel Kryl: Básník s kytarou</h2>
-                    <div class="author-dates">1944–1994</div>
-                </div>
-            </header>
-            
-            <div class="quotes-container">
-                <div class="quote">
-                    <p class="quote-text">Nevěř ostnatému drátu, byť by se stokrát tvářil jako stonek růže.</p>
-                </div>
-                
-                <div class="quote">
-                    <p class="quote-text">Naše zásady končívají tam, kde se kříží s našimi úmysly.</p>
-                </div>
-                
-                <div class="quote">
-                    <p class="quote-text">Někomu velmi dobře pasuje do hry, že se lidé nenávidí… Mezitím, co se hádáme o hloupostech, se totiž výborně krade.</p>
-                </div>
-            </div>
-            
-            <div class="closing-text">
-                Kryl nepsal pro pokolení, která vše přijímají bez otázek. Psával pro duše, které <span class="highlight">odmítají být vedeny nenávistí a lží</span>.
-            </div>
-        </div>
-    </section>
-
-    <section id="mencken" class="banner-section">
-        <div class="container">
-            <header class="banner-header">
-                <div class="photo-circle">
-                    <span>M</span>
-                </div>
-                <div>
-                    <h2 class="banner-title">H. L. Mencken</h2>
-                    <div class="author-dates">1880–1956</div>
-                </div>
-            </header>
-
-            <div class="quotes-container">
-                <div class="quote">
-                    <p class="quote-text">Čím jsem starší, tím více nedůvěřuji známé doktríně, že věk přináší moudrost.</p>
-                </div>
-                <div class="quote">
-                    <p class="quote-text">Každý problém má své řešení, které je prosté, jasné a mylné.</p>
-                </div>
-                <div class="quote">
-                    <p class="quote-text">Svědomí je vnitřní hlas, který nás upozorňuje, že se někdo dívá.</p>
-                </div>
-                <div class="quote">
-                    <p class="quote-text">Láska je vítězství fantazie nad inteligencí.</p>
-                </div>
-                <div class="quote">
-                    <p class="quote-text">Je to klasický omyl naší doby, že blbec, který projde universitou a získá doktorát, přestane být blbcem.</p>
-                </div>
-                <div class="quote">
-                    <p class="quote-text">Demagog je ten kdo hlásá doktríny, o nichž ví, že jsou nepravdivé, lidem, o nichž ví, že jsou idioti.</p>
-                </div>
-                <div class="quote">
-                    <p class="quote-text">Dobrý politik je něco tak nemyslitelného jako čestný lupič.</p>
-                </div>
-                <div class="quote">
-                    <p class="quote-text">Touha zachránit lidstvo je téměř vždy falešnou zástěrkou pro touhu vládnout.</p>
-                </div>
-            </div>
-
-            <div class="closing-text">
-                Mencken byl hlasem skepticismu. Jeho citáty jsou ostré, trefné – a stále aktuální.
-            </div>
-            <div class="author-note">„Americký Voltaire“</div>
-        </div>
-    </section>
-
-    <div class="back-link">
-        <a href="index.html">← Zpět na hlavní stránku</a>
-    </div>
-
-</body>
-</html>
