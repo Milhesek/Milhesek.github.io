@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scénáře - Flashcards</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f0f2f5; margin: 0; flex-direction: column; }
+        .card-container { width: 90%; max-width: 600px; perspective: 1000px; margin-bottom: 20px; }
+        .card { background-color: white; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); height: 300px; position: relative; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
+        .card.is-flipped { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; text-align: center; }
+        .card-front { background-color: #ffffff; color: #333; }
+        .card-back { background-color: #f8f9fa; color: #1a73e8; transform: rotateY(180deg); border: 2px solid #e0e0e0; border-radius: 16px; }
+        .label { text-transform: uppercase; font-size: 0.8rem; color: #888; margin-bottom: 15px; letter-spacing: 1px; }
+        .card-text { font-size: 1.3rem; line-height: 1.5; }
+        .controls { display: flex; gap: 20px; align-items: center; }
+        button { background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+        button:hover { background-color: #1557b0; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <div class="card-container" onclick="this.querySelector('.card').classList.toggle('is-flipped')">
+        <div class="card">
+            <div class="card-face card-front">
+                <div class="label">Otázka</div>
+                <div class="card-text" id="q-text">Loading...</div>
+            </div>
+            <div class="card-face card-back">
+                <div class="label">Odpověď</div>
+                <div class="card-text" id="a-text">Loading...</div>
+            </div>
+        </div>
+    </div>
+    <div class="controls">
+        <button id="prevBtn" onclick="changeCard(-1)">← Zpět</button>
+        <span id="counter"></span>
+        <button id="nextBtn" onclick="changeCard(1)">Další →</button>
+    </div>
+
+    <script>
+        const data = [{"Question": "Jaký je název optimistického scénáře reakce EU na postoje Babiše, Fica a Orbána?", "Answer": "Lídři se stanou „bojovníky“."}, {"Question": "Jak by podle optimistického scénáře reagovaly ostatní státy EU na změnu postojů Babiše, Fica a Orbána?", "Answer": "Uvítaly by změnu jejich postoje a posílily by jednotu."}, {"Question": "Co je hlavním důsledkem optimistického scénáře, kde se lídři stávají „bojovníky“?", "Answer": "EU by působila jako pevný blok, což by oslabilo Putinovu strategii rozdělování."}, {"Question": "Jaká je klíčová výhoda EU v optimistickém scénáři?", "Answer": "Rychlejší rozhodování, méně blokací a silnější vyjednávací pozice vůči Rusku i USA."}, {"Question": "Jaký je název realistického scénáře reakce EU na postoje Babiše, Fica a Orbána?", "Answer": "Lídři zůstávají „kořistí“."}, {"Question": "Jak by podle realistického scénáře reagovala většina států EU na blokace ze strany Babiše, Fica a Orbána?", "Answer": "Hledala by způsoby, jak obejít jejich blokace, například pomocí mezivládních dohod mimo rámec EU."}, {"Question": "Co je hlavním důsledkem realistického scénáře, kde lídři zůstávají „kořistí“?", "Answer": "EU by se prakticky rozdělila na „tvrdé jádro“ podporující Ukrajinu a „okrajové státy“ vyhýbající se riziku."}, {"Question": "Jaká je výhoda realistického scénáře pro Ukrajinu?", "Answer": "Pomoc Ukrajině by pokračovala, ale pomaleji a s většími kompromisy."}, {"Question": "Jaký je název pesimistického scénáře reakce EU na postoje Babiše, Fica a Orbána?", "Answer": "Lídři se stávají „trojským koněm“."}, {"Question": "Jak by podle pesimistického scénáře mohly ostatní státy EU reagovat na Česko, Slovensko a Maďarsko?", "Answer": "Mohly by je začít otevřeně kritizovat a izolovat."}, {"Question": "Co je hlavním důsledkem pesimistického scénáře, kde se lídři stávají „trojským koněm“?", "Answer": "Hrozila by fragmentace EU a vznik „koalic ochotných“ mimo oficiální struktury EU."}, {"Question": "Jaké je hlavní riziko pesimistického scénáře pro evropskou bezpečnost?", "Answer": "Putin by získal silný nástroj k oslabování evropské jednoty, což by mohlo urychlit eskalaci konfliktu."}, {"Question": "Kdo je v psychologickém rámci „Predátor vs. kořist“ označen za „predátora“?", "Answer": "Putin, který využívá strach, rozdělení a hrozbu eskalace."}, {"Question": "Kdo je v psychologickém rámci „Predátor vs. kořist“ označen za „kořist“?", "Answer": "Babiš, Fico a Orbán, kteří volí úhybnou taktiku."}, {"Question": "Jakou úhybnou taktikou se podle psychologického rámce vyznačuje Andrej Babiš?", "Answer": "Snaží se „zůstat stranou“ a nechat problém odeznít, nechce se vystavit přímému riziku."}, {"Question": "Jakou úhybnou taktikou se podle psychologického rámce vyznačuje Robert Fico?", "Answer": "Chová se jako kořist, která „zamrzne“ – volí pasivitu v domnění, že nečinnost zajistí bezpečí."}, {"Question": "Jakou úhybnou taktikou se podle psychologického rámce vyznačuje Viktor Orbán?", "Answer": "Snaží se „vyjednávat s predátorem“, aby získal výhody tím, že se k němu přiblíží."}, {"Question": "Uveďte jeden ze tří společných rysů postojů Babiše, Fica a Orbána.", "Answer": "Strach z eskalace, domácí populismus, nebo krátkodobé uvažování."}, {"Question": "Jaký je podle zdrojů hlavní problém pasivní strategie označované jako „kořist před predátorem“?", "Answer": "Vysílá signál slabosti, který povzbuzuje agresora k dalším krokům."}, {"Question": "Co je jedním z důsledků pasivní strategie pro vnitřní fungování EU?", "Answer": "Vznik „jádra a periferie“, kdy se EU fakticky rozdělí na akceschopné a pasivní státy."}, {"Question": "V nejhorším scénáři se některé státy mohou stát nástroji Ruska uvnitř EU, čímž se z nich stanou tzv. _____.", "Answer": "trojští koně"}, {"Question": "Jaký dopad má rozdělená Evropa na její vyjednávací pozici vůči velmocem jako Rusko nebo USA?", "Answer": "Má mnohem slabší pozici a její rozhodovací procesy jsou pomalé a plné kompromisů."}, {"Question": "Jaký přímý dopad má pasivní postoj lídrů jako Babiš, Fico a Orbán na válku na Ukrajině?", "Answer": "Odmítání pomoci může prodloužit válku a oddálit její konec."}, {"Question": "Jaký psychologický dopad na domácí politiku má strategie argumentující strachem z eskalace?", "Answer": "Posiluje domácí populismus a fixuje společnost v pozici strachu a odmítání odpovědnosti."}, {"Question": "Co popisuje optimistický scénář vývoje postojů lídrů při další eskalaci války?", "Answer": "Možnost, že se „kořist mění v bojovníka“ pod tlakem okolností."}, {"Question": "Co by podle optimistického scénáře mohlo přimět Andreje Babiše změnit postoj?", "Answer": "Tlak EU a domácí ekonomiky, pokud by viděl jasné záruky pro Česko."}, {"Question": "Co by podle optimistického scénáře mohlo přimět Roberta Fica k aktivnější podpoře Ukrajiny?", "Answer": "Zhoršení bezpečnostní situace na Slovensku, například incidenty na hranicích."}, {"Question": "Za jakých okolností by se Viktor Orbán mohl v optimistickém scénáři odklonit od Putina?", "Answer": "V případě přímého ohrožení Maďarska, například destabilizací regionu."}, {"Question": "Jak se nazývá realistický scénář vývoje postojů lídrů při další eskalaci války?", "Answer": "„Kořist přežívá úhybnými manévry“."}, {"Question": "Jaká strategie je předpokládána pro Babiše a Fica v realistickém scénáři dalšího vývoje?", "Answer": "Babiš zůstane u pragmatického vyčkávání a Fico bude nadále pasivní („zamrzne“)."}, {"Question": "Co by v pesimistickém scénáři vývoje hrozilo Slovensku pod vedením Roberta Fica?", "Answer": "Ještě silnější proruské směřování a izolace od hlavního proudu EU."}, {"Question": "Jakou roli by podle pesimistického scénáře vývoje mohlo hrát Maďarsko pod vedením Viktora Orbána?", "Answer": "Stalo by se „trojským koněm“ Ruska v EU a blokovalo by klíčová rozhodnutí."}, {"Question": "Podle myšlenkové mapy, k jakému stavu EU vede postoj lídrů jako „bojovníků“?", "Answer": "EU se sjednotí a posílí."}, {"Question": "Podle myšlenkové mapy, jaký je výsledek pro EU, pokud lídři zůstávají v roli „kořisti“?", "Answer": "EU se rozdělí na jádro a periferii."}, {"Question": "Podle myšlenkové mapy, co se stane s EU, pokud se lídři stanou „trojským koněm“?", "Answer": "EU se fragmentuje a oslabuje."}, {"Question": "Co je hlavním argumentem Babiše, Fica a Orbána proti půjčce Ukrajině?", "Answer": "Argumentují strachem z eskalace, že půjčka může zatáhnout Evropu do války."}, {"Question": "Pasivní strategie, kdy se lídři chovají jako kořist, vede k většímu bezpečí. Je toto tvrzení pravdivé?", "Answer": "Ne, historické paralely ukazují, že taková strategie obvykle vede k většímu ohrožení."}, {"Question": "Jaký signál vysílá pasivní přístup lídrů vůči Rusku?", "Answer": "Vysílá signál slabosti, což agresora motivuje k dalším krokům."}, {"Question": "Jaký je Orbánův postoj k využití zmrazených ruských aktiv pro financování Ukrajiny?", "Answer": "Odmítá ho, stejně jako společný dluh EU."}, {"Question": "Ficova politika je dlouhodobě orientována na _____ nálady části slovenské společnosti.", "Answer": "proruské"}];
+        let idx = 0;
+        function update() {
+            document.getElementById('q-text').textContent = data[idx].Question;
+            document.getElementById('a-text').textContent = data[idx].Answer;
+            document.getElementById('counter').textContent = `${idx + 1} / ${data.length}`;
+            document.querySelector('.card').classList.remove('is-flipped');
+            document.getElementById('prevBtn').disabled = idx === 0;
+            document.getElementById('nextBtn').disabled = idx === data.length - 1;
+        }
+        function changeCard(step) {
+            if (idx + step >= 0 && idx + step < data.length) { idx += step; update(); }
+        }
+        update();
+    </script>
+</body>
+</html>
