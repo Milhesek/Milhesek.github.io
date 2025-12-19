@@ -207,3 +207,142 @@
         }
 
         /* Zpětný odkaz */
+        .back-link {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .back-link a {
+            color: #4a9eff;
+            text-decoration: none;
+            font-size: 1.2rem; /* Zvětšeno */
+            border: 2px solid #4a9eff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .back-link a:hover {
+            background: #4a9eff;
+            color: #000;
+        }
+
+        /* Animace */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responzivita pro mobily */
+        @media (max-width: 768px) {
+            .banner-title { font-size: 2rem; }
+            .quote-text { font-size: 1.3rem; line-height: 1.5; } /* Na mobilu trochu menší, ale stále čitelné */
+            .quote-text::before { left: -1rem; font-size: 2.5rem; }
+            .quote { padding-left: 1.5rem; }
+            .photo-circle { width: 120px; height: 120px; }
+            .photo-circle span { font-size: 3.5rem; }
+            nav a { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html">← Zpět na web</a>
+            <a href="#kryl">Karel Kryl</a>
+            <a href="#mencken">H. L. Mencken</a>
+        </div>
+    </nav>
+
+    <section id="kryl" class="banner-section">
+        <div class="container">
+            <header class="banner-header">
+                <div class="photo-circle">
+                    <span>K</span>
+                </div>
+                <div>
+                    <h2 class="banner-title">Karel Kryl: Básník s kytarou</h2>
+                    <div class="author-dates">1944–1994</div>
+                </div>
+            </header>
+            
+            <div class="quotes-container">
+                <div class="quote">
+                    <p class="quote-text">Nevěř ostnatému drátu, byť by se stokrát tvářil jako stonek růže.</p>
+                </div>
+                
+                <div class="quote">
+                    <p class="quote-text">Naše zásady končívají tam, kde se kříží s našimi úmysly.</p>
+                </div>
+                
+                <div class="quote">
+                    <p class="quote-text">Někomu velmi dobře pasuje do hry, že se lidé nenávidí… Mezitím, co se hádáme o hloupostech, se totiž výborně krade.</p>
+                </div>
+            </div>
+            
+            <div class="closing-text">
+                Kryl nepsal pro pokolení, která vše přijímají bez otázek. Psával pro duše, které <span class="highlight">odmítají být vedeny nenávistí a lží</span>.
+            </div>
+        </div>
+    </section>
+
+    <section id="mencken" class="banner-section">
+        <div class="container">
+            <header class="banner-header">
+                <div class="photo-circle">
+                    <span>M</span>
+                </div>
+                <div>
+                    <h2 class="banner-title">H. L. Mencken</h2>
+                    <div class="author-dates">1880–1956</div>
+                </div>
+            </header>
+
+            <div class="quotes-container">
+                <div class="quote">
+                    <p class="quote-text">Čím jsem starší, tím více nedůvěřuji známé doktríně, že věk přináší moudrost.</p>
+                </div>
+                <div class="quote">
+                    <p class="quote-text">Každý problém má své řešení, které je prosté, jasné a mylné.</p>
+                </div>
+                <div class="quote">
+                    <p class="quote-text">Svědomí je vnitřní hlas, který nás upozorňuje, že se někdo dívá.</p>
+                </div>
+                <div class="quote">
+                    <p class="quote-text">Láska je vítězství fantazie nad inteligencí.</p>
+                </div>
+                <div class="quote">
+                    <p class="quote-text">Je to klasický omyl naší doby, že blbec, který projde universitou a získá doktorát, přestane být blbcem.</p>
+                </div>
+                <div class="quote">
+                    <p class="quote-text">Demagog je ten kdo hlásá doktríny, o nichž ví, že jsou nepravdivé, lidem, o nichž ví, že jsou idioti.</p>
+                </div>
+                <div class="quote">
+                    <p class="quote-text">Dobrý politik je něco tak nemyslitelného jako čestný lupič.</p>
+                </div>
+                <div class="quote">
+                    <p class="quote-text">Touha zachránit lidstvo je téměř vždy falešnou zástěrkou pro touhu vládnout.</p>
+                </div>
+            </div>
+
+            <div class="closing-text">
+                Mencken byl hlasem skepticismu. Jeho citáty jsou ostré, trefné – a stále aktuální.
+            </div>
+            <div class="author-note">„Americký Voltaire“</div>
+        </div>
+    </section>
+
+    <div class="back-link">
+        <a href="index.html">← Zpět na hlavní stránku</a>
+    </div>
+
+</body>
+</html>
