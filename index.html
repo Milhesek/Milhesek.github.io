@@ -254,4 +254,274 @@
 
         .contact-item h3 {
             color: #667eea;
-            margin-
+            margin-bottom: 15px;
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        /* Styly patičky */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* Animace */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responzivní design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav li {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Miloslav Hesek</h1>
+            <p class="subtitle">Profesionální profil & Portfolio</p>
+        </div>
+    </header>
+
+    <nav class="nav" aria-label="Hlavní navigace">
+        <div class="container">
+            <ul>
+                <li><a href="#about">O mně</a></li>
+                <li><a href="#skills">Dovednosti</a></li>
+                <li><a href="#experience">Zkušenosti</a></li>
+                <li><a href="#projects">Projekty</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+                <li><a href="citaty.html">Citáty</a></li>
+                <li><a href="hasici-petrvald.html">Historický objev</a></li>
+                <li><a href="rozhovory-ai.html">Rozhovory s IA</a></li>
+                <li><a href="news-dashboard.html">News Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="about" class="section" aria-labelledby="about-title">
+            <div class="container">
+                <h2 id="about-title" class="section-title">O mně</h2>
+                <div class="about-content">
+                    <div class="profile-image" aria-label="Profilová fotografie Miloslava Heska">MH</div>
+                    <div class="about-text">
+                        <p>Vítejte na mém profesionálním profilu! Jsem Miloslav Hesek a specializuji se na moderní technologie a inovativní řešení. S dlouholetými zkušenostmi v oboru se věnuji projektům, které přinášejí skutečnou hodnotu.</p>
+                        
+                        <p>Moje práce se zaměřuje na kvalitu, efektivitu a inovace. Věřím v sílu týmové spolupráce a neustálého vzdělávání. Každý projekt vnímám jako příležitost k růstu a zdokonalování.</p>
+                        
+                        <p>Pokud hledáte spolehlivého partnera pro vaše projekty nebo máte zájem o spolupráci, jsem zde připraven pomoci s realizací vašich cílů.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section" aria-labelledby="skills-title">
+            <div class="container">
+                <h2 id="skills-title" class="section-title">Moje dovednosti</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>🛠️ Technické dovednosti</h3>
+                        <ul class="skill-list">
+                            <li>Projektové řízení</li>
+                            <li>Analytické myšlení</li>
+                            <li>Řešení problémů</li>
+                            <li>Technická dokumentace</li>
+                            <li>Kvalitní komunikace</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>💼 Manažerské dovednosti</h3>
+                        <ul class="skill-list">
+                            <li>Vedení týmů</li>
+                            <li>Strategické plánování</li>
+                            <li>Koordinace projektů</li>
+                            <li>Časové řízení</li>
+                            <li>Prezentační dovednosti</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>🌐 Komunikační dovednosti</h3>
+                        <ul class="skill-list">
+                            <li>Efektivní komunikace</li>
+                            <li>Aktivní naslouchání</li>
+                            <li>Vyjednávání</li>
+                            <li>Multikulturní prostředí</li>
+                            <li>Zákaznický přístup</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section" aria-labelledby="experience-title">
+            <div class="container">
+                <h2 id="experience-title" class="section-title">Profesionální zkušenosti</h2>
+                <div class="experience-timeline">
+                    <div class="timeline-item">
+                        <h3>Senior specialista</h3>
+                        <div class="date">2020 - současnost</div>
+                        <p>Vedení klíčových projektů a koordinace týmových aktivit. Odpovědnost za strategické plánování a implementaci inovativních řešení.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Projektový koordinátor</h3>
+                        <div class="date">2017 - 2020</div>
+                        <p>Řízení střednědobých projektů, koordinace mezi odděleními a zajištění splnění stanovených cílů v termínu a rozpočtu.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Analytik</h3>
+                        <div class="date">2014 - 2017</div>
+                        <p>Analýza obchodních procesů, příprava doporučení pro optimalizaci a podporu rozhodovacích procesů managementu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section" aria-labelledby="projects-title">
+            <div class="container">
+                <div style="margin-top: 30px; margin-bottom: 30px; padding: 25px; border: 1px solid #e1e4e8; border-radius: 10px; background-color: #f8f9fa;">
+                    <h3 style="margin-bottom: 10px; color: #2c3e50;">🛡️ Nová AI analýza: Žebříček armád 2025</h3>
+                    <p style="margin-bottom: 15px;">
+                        Podívej se na žebříček bojové efektivity světových armád. 
+                        Místo papírových čísel hodnotíme realitu moderního bojiště, drony a adaptaci.
+                    </p>
+                    <a href="rozhovory-ai.html" style="
+                        display: inline-block; 
+                        padding: 10px 20px; 
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                        color: white; 
+                        text-decoration: none; 
+                        border-radius: 5px; 
+                        font-weight: bold;">
+                        👉 Přečíst v Rozhovorech
+                    </a>
+                </div>
+
+                <h2 id="projects-title" class="section-title">Vybrané projekty</h2>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image" aria-hidden="true">🚀</div>
+                        <div class="project-content">
+                            <h3>Inovativní řešení</h3>
+                            <p>Komplexní projekt zaměřený na modernizaci a optimalizaci klíčových procesů s významným dopadem na efektivitu organizace.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image" aria-hidden="true">📊</div>
+                        <div class="project-content">
+                            <h3>Analytický systém</h3>
+                            <p>Vývoj a implementace pokročilého analytického nástroje pro podporu strategického rozhodování a business intelligence.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image" aria-hidden="true">🎯</div>
+                        <div class="project-content">
+                            <h3>Strategická iniciativa</h3>
+                            <p>Dlouhodobý projekt koordinace a implementace strategických změn s pozitivním dopadem na celkovou výkonnost.</p>
+                            <p style="margin-top:10px;"><a href="news-dashboard.html" style="color: #667eea; text-decoration: none; font-weight: bold;">Přejít na News Dashboard</a></p>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image" aria-hidden="true">🎴</div>
+                        <div class="project-content">
+                            <h3>Scénáře: Strategie kořisti</h3>
+                            <p>Interaktivní výukové kartičky analyzující postoje středoevropských lídrů (Babiš, Fico, Orbán) vůči Rusku a Ukrajině.</p>
+                            <p style="margin-top:10px;">
+                                <a href="flashcards.html" style="color: #667eea; text-decoration: none; font-weight: bold;">
+                                    Spustit procvičování →
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div> </div> </section>
+
+        <section id="contact" class="section" aria-labelledby="contact-title">
+            <div class="container">
+                <h2 id="contact-title" class="section-title">Kontakt</h2>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon" aria-hidden="true">📧</div>
+                        <h3>Email</h3>
+                        <p>mhesek@seznam.cz</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon" aria-hidden="true">📱</div>
+                        <h3>Telefon</h3>
+                        <p>+420 xxx xxx xxx</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon" aria-hidden="true">📍</div>
+                        <h3>Lokace</h3>
+                        <p>Petřvald, 735 41<br>Moravskoslezský kraj, ČR</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon" aria-hidden="true">💼</div>
+                        <h3>Dostupnost</h3>
+                        <p>Otevřen zajímavým<br>organizačním procesům</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Miloslav Hesek. Všechna práva vyhrazena.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Plynulé posouvání pro navigační odkazy
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
