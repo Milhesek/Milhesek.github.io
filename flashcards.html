@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scénáře - Flashcards</title>
     <style>
-        /* ÚPRAVA BAREV PRO OČI */
+        /* ÚPRAVA BAREV PRO OČI + BAREVNÉ ODLIŠENÍ ODPOVĚDI */
         body { 
             font-family: 'Segoe UI', sans-serif; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            background-color: #e2e6ea; /* Měkčí, tmavší pozadí */
+            background-color: #e2e6ea; /* Tmavší pozadí stránky pro kontrast s kartou */
             margin: 0; 
             flex-direction: column; 
-            color: #495057; /* Text není úplně černý, ale tmavě šedý */
+            color: #495057; 
         }
         
         .instruction-header { text-align: center; margin-bottom: 25px; color: #6c757d; }
@@ -47,10 +47,10 @@
             padding: 30px; 
             box-sizing: border-box; 
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Jemnější stín */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
         
-        /* Přední strana - Lomená bílá */
+        /* PŘEDNÍ STRANA (OTÁZKA) - Neutrální lomená bílá */
         .card-front { 
             background-color: #fafafa; 
             color: #343a40; 
@@ -58,23 +58,27 @@
             border-radius: 16px; 
         }
         
-        /* Zadní strana - Jemně namodralá */
+        /* ZADNÍ STRANA (ODPOVĚĎ) - Jemná pastelová modrá */
+        /* Tady je ta změna barvy pozadí */
         .card-back { 
-            background-color: #f1f3f5; 
-            color: #1a73e8; 
+            background-color: #e8f0fe; /* Pastelová modrá */
+            color: #174ea6; /* Tmavší modrý text pro dobrou čitelnost */
             transform: rotateY(180deg); 
-            border: 2px solid #aecbfa; /* Jemnější rámeček */
+            border: 2px solid #aecbfa; 
             border-radius: 16px; 
         }
         
         .label { text-transform: uppercase; font-size: 0.8rem; color: #adb5bd; margin-bottom: 15px; letter-spacing: 1px; font-weight: bold; }
+        /* U odpovědi ztmavíme popisek "ODPOVĚĎ", aby byl na modré vidět */
+        .card-back .label { color: #8ab4f8; }
+
         .card-text { font-size: 1.4rem; line-height: 1.5; font-weight: 500; }
         
         .click-hint {
             position: absolute;
             bottom: 20px;
             font-size: 0.9rem;
-            color: #7faaf0; /* Jemnější modrá */
+            color: #7faaf0; 
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -82,11 +86,11 @@
             animation: bounce 2s infinite;
         }
 
-        .card-back .click-hint { color: #868e96; animation: none; }
+        /* Nápověda na zadní straně musí být tmavší, aby byla na modré vidět */
+        .card-back .click-hint { color: #1967d2; animation: none; opacity: 0.7; }
 
         .controls { display: flex; gap: 20px; align-items: center; margin-top: 15px; }
         
-        /* Tlačítka - méně agresivní modrá */
         button { 
             background-color: #3b71ca; 
             color: white; 
