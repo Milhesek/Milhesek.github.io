@@ -316,15 +316,22 @@
 
 /* vlož na úplný konec */
 .profile-image {
-    width: 180px;
-    height: 180px;
+    width: 260px;
+    height: 260px;
+    min-width: 260px;
+    min-height: 260px;
     border-radius: 50%;
     background-image: url("images/miloslav.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    justify-self: center;
+
+    /* průhledný okraj (halo efekt) */
+    box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.25);
 }
-</style>
+
+    </style>
 
 </head>
 <body>
