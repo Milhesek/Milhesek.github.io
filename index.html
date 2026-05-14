@@ -1,532 +1,312 @@
-<!DOCTYPE html>
-<html lang="cs">
+   <!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miloslav Hesek - Profesionální profil</title>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W2PHTVS32G"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-W2PHTVS32G');
-    </script>
+    <title>Miloslav Hesek | Historik & Pedagog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Základní reset a globální styly */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #991b1b;
+            --bg-main: #fdfbf7;
+            --text-main: #1f2937;
         }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
         }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .section-padding { @apply py-24 px-6 max-w-6xl mx-auto; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(231, 229, 228, 0.5);
         }
-
-        /* Styly hlavičky */
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            animation: fadeInUp 1s ease;
-        }
-
-        .header .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        /* Styly navigace */
-        .nav {
-            background: #333;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .nav li {
-            margin: 0 20px;
-        }
-
-        .nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav a:hover {
-            color: #667eea;
-        }
-
-        /* Styly sekcí */
-        .section {
-            padding: 60px 0;
-        }
-
-        .section:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 50px;
-            color: #333;
-        }
-
-        /* Styly sekce O mně */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        /* Styly sekce Dovednosti */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-category {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-5px);
-        }
-
-        .skill-category h3 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .skill-list li:last-child {
-            border-bottom: none;
-        }
-
-        /* Styly sekce Zkušenosti */
-        .experience-timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline-item {
-            background: white;
-            padding: 30px;
-            margin: 20px 0;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #667eea;
-        }
-
-        .timeline-item h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .timeline-item .date {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 15px;
-        }
-
-        /* Styly sekce Projekty */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .project-image {
-            height: 200px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-        }
-
-        .project-content {
-            padding: 25px;
-        }
-
-        .project-content h3 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        .project-content p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Styly sekce Kontakt */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contact-item {
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .contact-item h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .contact-icon {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        /* Styly patičky */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 30px 0;
-        }
-
-        /* Animace */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responzivní design */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .nav li {
-                margin: 5px 0;
-            }
-
- }
-                
-.profile-image {
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: top center;
-    display: block;
-    justify-self: center;
-
-    /* halo efekt */
-    box-shadow: 0 0 0 18px rgba(102, 126, 234, 0.35);
-}
+        .chart-container { position: relative; height: 350px; width: 100%; }
+        .tab-btn.active { background-color: var(--primary); color: white; border-color: var(--primary); }
+        .accordion-content { display: none; }
+        .accordion-content.open { display: block; }
+        .nav-link.active-nav { color: var(--primary); font-weight: 700; }
         
-</style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
+    </style>
 </head>
-<body>
-    <header class="header">
-        <div class="container">
-            <h1>Miloslav Hesek</h1>
-            <p class="subtitle">Profesionální profil & Portfolio</p>
-        </div>
-    </header>
-<h2>Miliarda za členství v Trumpově Radě míru</h2>
-<audio controls>
-  <source src="audio/Miliarda_za_clenstvi_v_Trumpove_Rade_miru.mp3" type="audio/mpeg">
-  Audio nelze přehrát.
-</audio>
+<body class="antialiased">
 
-    <nav class="nav" aria-label="Hlavní navigace">
-        <div class="container">
-            <ul>
-                <li><a href="#about">O mně</a></li>
-                <li><a href="#skills">Dovednosti</a></li>
-                <li><a href="#experience">Zkušenosti</a></li>
-                <li><a href="#projects">Projekty</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-                <li><a href="citaty.html">Citáty</a></li>
-                <li><a href="hasici-petrvald.html">Historický objev</a></li>
-                <li><a href="rozhovory-ai.html">Rozhovory s IA</a></li>
-                <li><a href="news-dashboard.html">News Dashboard</a></li>
-            </ul>
+    <nav class="fixed top-0 w-full z-[100] glass-card border-b border-stone-200">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
+            <span class="font-bold tracking-tight text-xl">Miloslav <span class="text-[#991b1b]">Hesek</span></span>
+            <div class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-wider">
+                <a href="#profil" class="hover:text-[#991b1b] transition-colors">Profil</a>
+                <a href="#analyza" class="hover:text-[#991b1b] transition-colors">Analýza 1945</a>
+                <a href="#kontakt" class="hover:text-[#991b1b] transition-colors">Kontakt</a>
+            </div>
         </div>
     </nav>
 
-    <main>
-        <section id="about" class="section" aria-labelledby="about-title">
-            <div class="container">
-                <h2 id="about-title" class="section-title">O mně</h2>
-                <div class="about-content">
-                   <img src="images/miloslav.jpg" class="profile-image" alt="Profilová fotografie Miloslava Heska">
+    <header id="profil" class="pt-32 pb-20 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div>
+            <span class="text-[#991b1b] font-bold tracking-widest uppercase text-sm">Historik & Pedagog</span>
+            <h1 class="text-5xl md:text-6xl font-extrabold mt-4 mb-6 leading-tight text-slate-900">Miloslav Hesek</h1>
+            <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                Specializuji se na moderní dějiny a didaktiku historie. Mým cílem je propojovat precizní archivní výzkum s interaktivními metodami vzdělávání, které osloví i digitální generaci.
+            </p>
+            <div class="flex gap-4">
+                <a href="#analyza" class="bg-[#991b1b] text-white px-8 py-3 rounded-full font-semibold hover:bg-red-800 transition-all shadow-lg shadow-red-900/20">Prozkoumat analýzu</a>
+                <a href="#kontakt" class="border border-stone-300 px-8 py-3 rounded-full font-semibold hover:bg-stone-50 transition-all">Kontakt</a>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="aspect-square rounded-3xl bg-stone-200 overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
+                <img src="https://placehold.co/600x600/e7e5e4/991b1b?text=Miloslav+Hesek" alt="Miloslav Hesek" class="w-full h-full object-cover">
+            </div>
+            <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl hidden lg:block border border-stone-100">
+                <div class="text-3xl font-bold text-[#991b1b]">20+</div>
+                <div class="text-sm text-gray-500 uppercase font-bold tracking-tighter">Let praxe v oboru</div>
+            </div>
+        </div>
+    </header>
 
-                    <div class="about-text">
-                        <p>Vítejte na mém profesionálním profilu! Jsem Miloslav Hesek a specializuji se na moderní technologie a inovativní řešení. S dlouholetými zkušenostmi v oboru se věnuji projektům, které přinášejí skutečnou hodnotu.</p>
-                        
-                        <p>Moje práce se zaměřuje na kvalitu, efektivitu a inovace. Věřím v sílu týmové spolupráce a neustálého vzdělávání. Každý projekt vnímám jako příležitost k růstu a zdokonalování.</p>
-                        
-                        <p>Pokud hledáte spolehlivého partnera pro vaše projekty nebo máte zájem o spolupráci, jsem zde připraven pomoci s realizací vašich cílů.</p>
+    <section id="analyza" class="bg-stone-100 border-y border-stone-200 py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6 uppercase">Tíha osvobození: <span class="text-[#991b1b]">ČSSR 1945</span></h2>
+                <p class="text-xl text-gray-600 max-w-4xl leading-relaxed">
+                    Tato interaktivní studie analyzuje ekonomické, právní a kriminální aspekty sovětské vojenské přítomnosti v Československu. Na základě pramenů historika Prokopa Tomka odhalujeme realitu, která byla po desetiletí zamlčována.
+                </p>
+                <div class="w-24 h-2 bg-[#991b1b] mt-8"></div>
+            </div>
+
+            <!-- Tabbed Interface for Treaties -->
+            <div class="bg-white rounded-3xl shadow-xl border border-stone-200 overflow-hidden mb-24">
+                <div class="flex flex-col md:flex-row border-b border-stone-100">
+                    <button class="tab-btn active flex-1 py-6 px-6 font-bold text-sm uppercase tracking-wider transition-all" data-target="tab-treaty-1">📜 31. 3. 1945 (Kořist)</button>
+                    <button class="tab-btn flex-1 py-6 px-6 font-bold text-sm uppercase tracking-wider text-gray-500 border-l border-stone-100 transition-all" data-target="tab-treaty-2">🍞 31. 3. 1945 (Výživa)</button>
+                    <button class="tab-btn flex-1 py-6 px-6 font-bold text-sm uppercase tracking-wider text-gray-500 border-l border-stone-100 transition-all" data-target="tab-treaty-3">🖊️ 30. 10. 1945 (Bod 5)</button>
+                </div>
+                <div class="p-10">
+                    <div id="tab-treaty-1" class="tab-content block animate-fadeIn">
+                        <h4 class="text-2xl font-bold mb-4 text-[#991b1b]">"Trofejní smlouva" a legalizace drancování</h4>
+                        <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                            Tajná dohoda podepsaná v Moskvě. Oficiálně povolovala zabavování německého majetku, v praxi však postihla i československé občany. <strong>Velitelé kořistních oddílů</strong> si výklad smlouvy často upravovali podle potřeby, což vedlo k drancování bank v Brně i Praze a odvážení prokazatelně českého či židovského majetku.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100">
+                                <span class="block font-bold text-[#991b1b] mb-1">Cíl: Kompenzace</span>
+                                <span class="text-sm text-gray-600">SSSR vnímal majetek jako legitimní náhradu za své válečné škody, bez ohledu na spojenecký status ČSR.</span>
+                            </div>
+                            <div class="bg-stone-50 p-6 rounded-2xl border border-stone-100">
+                                <span class="block font-bold text-[#991b1b] mb-1">Důsledek: Bankrot bank</span>
+                                <span class="text-sm text-gray-600">Došlo k faktickému vyloupení bankovních poboček v Brně a Praze pod hlavičkou válečné kořisti.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-treaty-2" class="tab-content hidden animate-fadeIn">
+                        <h4 class="text-2xl font-bold mb-4 text-[#991b1b]">Revize financování: Břemeno na bedrech ČSR</h4>
+                        <blockquote class="border-l-4 border-stone-300 pl-6 italic text-xl text-gray-600 my-6">
+                            „Československé území je vykupováno krví sovětských vojáků... je třeba smlouvu revidovat.“ 
+                            <cite class="block text-sm not-italic font-bold mt-2">— Vjačeslav Molotov, březen 1945</cite>
+                        </blockquote>
+                        <p class="text-gray-700 text-lg leading-relaxed">
+                            Původní velkorysost z roku 1943 byla nahrazena tvrdou realitou. Československo bylo nuceno nést veškeré výlohy na vydržování milionové armády ze svých vyčerpaných zdrojů, zatímco USA své vojáky (30 tisíc) živily zcela samy.
+                        </p>
+                    </div>
+                    <div id="tab-treaty-3" class="tab-content hidden animate-fadeIn">
+                        <h4 class="text-2xl font-bold mb-4 text-[#991b1b]">Protokol z 30. října: Past bodu č. 5</h4>
+                        <p class="text-gray-700 text-lg leading-relaxed mb-4">
+                            Během jednání o měnové reformě sovětští vyjednávači "vsunuli" do protokolu <strong>Bod 5</strong>. Ten zavazoval ČSR platit náklady na pobyt vojsk <em>po celou dobu jejich pobytu</em>, nikoliv jen do konce války.
+                        </p>
+                        <div class="inline-block bg-red-100 text-[#991b1b] px-6 py-2 rounded-full text-sm font-bold">Zásadní selhání Fierlingerovy vlády</div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="skills" class="section" aria-labelledby="skills-title">
-            <div class="container">
-                <h2 id="skills-title" class="section-title">Moje dovednosti</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>🛠️ Technické dovednosti</h3>
-                        <ul class="skill-list">
-                            <li>Projektové řízení</li>
-                            <li>Analytické myšlení</li>
-                            <li>Řešení problémů</li>
-                            <li>Technická dokumentace</li>
-                            <li>Kvalitní komunikace</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>💼 Manažerské dovednosti</h3>
-                        <ul class="skill-list">
-                            <li>Vedení týmů</li>
-                            <li>Strategické plánování</li>
-                            <li>Koordinace projektů</li>
-                            <li>Časové řízení</li>
-                            <li>Prezentační dovednosti</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>🌐 Komunikační dovednosti</h3>
-                        <ul class="skill-list">
-                            <li>Efektivní komunikace</li>
-                            <li>Aktivní naslouchání</li>
-                            <li>Vyjednávání</li>
-                            <li>Multikulturní prostředí</li>
-                            <li>Zákaznický přístup</li>
-                        </ul>
+            <div class="grid md:grid-cols-2 gap-16 items-center mb-24">
+                <div class="bg-white p-8 rounded-3xl shadow-xl border border-stone-100">
+                    <h5 class="text-center font-bold text-gray-400 uppercase text-xs tracking-widest mb-6">Měsíční bilance (Léto 1945) v Miliardách Kčs</h5>
+                    <div class="chart-container">
+                        <canvas id="financeChart"></canvas>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="experience" class="section" aria-labelledby="experience-title">
-            <div class="container">
-                <h2 id="experience-title" class="section-title">Profesionální zkušenosti</h2>
-                <div class="experience-timeline">
-                    <div class="timeline-item">
-                        <h3>Senior specialista</h3>
-                        <div class="date">2020 - současnost</div>
-                        <p>Vedení klíčových projektů a koordinace týmových aktivit. Odpovědnost za strategické plánování a implementaci inovativních řešení.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Projektový koordinátor</h3>
-                        <div class="date">2017 - 2020</div>
-                        <p>Řízení střednědobých projektů, koordinace mezi odděleními a zajištění splnění stanovených cílů v termínu a rozpočtu.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <h3>Analytik</h3>
-                        <div class="date">2014 - 2017</div>
-                        <p>Analýza obchodních procesů, příprava doporučení pro optimalizaci a podporu rozhodovacích procesů managementu.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="section" aria-labelledby="projects-title">
-            <div class="container">
-                <div style="margin-top: 30px; margin-bottom: 30px; padding: 25px; border: 1px solid #e1e4e8; border-radius: 10px; background-color: #f8f9fa;">
-                    <h3 style="margin-bottom: 10px; color: #2c3e50;">🛡️ Nová AI analýza: Žebříček armád 2025</h3>
-                    <p style="margin-bottom: 15px;">
-                        Podívej se na žebříček bojové efektivity světových armád. 
-                        Místo papírových čísel hodnotíme realitu moderního bojiště, drony a adaptaci.
+                <div>
+                    <h4 class="text-3xl font-bold mb-6 text-slate-900">Ekonomická likvidace státu</h4>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        Zatímco stát vybral na daních měsíčně průměrně 1,7 mld. Kčs, odběry Rudé armády činily 2,5 mld. Kčs. Bez odsunu v listopadu 1945 by finanční systém ČSR zkolaboval do konce roku.
                     </p>
-                    <a href="rozhovory-ai.html" style="
-                        display: inline-block; 
-                        padding: 10px 20px; 
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-                        color: white; 
-                        text-decoration: none; 
-                        border-radius: 5px; 
-                        font-weight: bold;">
-                        👉 Přečíst v Rozhovorech
-                    </a>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 shrink-0 rounded-2xl bg-red-100 flex items-center justify-center text-red-600 font-bold">10B</div>
+                            <div>
+                                <p class="font-bold">Miliard korun</p>
+                                <p class="text-sm text-gray-500">Celkové materiální odběry za období květen–srpen 1945.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 shrink-0 rounded-2xl bg-stone-100 flex items-center justify-center text-stone-600 font-bold">600k</div>
+                            <div>
+                                <p class="font-bold">Dávek potravin denně</p>
+                                <p class="text-sm text-gray-500">Zátěž, kterou muselo ČSR zajistit pro sovětské jednotky.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <h2 id="projects-title" class="section-title">Vybrané projekty</h2>
-                
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-image" aria-hidden="true">🚀</div>
-                        <div class="project-content">
-                            <h3>Inovativní řešení</h3>
-                            <p>Komplexní projekt zaměřený na modernizaci a optimalizaci klíčových procesů s významným dopadem na efektivitu organizace.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-image" aria-hidden="true">📊</div>
-                        <div class="project-content">
-                            <h3>Analytický systém</h3>
-                            <p>Vývoj a implementace pokročilého analytického nástroje pro podporu strategického rozhodování a business intelligence.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="project-image" aria-hidden="true">🎯</div>
-                        <div class="project-content">
-                            <h3>Strategická iniciativa</h3>
-                            <p>Dlouhodobý projekt koordinace a implementace strategických změn s pozitivním dopadem na celkovou výkonnost.</p>
-                            <p style="margin-top:10px;"><a href="news-dashboard.html" style="color: #667eea; text-decoration: none; font-weight: bold;">Přejít na News Dashboard</a></p>
-                        </div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-image" aria-hidden="true">🎴</div>
-                        <div class="project-content">
-                            <h3>Scénáře: Strategie kořisti</h3>
-                            <p>Interaktivní výukové kartičky analyzující postoje středoevropských lídrů (Babiš, Fico, Orbán) vůči Rusku a Ukrajině.</p>
-                            <p style="margin-top:10px;">
-                                <a href="flashcards.html" style="color: #667eea; text-decoration: none; font-weight: bold;">
-                                    Spustit procvičování →
-                                </a>
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h4 class="text-2xl font-bold text-slate-900 uppercase tracking-widest">Kriminalita a odvrácená tvář osvobození</h4>
+                    <p class="text-gray-500 mt-2">Dnes nepředstavitelná míra surovosti a selhání práva</p>
+                </div>
+                <div class="space-y-4">
+                    <!-- Accordion Item 1 -->
+                    <div class="border border-stone-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+                        <button class="acc-btn w-full px-8 py-6 flex justify-between items-center hover:bg-stone-50 transition-colors">
+                            <span class="font-bold text-xl text-slate-800">Násilná činnost a vraždy</span>
+                            <span class="acc-icon transition-transform text-[#991b1b] font-bold">▼</span>
+                        </button>
+                        <div class="accordion-content px-8 pb-8 text-gray-600 leading-relaxed border-t border-stone-50 pt-6">
+                            <p class="text-lg">
+                                Škála násilí sahala od ublížení na zdraví po brutální vraždy a znásilnění. Sovětská justice tyto činy vůči civilistům často přehlížela nebo řešila jen symbolicky. Dokumenty VHÚ dokládají mrazivou míru surovosti, kterou otrlí vojáci považovali za své právo osvoboditele.
                             </p>
                         </div>
                     </div>
-                </div> </div> </section>
-
-        <section id="contact" class="section" aria-labelledby="contact-title">
-            <div class="container">
-                <h2 id="contact-title" class="section-title">Kontakt</h2>
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <div class="contact-icon" aria-hidden="true">📧</div>
-                        <h3>Email</h3>
-                        <p>mhesek@seznam.cz</p>
+                    <!-- Accordion Item 2 -->
+                    <div class="border border-stone-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+                        <button class="acc-btn w-full px-8 py-6 flex justify-between items-center hover:bg-stone-50 transition-colors">
+                            <span class="font-bold text-xl text-slate-800">Ozbrojené loupeže (Hodinky a kola)</span>
+                            <span class="acc-icon transition-transform text-[#991b1b] font-bold">▼</span>
+                        </button>
+                        <div class="accordion-content px-8 pb-8 text-gray-600 leading-relaxed border-t border-stone-50 pt-6">
+                            <p class="text-lg">
+                                Krádeže se děly denně přímo na ulicích a v bytech. Jízdní kola a náramkové hodinky byly nejcennějším artiklem. Kdo kladl odpor, byl zbit nebo i zabit. Politici tyto stížnosti občanů ignorovali a pozadí "osvobození" tajili.
+                            </p>
+                        </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon" aria-hidden="true">📱</div>
-                        <h3>Telefon</h3>
-                        <p>+420 xxx xxx xxx</p>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon" aria-hidden="true">📍</div>
-                        <h3>Lokace</h3>
-                        <p>Petřvald, 735 41<br>Moravskoslezský kraj, ČR</p>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon" aria-hidden="true">💼</div>
-                        <h3>Dostupnost</h3>
-                        <p>Otevřen zajímavým<br>organizačním procesům</p>
+                    <!-- Accordion Item 3 -->
+                    <div class="border border-stone-200 rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+                        <button class="acc-btn w-full px-8 py-6 flex justify-between items-center hover:bg-stone-50 transition-colors">
+                            <span class="font-bold text-xl text-slate-800">Laxní jurisdikce a "pachatel v uniformě"</span>
+                            <span class="acc-icon transition-transform text-[#991b1b] font-bold">▼</span>
+                        </button>
+                        <div class="accordion-content px-8 pb-8 text-gray-600 leading-relaxed border-t border-stone-50 pt-6">
+                            <p class="text-lg">
+                                Podle dohody z 8. 5. 1944 podléhali vojáci výhradně sovětské jurisdikci. V hlášeních se používala opatrná formulace: „pachatel v uniformě Rudé armády“, aby se vina mohla svalit na zběhy či vlasovce, ačkoliv realita byla zřejmá.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Miloslav Hesek. Všechna práva vyhrazena.</p>
+    <footer id="kontakt" class="py-24 px-6 max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4 text-slate-900 uppercase">Máte zájem o spolupráci?</h2>
+        <p class="text-gray-500 mb-12 italic text-lg">Nabízím odborné přednášky, konzultace a zpracování historických rešerší.</p>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-16">
+            <a href="mailto:miloslav.hesek@email.cz" class="p-10 rounded-3xl bg-white border border-stone-200 hover:border-[#991b1b] transition-all group shadow-sm">
+                <div class="text-stone-400 mb-2 group-hover:text-[#991b1b] transition-colors uppercase text-xs font-bold tracking-widest">Emailová adresa</div>
+                <div class="text-xl font-bold text-slate-800">miloslav.hesek@email.cz</div>
+            </a>
+            <div class="p-10 rounded-3xl bg-white border border-stone-200 shadow-sm">
+                <div class="text-stone-400 mb-2 uppercase text-xs font-bold tracking-widest">Působiště</div>
+                <div class="text-xl font-bold text-slate-800 uppercase tracking-wide">Praha / ČR</div>
+            </div>
+        </div>
+        
+        <div class="pt-12 border-t border-stone-200">
+            <p class="text-xs text-stone-400 uppercase tracking-[0.3em]">© 2024 Miloslav Hesek • Historické vzdělávání pro 21. století</p>
         </div>
     </footer>
 
     <script>
-        // Plynulé posouvání pro navigační odkazy
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        // Tab switching logic
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-target');
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active', 'text-white');
+                    b.classList.add('text-gray-500');
+                });
+                document.querySelectorAll('.tab-content').forEach(c => {
+                    c.classList.remove('block');
+                    c.classList.add('hidden');
+                });
+                btn.classList.add('active', 'text-white');
+                btn.classList.remove('text-gray-500');
+                document.getElementById(target).classList.remove('hidden');
+                document.getElementById(target).classList.add('block');
+            });
+        });
+
+        // Accordion logic
+        document.querySelectorAll('.acc-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('.acc-icon');
+                const isOpen = content.classList.contains('open');
+                
+                document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
+                document.querySelectorAll('.acc-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+
+                if (!isOpen) {
+                    content.classList.add('open');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Finance Chart Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('financeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Příjmy ČSR (daně)', 'Náklady na Rudou armádu'],
+                    datasets: [{
+                        label: 'Miliardy Kčs / měsíčně',
+                        data: [1.7, 2.5],
+                        backgroundColor: ['#d6d3d1', '#991b1b'],
+                        borderRadius: 12,
+                        barThickness: 60
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { backgroundColor: '#1f2937', padding: 15 }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#f1f1f1' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        });
+
+        // Scroll active navigation logic
+        window.addEventListener('scroll', () => {
+            const sections = ['profil', 'analyza', 'kontakt'];
+            let current = "";
+            sections.forEach(s => {
+                const element = document.getElementById(s);
+                if (window.pageYOffset >= (element.offsetTop - 150)) {
+                    current = s;
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active-nav');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active-nav');
                 }
             });
         });
