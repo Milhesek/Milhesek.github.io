@@ -207,21 +207,23 @@
         <section id="analyza1945" class="py-24 scroll-mt-16">
             <div class="max-w-6xl mx-auto px-4">
                 
-                <!-- Hlavička analýzy -->
+                <!-- Hlavička analýzy - OPRAVA NADPISU PRO MOBIL -->
                 <div class="text-center mb-20">
                     <span class="text-[#991b1b] font-black tracking-[0.3em] uppercase text-sm bg-red-50 px-4 py-2 rounded-full">Hloubková historická sonda</span>
-                    <h2 class="text-5xl md:text-6xl font-black mt-8 mb-6 uppercase tracking-tight text-gray-900">Tíha osvobození: <br><span class="text-[#991b1b]">Československo 1945</span></h2>
+                    <!-- Zde je úprava velikosti text-3xl pro mobily a zalomení <br> jen pro desktop -->
+                    <h2 class="text-3xl sm:text-5xl md:text-6xl font-black mt-8 mb-6 uppercase tracking-tight text-gray-900">Tíha osvobození: <br class="hidden sm:block"><span class="text-[#991b1b]">Československo 1945</span></h2>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                         Pro Rudou armádu bylo Československo válečná kořist. Interaktivní analýza pramenů historika Prokopa Tomka dokládající drsnou podobu každodenní sovětské vojenské přítomnosti.
                     </p>
                 </div>
 
-                <!-- Záložky: Smlouvy (Sjednocený design) -->
+                <!-- Záložky: Smlouvy (Sjednocený design) - OPRAVA TLAČÍTEK SMLUV -->
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-24 border border-gray-200">
-                    <div class="flex w-full border-b border-gray-300 bg-gray-50">
-                        <button class="tab-btn active-tab" onclick="switchTab(event, 'tab-korist')">📜 Válečná kořist (31.3.)</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'tab-vyziva')">🍞 Výživa armády</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'tab-protokol')">🖊️ Protokol (30.10.)</button>
+                    <!-- Tlačítka záložek natvrdo v jednom řádku a flex-1 = 1/3 šířky -->
+                    <div class="flex w-full border-b border-gray-300 bg-gray-50 flex-nowrap overflow-x-auto sm:overflow-visible">
+                        <button class="tab-btn active-tab flex-1 whitespace-nowrap px-4 py-4 sm:py-6" onclick="switchTab(event, 'tab-korist')">📜 Válečná kořist (31.3.)</button>
+                        <button class="tab-btn flex-1 whitespace-nowrap px-4 py-4 sm:py-6" onclick="switchTab(event, 'tab-vyziva')">🍞 Výživa armády</button>
+                        <button class="tab-btn flex-1 whitespace-nowrap px-4 py-4 sm:py-6" onclick="switchTab(event, 'tab-protokol')">🖊️ Protokol (30.10.)</button>
                     </div>
                     
                     <div class="p-10 md:p-16">
