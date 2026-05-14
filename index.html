@@ -12,14 +12,18 @@
         .purple-header { background: linear-gradient(90deg, #6b46c1 0%, #4c51bf 100%); }
         .nav-dark { background-color: #1a1a1a; position: sticky; top: 0; z-index: 100; }
         .nav-link { @apply text-white/80 hover:text-white transition-colors uppercase text-[10px] tracking-widest font-bold px-3 py-4 block border-b-2 border-transparent; }
-        .nav-link.active { @apply text-white border-red-500; }
+        .nav-link.active-nav { @apply text-white border-red-500; }
         .section-padding { @apply py-20 px-6 max-w-5xl mx-auto; }
-        .chart-container { position: relative; height: 300px; width: 100%; }
+        
+        /* Styl pro interaktivní prvky analýzy */
+        .tab-btn.active-tab { background-color: #991b1b; color: white; border-color: #991b1b; }
+        .tab-content { display: none; }
+        .tab-content.active-content { display: block; }
+        
         .accordion-content { display: none; }
         .accordion-content.open { display: block; }
-        .tab-btn.active { background-color: #991b1b; color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        
+        .chart-container { position: relative; height: 300px; width: 100%; }
     </style>
 </head>
 <body class="antialiased">
@@ -43,7 +47,6 @@
         <div class="max-w-7xl mx-auto flex justify-center whitespace-nowrap">
             <a href="#omne" class="nav-link">O mně</a>
             <a href="#dovednosti" class="nav-link">Dovednosti</a>
-            <a href="#zkusenosti" class="nav-link">Zkušenosti</a>
             <a href="#analyza1945" class="nav-link !text-red-400 font-black border-b-2 border-red-500">Analýza 1945</a>
             <a href="hasici-petrvald.html" class="nav-link">Historický objev</a>
             <a href="rozhovory-ai.html" class="nav-link">Rozhovory s AI</a>
@@ -57,15 +60,14 @@
         <h2 class="text-3xl font-bold mb-12 uppercase tracking-tighter">O mně</h2>
         <div class="flex flex-col md:flex-row items-center gap-12 text-left">
             <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-stone-100 shadow-xl shrink-0 mx-auto md:mx-0 bg-stone-100">
-                <!-- Pokud je název vašeho obrázku jiný, změňte "profil.jpg" níže -->
-                <img src="Obrázky/profil.jpg" alt="Miloslav Hesek" onerror="this.src='https://placehold.co/400x400/6b46c1/ffffff?text=MH'" class="w-full h-full object-cover">
+                <img src="Obrázky/miloslav_03.jpg" alt="Miloslav Hesek" onerror="this.src='https://placehold.co/400x400/6b46c1/ffffff?text=MH'" class="w-full h-full object-cover">
             </div>
             <div class="space-y-4 text-lg text-stone-600 leading-relaxed">
                 <p>
                     Vítejte na mém profesionálním profilu! Jsem Miloslav Hesek a specializuji se na moderní technologie a inovativní řešení v oblasti historie a vzdělávání. S dlouholetými zkušenostmi v oboru se věnuji projektům, které přinášejí skutečnou hodnotu.
                 </p>
                 <p>
-                    Moje práce se zaměřuje na kvalitu, efektivitu a propojování historického výzkumu s digitálními metodami. Věřím v sílu faktů a jejich srozumitelnou prezentaci veřejnosti prostřednictvím moderních nástrojů.
+                    Moje práce se zaměřuje na kvalitu, efektivitu a propojování historického výzkumu s digitálními metodami. Věřím v sílu faktů a jejich srozumitelnou prezentaci veřejnosti.
                 </p>
             </div>
         </div>
@@ -75,34 +77,35 @@
         <div class="section-padding">
             <div class="text-center mb-16">
                 <span class="text-[#991b1b] font-bold tracking-[0.2em] uppercase text-xs">Odborná studie</span>
-                <h2 class="text-4xl font-black mt-2 mb-4">TÍHA OSVOBOZENÍ: <span class="text-[#991b1b]">ČSSR 1945</span></h2>
+                <h2 class="text-4xl font-black mt-2 mb-4 uppercase">Tíha osvobození: <span class="text-[#991b1b]">ČSSR 1945</span></h2>
                 <div class="w-20 h-1 bg-[#991b1b] mx-auto mb-6"></div>
                 <p class="text-xl text-stone-600 max-w-3xl mx-auto">
-                    Analýza ekonomických, právních a kriminálních aspektů sovětské vojenské přítomnosti na základě pramenů Prokopa Tomka.
+                    Analýza ekonomických, právních a kriminálních aspektů sovětské vojenské přítomnosti.
                 </p>
             </div>
 
             <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden mb-20">
-                <div class="flex flex-col md:flex-row border-b border-stone-100">
-                    <button class="tab-btn active flex-1 py-5 px-4 font-bold text-xs uppercase tracking-wider transition-all" data-target="tab1">📜 Válečná kořist</button>
-                    <button class="tab-btn flex-1 py-5 px-4 font-bold text-xs uppercase tracking-wider text-gray-500 border-l border-stone-100 transition-all" data-target="tab2">🍞 Výživa armády</button>
-                    <button class="tab-btn flex-1 py-5 px-4 font-bold text-xs uppercase tracking-wider text-gray-500 border-l border-stone-100 transition-all" data-target="tab3">🖊️ Protokol Bod 5</button>
+                <div class="flex flex-col md:flex-row border-b border-stone-100 bg-stone-50">
+                    <button class="tab-btn active-tab flex-1 py-5 px-4 font-bold text-xs uppercase tracking-wider transition-all border-b-2 border-transparent" onclick="openTab(event, 'tab-korist')">📜 Válečná kořist</button>
+                    <button class="tab-btn flex-1 py-5 px-4 font-bold text-xs uppercase tracking-wider text-gray-500 transition-all border-b-2 border-transparent" onclick="openTab(event, 'tab-vyziva')">🍞 Výživa armády</button>
+                    <button class="tab-btn flex-1 py-5 px-4 font-bold text-xs uppercase tracking-wider text-gray-500 transition-all border-b-2 border-transparent" onclick="openTab(event, 'tab-bod5')">🖊️ Protokol Bod 5</button>
                 </div>
+                
                 <div class="p-8 md:p-12">
-                    <div id="tab1" class="tab-content active">
+                    <div id="tab-korist" class="tab-content active-content">
                         <h4 class="text-2xl font-bold mb-4 text-[#991b1b]">"Trofejní smlouva" (31. 3. 1945)</h4>
-                        <p class="text-lg text-stone-700 leading-relaxed mb-6">
+                        <p class="text-lg text-stone-700 leading-relaxed">
                             Umožňovala Rudé armádě zabavovat německý majetek. V praxi se však odvážel i majetek český, židovský a vybavení celých továren či bank v Brně i Praze. Velitelé kořistních oddílů znění dohody často neznali a vykládali si ji po svém.
                         </p>
                     </div>
-                    <div id="tab2" class="tab-content">
+                    <div id="tab-vyziva" class="tab-content">
                         <h4 class="text-2xl font-bold mb-4 text-[#991b1b]">Revanš Molotova</h4>
-                        <p class="text-lg text-stone-700 leading-relaxed italic border-l-4 border-stone-200 pl-6 mb-6">
+                        <p class="text-lg text-stone-700 leading-relaxed italic border-l-4 border-stone-200 pl-6 mb-4">
                             „Bylo by nespravedlivé, aby veškeré výlohy na vydržování Rudé armády nesl sovětský stát.“
                         </p>
-                        <p class="text-stone-700">ČSR musela nést náklady na pobyt milionové armády (600 tisíc dávek jídla denně), zatímco armáda USA se živila sama.</p>
+                        <p class="text-stone-700 text-lg">ČSR musela nést náklady na pobyt milionové armády (600 tisíc dávek jídla denně), zatímco armáda USA se živila sama.</p>
                     </div>
-                    <div id="tab3" class="tab-content">
+                    <div id="tab-bod5" class="tab-content">
                         <h4 class="text-2xl font-bold mb-4 text-[#991b1b]">Bod č. 5: Past v protokolu</h4>
                         <p class="text-stone-700 text-lg mb-4">
                             Při jednání o měně 30. října 1945 sovětští vyjednávači vsunuli Bod 5, který zavázal stát platit náklady po celou dobu pobytu, nikoliv jen po dobu války. Vláda Zdeňka Fierlingera jej schválila bez výhrad.
@@ -140,7 +143,7 @@
                 <h3 class="text-center text-2xl font-bold uppercase tracking-widest mb-10">Kriminalita a odvrácená tvář</h3>
                 <div class="space-y-3">
                     <div class="border border-stone-200 rounded-xl bg-white overflow-hidden">
-                        <button class="acc-btn w-full px-6 py-5 flex justify-between items-center hover:bg-stone-50 transition-colors">
+                        <button class="acc-btn w-full px-6 py-5 flex justify-between items-center hover:bg-stone-50 transition-colors" onclick="toggleAccordion(this)">
                             <span class="font-bold text-stone-800">Násilná trestná činnost a surovost</span>
                             <span class="acc-icon transition-transform">▼</span>
                         </button>
@@ -149,7 +152,7 @@
                         </div>
                     </div>
                     <div class="border border-stone-200 rounded-xl bg-white overflow-hidden">
-                        <button class="acc-btn w-full px-6 py-5 flex justify-between items-center hover:bg-stone-50 transition-colors">
+                        <button class="acc-btn w-full px-6 py-5 flex justify-between items-center hover:bg-stone-50 transition-colors" onclick="toggleAccordion(this)">
                             <span class="font-bold text-stone-800">Krádeže hodinek a majetku</span>
                             <span class="acc-icon transition-transform">▼</span>
                         </button>
@@ -185,33 +188,43 @@
     </footer>
 
     <script>
-        // Logika přepínání záložek
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const target = btn.getAttribute('data-target');
-                document.querySelectorAll('.tab-btn').forEach(b => {
-                    b.classList.remove('active', 'text-white');
-                    b.classList.add('text-gray-500');
-                });
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                btn.classList.add('active', 'text-white');
-                btn.classList.remove('text-gray-500');
-                document.getElementById(target).classList.add('active');
-            });
-        });
+        // Logika přepínání záložek (Smlouvy)
+        function openTab(evt, tabName) {
+            const contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active-content");
+            }
+            const buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active-tab");
+                buttons[i].classList.add("text-gray-500");
+            }
+            document.getElementById(tabName).classList.add("active-content");
+            evt.currentTarget.classList.add("active-tab");
+            evt.currentTarget.classList.remove("text-gray-500");
+        }
 
-        // Logika harmoniky (kriminalita)
-        document.querySelectorAll('.acc-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                const icon = this.querySelector('.acc-icon');
-                content.classList.toggle('open');
-                icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
-            });
-        });
+        // Logika harmoniky (Kriminalita)
+        function toggleAccordion(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('.acc-icon');
+            
+            // Zavřít ostatní otevřené
+            const allContents = document.getElementsByClassName("accordion-content");
+            for (let i = 0; i < allContents.length; i++) {
+                if (allContents[i] !== content) {
+                    allContents[i].classList.remove("open");
+                    allContents[i].previousElementSibling.querySelector('.acc-icon').style.transform = 'rotate(0deg)';
+                }
+            }
 
-        // Inicializace grafu po načtení okna
+            content.classList.toggle('open');
+            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        // Inicializace po načtení okna
         window.onload = function() {
+            // Inicializace grafu
             const ctx = document.getElementById('financeChart').getContext('2d');
             new Chart(ctx, {
                 type: 'bar',
@@ -229,26 +242,26 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: { 
-                        y: { beginAtZero: true, grid: { display: false } },
+                        y: { beginAtZero: true, grid: { color: '#f3f4f6' } },
                         x: { grid: { display: false } }
                     }
                 }
             });
-        };
 
-        // Scroll Spy - zvýraznění aktivní sekce v navigaci
-        window.addEventListener('scroll', () => {
-            const sections = ['omne', 'dovednosti', 'zkusenosti', 'analyza1945', 'kontakt'];
-            let current = "";
-            sections.forEach(s => {
-                const el = document.getElementById(s);
-                if (el && window.pageYOffset >= (el.offsetTop - 150)) current = s;
+            // Scroll Spy - zvýraznění aktivní sekce v navigaci
+            window.addEventListener('scroll', () => {
+                const sections = ['omne', 'dovednosti', 'analyza1945', 'kontakt'];
+                let current = "";
+                sections.forEach(s => {
+                    const el = document.getElementById(s);
+                    if (el && window.pageYOffset >= (el.offsetTop - 150)) current = s;
+                });
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active-nav');
+                    if (link.getAttribute('href').includes(current) && current !== "") link.classList.add('active-nav');
+                });
             });
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current) && current !== "") link.classList.add('active');
-            });
-        });
+        };
     </script>
 </body>
 </html>
