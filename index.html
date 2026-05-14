@@ -106,21 +106,16 @@
         <section class="max-w-6xl mx-auto px-4 py-20">
             <div class="bg-white rounded-3xl shadow-xl p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 border border-gray-100">
                 
-                <!-- Profilový obrázek -->
-                <div class="shrink-0 relative mx-auto lg:mx-0">
-                    <div class="w-64 h-64 rounded-full p-1.5 border-4 border-gray-100 bg-white shadow-lg relative z-10 flex items-center justify-center">
-                        <picture class="w-full h-full rounded-full overflow-hidden block">
-                            <!-- ZDE JE OPRAVENÁ CESTA - složka "images" -->
-                            <source srcset="images/miloslav_03.jpg">
-                            <source srcset="images/miloslav.jpg">
-                            <!-- Fallback, pokud se žádný nenajde -->
-                            <img src="images/miloslav_03.jpg" alt="Miloslav Hesek" 
-                                 onerror="this.src='https://placehold.co/400x400/6b46c1/ffffff?text=MH'" 
-                                 class="w-full h-full object-cover">
-                        </picture>
+                <!-- Profilový obrázek - GARANTUJE DOKONALÝ KRUH -->
+                <div class="shrink-0 relative mx-auto lg:mx-0 w-56 h-56 md:w-64 md:h-64">
+                    <div class="w-full h-full rounded-full border-4 border-gray-100 bg-white shadow-xl relative z-10 overflow-hidden">
+                        <!-- Nejlepší je "miloslav.jpg", protože je to dokonalý čtverec -->
+                        <img src="images/miloslav.jpg" alt="Miloslav Hesek" 
+                             onerror="this.src='https://placehold.co/400x400/6b46c1/ffffff?text=MH'" 
+                             class="w-full h-full object-cover">
                     </div>
-                    <!-- Dekorativní kruh na pozadí bez posunu, aby nedeformoval centrování -->
-                    <div class="absolute inset-0 bg-purple-600 blur-2xl opacity-20 rounded-full -z-10"></div>
+                    <!-- Dekorativní fialový stín na pozadí -->
+                    <div class="absolute inset-0 bg-purple-600 blur-2xl opacity-20 rounded-full -z-10 scale-105"></div>
                 </div>
 
                 <!-- Textový obsah Profilu -->
