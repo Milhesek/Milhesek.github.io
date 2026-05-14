@@ -32,7 +32,8 @@
 
         /* Třídy pro záložky Analýzy */
         .tab-btn {
-            @apply flex-1 py-4 px-6 text-center font-bold text-gray-500 bg-gray-50 hover:bg-gray-100 transition-colors uppercase tracking-wide text-sm border-b-4 border-transparent;
+            @apply flex-1 py-4 sm:py-6 px-2 text-center font-bold text-gray-500 bg-gray-50 hover:bg-gray-200 hover:text-gray-800 transition-all uppercase tracking-wide text-xs sm:text-sm md:text-base border-b-4 border-transparent flex items-center justify-center leading-tight;
+            min-height: 85px; /* Garantuje stabilní výšku panelu - poměr cca 1:5 k oknu smluv */
         }
         
         .tab-btn.active-tab {
@@ -77,8 +78,8 @@
                 <span class="text-sm font-bold text-gray-800 uppercase tracking-widest">Miliarda za členství v Trumpově Radě míru</span>
             </div>
             <div class="w-full md:w-auto">
-                <!-- Přehrávač s vylepšeným přednačítáním a oběma variantami cest pro GitHub Pages -->
                 <audio controls preload="auto" class="w-full md:w-96 rounded-full shadow-inner bg-gray-50">
+                    <!-- ZDE JE OPRAVENÁ CESTA - složka "audio" malými písmeny -->
                     <source src="audio/Miliarda_za_clenstvi_v_Trumpove_Rade_miru.mp3" type="audio/mpeg">
                     Váš prohlížeč nepodporuje přehrávání audia.
                 </audio>
@@ -107,11 +108,16 @@
                 
                 <!-- Profilový obrázek -->
                 <div class="shrink-0 relative">
-                    <div class="w-64 h-64 rounded-full p-2 border-4 border-purple-100 bg-white shadow-lg relative z-10 overflow-hidden">
-                        <!-- Nastavena cesta miloslav_03.jpg. Přidán záchranný fall-back, kdyby se obrázek nenašel -->
-                        <img src="images/miloslav_03.jpg" alt="Miloslav Hesek" 
-                             onerror="this.src='https://placehold.co/400x400/6b46c1/ffffff?text=MH'" 
-                             class="w-full h-full object-cover rounded-full">
+                    <div class="w-64 h-64 rounded-full p-2 border-4 border-purple-100 bg-white shadow-lg relative z-10 overflow-hidden flex items-center justify-center">
+                        <picture class="w-full h-full">
+                            <!-- ZDE JE OPRAVENÁ CESTA - složka "images" -->
+                            <source srcset="images/miloslav_03.jpg">
+                            <source srcset="images/miloslav.jpg">
+                            <!-- Fallback, pokud se žádný nenajde -->
+                            <img src="images/miloslav_03.jpg" alt="Miloslav Hesek" 
+                                 onerror="this.src='https://placehold.co/400x400/6b46c1/ffffff?text=MH'" 
+                                 class="w-full h-full object-cover rounded-full">
+                        </picture>
                     </div>
                     <!-- Dekorativní kruh na pozadí -->
                     <div class="absolute inset-0 bg-purple-600 blur-2xl opacity-20 rounded-full translate-x-4 translate-y-4 -z-10"></div>
@@ -212,7 +218,7 @@
 
                 <!-- Záložky: Smlouvy (Sjednocený design) -->
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-24 border border-gray-200">
-                    <div class="flex flex-col md:flex-row border-b border-gray-200">
+                    <div class="flex w-full border-b border-gray-300 bg-gray-50">
                         <button class="tab-btn active-tab" onclick="switchTab(event, 'tab-korist')">📜 Válečná kořist (31.3.)</button>
                         <button class="tab-btn" onclick="switchTab(event, 'tab-vyziva')">🍞 Výživa armády</button>
                         <button class="tab-btn" onclick="switchTab(event, 'tab-protokol')">🖊️ Protokol (30.10.)</button>
