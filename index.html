@@ -3,120 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miloslav Hesek | Profesionální profil & Analýza 1945</title>
+    <title>Miloslav Hesek | Profesionální profil & Portfolio</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #ffffff; 
-            color: #1a1a1a; 
-            line-height: 1.6;
-        }
-        
-        .purple-gradient-header { 
-            background: linear-gradient(135deg, #6b46c1 0%, #4c51bf 100%); 
-            position: relative;
-            overflow: hidden;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Světlé, čisté pozadí celého webu */
+            color: #1e293b;
         }
 
-        .nav-dark { 
-            background-color: #1a1a1a; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            border-bottom: 1px solid #2d3748;
+        /* Třídy pro navigaci */
+        .nav-link {
+            @apply text-gray-300 hover:text-white px-4 py-3 text-sm font-bold uppercase tracking-wider transition-colors duration-200 border-b-2 border-transparent hover:border-white;
         }
         
-        .nav-link { 
-            @apply text-white/80 hover:text-white transition-all uppercase text-[11px] tracking-[0.2em] font-bold px-4 py-5 block border-b-2 border-transparent;
-            white-space: nowrap;
+        .nav-link.active {
+            @apply text-white border-red-500 bg-gray-800;
         }
 
-        .nav-link.active-nav { 
-            @apply text-white border-red-500 bg-white/5; 
+        /* Karty pro sekci Dovednosti (Řeší rozbité rozvrstvení) */
+        .project-card {
+            @apply bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col h-full transform hover:-translate-y-1;
         }
 
-        .section-padding { 
-            @apply py-24 px-6 max-w-6xl mx-auto; 
-        }
-        
-        /* Styl pro interaktivní analýzu */
+        /* Třídy pro záložky Analýzy */
         .tab-btn {
-            @apply flex-1 py-5 px-4 font-bold text-xs uppercase tracking-wider transition-all border-b-4 border-transparent text-stone-400 hover:text-stone-800 hover:bg-stone-50;
+            @apply flex-1 py-4 px-6 text-center font-bold text-gray-500 bg-gray-50 hover:bg-gray-100 transition-colors uppercase tracking-wide text-sm border-b-4 border-transparent;
         }
         
-        .tab-btn.active-tab { 
-            @apply text-[#991b1b] border-[#991b1b] bg-white; 
+        .tab-btn.active-tab {
+            @apply text-[#991b1b] bg-white border-[#991b1b];
         }
         
         .tab-content { display: none; }
-        .tab-content.active-content { display: block; animation: fadeIn 0.5s ease-out; }
-        
-        .accordion-content { 
+        .tab-content.active-content { display: block; animation: fadeIn 0.4s ease-in; }
+
+        /* Třídy pro harmoniku Kriminality */
+        .acc-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: max-height 0.3s ease-out;
         }
         
-        .accordion-content.open { 
-            max-height: 1000px;
-            @apply py-6;
-        }
-        
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(10px); } 
-            to { opacity: 1; transform: translateY(0); } 
+        .acc-content.open {
+            max-height: 800px;
         }
 
-        /* Karty projektů (Sjednocená grafika) */
-        .project-card {
-            @apply p-10 bg-white rounded-3xl text-center border border-stone-200 hover:shadow-2xl transition-all duration-500 group block relative overflow-hidden;
-        }
-
-        .project-card::after {
-            content: '';
-            @apply absolute bottom-0 left-0 w-full h-2 bg-[#991b1b] transform scale-x-0 transition-transform duration-500 origin-left;
-        }
-
-        .project-card:hover::after {
-            @apply scale-x-100;
-        }
-
-        .chart-wrapper {
-            position: relative;
-            height: 350px;
-            width: 100%;
-        }
-
-        /* Audio přehrávač - Custom style */
-        audio::-webkit-media-controls-panel {
-            background-color: #f8fafc;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="purple-gradient-header text-white pt-24 pb-20 text-center shadow-2xl">
-        <div class="relative z-10 px-4">
-            <h1 class="text-4xl md:text-7xl font-black mb-4 tracking-tighter uppercase">Miloslav Hesek</h1>
-            <p class="text-xl md:text-2xl opacity-80 font-light tracking-[0.3em] uppercase">Profesionální profil & Portfolio</p>
+    <header class="bg-gradient-to-br from-purple-800 to-indigo-900 text-white py-20 px-4 text-center relative overflow-hidden">
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tight uppercase">Miloslav Hesek</h1>
+            <p class="text-xl md:text-2xl font-light tracking-[0.2em] uppercase opacity-90">Profesionální profil & Portfolio</p>
         </div>
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <!-- Dekorativní vzor na pozadí hlavičky -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
     </header>
 
-    <div class="bg-white border-b border-stone-200 sticky top-0 md:relative z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="bg-white border-b border-gray-200 shadow-sm relative z-20">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <span class="inline-block w-3 h-3 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.5)]"></span>
-                <span class="text-xs font-black text-stone-800 uppercase tracking-widest">Miliarda za členství v Trumpově Radě míru</span>
+                <span class="w-3 h-3 bg-red-600 rounded-full animate-pulse"></span>
+                <span class="text-sm font-bold text-gray-800 uppercase tracking-widest">Miliarda za členství v Trumpově Radě míru</span>
             </div>
-            <!-- AUDIO PLAYER: Cesta nastavena přesně podle screenshotu -->
-            <div class="w-full md:w-auto flex items-center bg-stone-50 rounded-full px-4 border border-stone-200">
-                <audio controls class="h-10 w-full md:w-80">
+            <div class="w-full md:w-auto">
+                <!-- Přehrávač s přesnou cestou k souboru -->
+                <audio controls class="w-full md:w-96 rounded-full shadow-inner bg-gray-50">
                     <source src="Audio/Miliarda_za_clenstvi_v_Trumpove_Rade_miru.mp3" type="audio/mpeg">
                     Váš prohlížeč nepodporuje přehrávání audia.
                 </audio>
@@ -124,10 +86,13 @@
         </div>
     </div>
 
-    <nav class="nav-dark shadow-xl overflow-x-auto sticky top-0 md:top-0 z-[60]">
-        <div class="max-w-7xl mx-auto flex justify-start md:justify-center px-4">
-            <a href="#" class="nav-link active-nav">Úvod</a>
-            <a href="#analyza1945" class="nav-link !text-red-400">Analýza 1945</a>
+    <nav class="bg-gray-900 sticky top-0 z-50 shadow-xl overflow-x-auto w-full">
+        <div class="max-w-7xl mx-auto px-4 flex justify-start lg:justify-center whitespace-nowrap">
+            <!-- Návrat na úvod -->
+            <a href="#top" class="nav-link active">Úvod / O mně</a>
+            <!-- Podstránky (GitHub soubory) a Kotvy -->
+            <a href="#projekty" class="nav-link">Projekty</a>
+            <a href="#analyza1945" class="nav-link text-red-400">Analýza 1945</a>
             <a href="hasici-petrvald.html" class="nav-link">Historický objev</a>
             <a href="rozhovory-ai.html" class="nav-link">Rozhovory s AI</a>
             <a href="citaty.html" class="nav-link">Citáty</a>
@@ -137,250 +102,315 @@
         </div>
     </nav>
 
-    <section id="omne" class="section-padding scroll-mt-20">
-        <div class="flex flex-col lg:flex-row items-center gap-16">
-            <div class="relative group shrink-0">
-                <div class="absolute -inset-6 bg-gradient-to-tr from-purple-600 to-red-500 rounded-full opacity-20 group-hover:opacity-40 transition-all blur-2xl"></div>
-                <div class="w-72 h-72 rounded-full overflow-hidden border-[12px] border-white shadow-2xl relative z-10">
-                    <img src="Obrázky/miloslav_03.jpg" alt="Miloslav Hesek" onerror="this.src='https://placehold.co/600x600/6b46c1/ffffff?text=MH'" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700">
+    <main id="top">
+        <section class="max-w-6xl mx-auto px-4 py-20">
+            <div class="bg-white rounded-3xl shadow-xl p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 border border-gray-100">
+                
+                <!-- Profilový obrázek -->
+                <div class="shrink-0 relative">
+                    <div class="w-64 h-64 rounded-full p-2 border-4 border-purple-100 bg-white shadow-lg relative z-10 overflow-hidden">
+                        <!-- Nastavena cesta miloslav_03.jpg. Přidán záchranný fall-back, kdyby se obrázek nenašel -->
+                        <img src="Obrázky/miloslav_03.jpg" alt="Miloslav Hesek" 
+                             onerror="this.src='https://placehold.co/400x400/6b46c1/ffffff?text=MH'" 
+                             class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <!-- Dekorativní kruh na pozadí -->
+                    <div class="absolute inset-0 bg-purple-600 blur-2xl opacity-20 rounded-full translate-x-4 translate-y-4 -z-10"></div>
+                </div>
+
+                <!-- Textový obsah Profilu -->
+                <div class="space-y-6 text-center lg:text-left">
+                    <div>
+                        <h2 class="text-4xl font-black uppercase text-gray-900 tracking-tight">O mně</h2>
+                        <div class="w-20 h-1.5 bg-purple-600 mt-4 mx-auto lg:mx-0"></div>
+                    </div>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Vítejte na mém profesionálním profilu! Jsem <strong class="text-gray-900">Miloslav Hesek</strong> a specializuji se na moderní technologie a inovativní řešení v oblasti historie a vzdělávání. S dlouholetými zkušenostmi v oboru se věnuji projektům, které propojují precizní archivní výzkum s moderními digitálními metodami.
+                    </p>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Moje práce se zaměřuje na kvalitu, efektivitu a edukativní přínos pro širokou veřejnost. Věřím v neustálé vzdělávání a každý projekt vnímám jako příležitost k růstu.
+                    </p>
+                    <div class="pt-4">
+                        <a href="#kontakt" class="inline-block bg-gray-900 text-white font-bold uppercase tracking-wider px-8 py-4 rounded-full hover:bg-purple-700 transition-colors shadow-lg">Spolupracovat</a>
+                    </div>
                 </div>
             </div>
-            <div class="space-y-8 max-w-2xl text-center lg:text-left">
-                <div>
-                    <h2 class="text-5xl font-black text-stone-900 uppercase tracking-tighter mb-2">O mně</h2>
-                    <div class="w-24 h-2 bg-stone-900 mx-auto lg:mx-0"></div>
-                </div>
-                <p class="text-xl text-stone-600 leading-relaxed font-light">
-                    Vítejte na mém profesionálním profilu! Jsem <strong class="text-stone-900 font-bold">Miloslav Hesek</strong> a specializuji se na moderní technologie a inovativní řešení v oblasti historie a vzdělávání. S dlouholetými zkušenostmi v oboru se věnuji projektům, které propojují precizní archivní výzkum s moderními digitálními metodami. Moje práce se zaměřuje na kvalitu, efektivitu a edukativní přínos pro širokou veřejnost.
-                </p>
-                <div class="pt-6">
-                    <a href="#kontakt" class="inline-block bg-stone-900 text-white px-10 py-5 rounded-full font-bold uppercase tracking-[0.2em] hover:bg-red-700 hover:shadow-xl transition-all duration-300">Spolupracovat</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="projekty" class="bg-stone-50 border-y border-stone-200">
-        <div class="section-padding">
-            <h2 class="text-4xl font-black text-center mb-20 uppercase tracking-tighter">Odborné dovednosti & Projekty</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-                <!-- Historický výzkum -->
-                <a href="hasici-petrvald.html" class="project-card">
-                    <div class="text-5xl mb-6 group-hover:scale-125 transition-transform duration-500">🔍</div>
-                    <div class="font-black uppercase tracking-widest text-xs mb-4 text-stone-900">Historický výzkum</div>
-                    <p class="text-stone-500 text-sm mb-6">Objev sboru dobrovolných hasičů v Petřvaldě a precizní archivní práce.</p>
-                    <span class="text-[10px] font-bold text-red-600 uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-opacity">Zobrazit objev</span>
-                </a>
-                <!-- Vizualizace dat -->
-                <a href="news-dashboard.html" class="project-card">
-                    <div class="text-5xl mb-6 group-hover:scale-125 transition-transform duration-500">📊</div>
-                    <div class="font-black uppercase tracking-widest text-xs mb-4 text-stone-900">Vizualizace dat</div>
-                    <p class="text-stone-500 text-sm mb-6">Moderní prezentace historických dat a interaktivní News Dashboard.</p>
-                    <span class="text-[10px] font-bold text-red-600 uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-opacity">Spustit grafy</span>
-                </a>
-                <!-- Didaktika historie -->
-                <a href="flashcards.html" class="project-card">
-                    <div class="text-5xl mb-6 group-hover:scale-125 transition-transform duration-500">🎓</div>
-                    <div class="font-black uppercase tracking-widest text-xs mb-4 text-stone-900">Didaktika historie</div>
-                    <p class="text-stone-500 text-sm mb-6">Výukové flashcards a interaktivní vzdělávací metody pro 21. století.</p>
-                    <span class="text-[10px] font-bold text-red-600 uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-opacity">Otevřít výuku</span>
-                </a>
-                <!-- Implementace AI -->
-                <a href="rozhovory-ai.html" class="project-card">
-                    <div class="text-5xl mb-6 group-hover:scale-125 transition-transform duration-500">🤖</div>
-                    <div class="font-black uppercase tracking-widest text-xs mb-4 text-stone-900">Implementace AI</div>
-                    <p class="text-stone-500 text-sm mb-6">Rozhovory s AI o historii a technologiích budoucnosti.</p>
-                    <span class="text-[10px] font-bold text-red-600 uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-opacity">Číst rozhovory</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="analyza1945" class="scroll-mt-20">
-        <div class="section-padding">
-            <div class="text-center mb-24">
-                <span class="text-[#991b1b] font-black tracking-[0.4em] uppercase text-xs">Hloubková historická sonda</span>
-                <h2 class="text-5xl md:text-7xl font-black mt-6 mb-8 uppercase leading-none tracking-tighter">Tíha osvobození: <br><span class="text-[#991b1b]">Československo 1945</span></h2>
-                <div class="w-32 h-3 bg-[#991b1b] mx-auto mb-10"></div>
-                <p class="text-2xl text-stone-600 max-w-4xl mx-auto leading-relaxed font-light">
-                    Analýza sovětské přítomnosti roku 1945 na základě rozptýlených archivních pramenů historika <strong class="text-stone-900 font-semibold">Prokopa Tomka</strong>.
-                </p>
-            </div>
-
-            <!-- Interaktivní Tabs -->
-            <div class="bg-white rounded-[2.5rem] shadow-2xl border border-stone-200 overflow-hidden mb-32 max-w-5xl mx-auto">
-                <div class="flex flex-col md:flex-row border-b border-stone-100 bg-stone-50/50">
-                    <button class="tab-btn active-tab" onclick="openTab(event, 'tab-korist')">📜 Válečná kořist</button>
-                    <button class="tab-btn" onclick="openTab(event, 'tab-vyziva')">🍞 Výživa armády</button>
-                    <button class="tab-btn" onclick="openTab(event, 'tab-bod5')">🖊️ Protokol Bod 5</button>
+        <section id="projekty" class="bg-gray-100 py-24 border-y border-gray-200">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-black uppercase text-gray-900 tracking-tight">Odborné dovednosti & Projekty</h2>
+                    <p class="text-gray-500 mt-4">Vyberte si projekt z mého portfolia a kliknutím přejděte na detailní stránku.</p>
                 </div>
                 
-                <div class="p-12 md:p-20">
-                    <div id="tab-korist" class="tab-content active-content">
-                        <h4 class="text-4xl font-black mb-8 text-[#991b1b] uppercase tracking-tight">"Trofejní smlouva" (31. 3. 1945)</h4>
-                        <p class="text-2xl text-stone-700 leading-relaxed mb-8 italic border-l-4 border-stone-200 pl-8 font-light">Tajná dohoda podepsaná velvyslancem Zdeňkem Fierlingerem v Moskvě.</p>
-                        <p class="text-stone-600 text-xl leading-relaxed">Tato smlouva umožňovala Rudé armádě zabavovat a odvážet z ČSR německý majetek. V praxi však odvážela i majetek český, židovský a kompletní vybavení továren. Škody způsobené státu dosahovaly obrovské, těžko odhadnutelné výše.</p>
-                    </div>
+                <!-- CSS Grid řeší to rozvrstvení - vždy to bude vypadat jako hezká mřížka -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Karta 1 -->
+                    <a href="hasici-petrvald.html" class="project-card group">
+                        <div class="text-5xl mb-6 bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">🔍</div>
+                        <h3 class="text-xl font-black uppercase tracking-wide text-gray-900 mb-3">Historický výzkum</h3>
+                        <p class="text-gray-600 flex-grow">Objev sboru dobrovolných hasičů v Petřvaldě a precizní archivní práce s původními materiály.</p>
+                        <span class="text-blue-600 font-bold text-sm uppercase mt-6 inline-block">Zobrazit výzkum →</span>
+                    </a>
 
-                    <div id="tab-vyziva" class="tab-content">
-                        <h4 class="text-4xl font-black mb-8 text-[#991b1b] uppercase tracking-tight">Hladová armáda</h4>
-                        <p class="text-2xl text-stone-700 leading-relaxed mb-8 italic border-l-4 border-stone-200 pl-8 font-light">„Československé území je vykupováno krví sovětských vojáků...“ (V. Molotov)</p>
-                        <p class="text-stone-600 text-xl leading-relaxed">V létě 1945 žádala Rudá armáda denně 600 tisíc dávek stravy. Pobyt milionové armády na území spojence hrozil okamžitým státním bankrotem.</p>
-                    </div>
+                    <!-- Karta 2 -->
+                    <a href="news-dashboard.html" class="project-card group">
+                        <div class="text-5xl mb-6 bg-green-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">📊</div>
+                        <h3 class="text-xl font-black uppercase tracking-wide text-gray-900 mb-3">Vizualizace dat</h3>
+                        <p class="text-gray-600 flex-grow">Moderní prezentace historických i současných dat prostřednictvím interaktivního News Dashboardu.</p>
+                        <span class="text-green-600 font-bold text-sm uppercase mt-6 inline-block">Otevřít grafy →</span>
+                    </a>
 
-                    <div id="tab-bod5" class="tab-content">
-                        <h4 class="text-4xl font-black mb-8 text-[#991b1b] uppercase tracking-tight">Bod č. 5: Past v protokolu</h4>
-                        <p class="text-2xl text-stone-700 leading-relaxed mb-8 italic border-l-4 border-stone-200 pl-8 font-light">30. října 1945: Osudový dodatek k výměně platidel.</p>
-                        <p class="text-stone-600 text-xl leading-relaxed">Závazek nést náklady na vydržování Rudé armády po celou dobu pobytu v ČSR. Vláda Zdeňka Fierlingera jej schválila bez výhrad hned následujícího dne.</p>
-                    </div>
+                    <!-- Karta 3 -->
+                    <a href="flashcards.html" class="project-card group">
+                        <div class="text-5xl mb-6 bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">🎓</div>
+                        <h3 class="text-xl font-black uppercase tracking-wide text-gray-900 mb-3">Didaktika historie</h3>
+                        <p class="text-gray-600 flex-grow">Výukové flashcards a implementace interaktivních vzdělávacích metod pro 21. století.</p>
+                        <span class="text-orange-600 font-bold text-sm uppercase mt-6 inline-block">Vyzkoušet výuku →</span>
+                    </a>
+
+                    <!-- Karta 4 -->
+                    <a href="rozhovory-ai.html" class="project-card group">
+                        <div class="text-5xl mb-6 bg-purple-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">🤖</div>
+                        <h3 class="text-xl font-black uppercase tracking-wide text-gray-900 mb-3">Implementace AI</h3>
+                        <p class="text-gray-600 flex-grow">Aktivní rozhovory s umělou inteligencí zkoumající historii a předpovídající technologickou budoucnost.</p>
+                        <span class="text-purple-600 font-bold text-sm uppercase mt-6 inline-block">Číst rozhovory →</span>
+                    </a>
+
                 </div>
             </div>
+        </section>
 
-            <div class="grid lg:grid-cols-2 gap-20 items-center mb-32 max-w-6xl mx-auto">
-                <div class="bg-stone-50 p-12 rounded-[2.5rem] border border-stone-200 shadow-inner">
-                    <h5 class="text-center font-bold text-stone-400 uppercase text-[11px] tracking-[0.4em] mb-12">Měsíční finanční bilance (miliardy Kčs)</h5>
-                    <div class="chart-wrapper">
-                        <canvas id="financeChartExpanded"></canvas>
-                    </div>
-                </div>
-                <div class="space-y-10">
-                    <h3 class="text-5xl font-black text-stone-900 tracking-tighter uppercase leading-none">Stát před bankrotem</h3>
-                    <p class="text-2xl text-stone-600 leading-relaxed font-light">
-                        Za pouhé čtyři měsíce od května 1945 činily materiální odběry Rudé armády celkem <strong class="text-stone-900 font-bold underline decoration-[#991b1b]">10 miliard korun</strong>. Pro srovnání: stát dokázal v té době vybrat na daních měsíčně jen 1,7 miliardy korun.
+        <section id="analyza1945" class="py-24 scroll-mt-16">
+            <div class="max-w-6xl mx-auto px-4">
+                
+                <!-- Hlavička analýzy -->
+                <div class="text-center mb-20">
+                    <span class="text-[#991b1b] font-black tracking-[0.3em] uppercase text-sm bg-red-50 px-4 py-2 rounded-full">Hloubková historická sonda</span>
+                    <h2 class="text-5xl md:text-6xl font-black mt-8 mb-6 uppercase tracking-tight text-gray-900">Tíha osvobození: <br><span class="text-[#991b1b]">Československo 1945</span></h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                        Pro Rudou armádu bylo Československo válečná kořist. Interaktivní analýza pramenů historika Prokopa Tomka dokládající drsnou podobu každodenní sovětské vojenské přítomnosti.
                     </p>
-                    <div class="p-8 bg-[#991b1b]/5 border-l-8 border-[#991b1b] rounded-r-3xl">
-                        <p class="text-sm font-black text-[#991b1b] uppercase tracking-widest mb-2">Kontext:</p>
-                        <p class="text-stone-700 italic text-lg leading-relaxed">Armáda USA měla na našem území 30 tisíc vojáků, které živila plně z vlastních zdrojů bez zátěže pro ČSR.</p>
-                    </div>
                 </div>
-            </div>
 
-            <div class="max-w-4xl mx-auto">
-                <h3 class="text-4xl font-black text-center uppercase mb-16 tracking-tight">Kriminalita a odvrácená tvář</h3>
-                <div class="space-y-6">
-                    <div class="border border-stone-200 rounded-[2rem] bg-white shadow-xl hover:shadow-2xl transition-shadow overflow-hidden">
-                        <button class="acc-btn w-full px-10 py-8 flex justify-between items-center hover:bg-stone-50 transition-colors" onclick="toggleAcc(this)">
-                            <span class="font-black text-stone-800 uppercase text-lg tracking-tight">⚔️ Násilná trestná činnost</span>
-                            <span class="acc-icon text-[#991b1b] text-2xl transition-transform duration-500">↓</span>
-                        </button>
-                        <div class="accordion-content px-10 text-stone-600 border-t border-stone-50 text-xl font-light">
-                            Prameny hovoří o nepředstavitelné míře surovosti. Došlo k mnoha vraždám, znásilněním a těžkým ublížením na zdraví. Sovětská strana tyto případy řešila laxně, často s výmluvou na "pachatele v uniformě".
+                <!-- Záložky: Smlouvy (Sjednocený design) -->
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-24 border border-gray-200">
+                    <div class="flex flex-col md:flex-row border-b border-gray-200">
+                        <button class="tab-btn active-tab" onclick="switchTab(event, 'tab-korist')">📜 Válečná kořist (31.3.)</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'tab-vyziva')">🍞 Výživa armády</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'tab-protokol')">🖊️ Protokol (30.10.)</button>
+                    </div>
+                    
+                    <div class="p-10 md:p-16">
+                        <div id="tab-korist" class="tab-content active-content">
+                            <h3 class="text-3xl font-black mb-6 text-[#991b1b] uppercase">"Trofejní smlouva"</h3>
+                            <p class="text-xl text-gray-700 leading-relaxed mb-6 font-medium border-l-4 border-gray-300 pl-6 italic">
+                                Tajná dohoda podepsaná velvyslancem Zdeňkem Fierlingerem v Moskvě.
+                            </p>
+                            <p class="text-gray-600 text-lg">
+                                Tato smlouva umožňovala Rudé armádě zabavovat a odvážet z ČSR "německý majetek". V praxi však odvážela i majetek prokazatelně český, židovský a kompletní vybavení továren. Škody způsobené státu vymáháním válečné kořisti dosahovaly obrovské, těžko odhadnutelné výše.
+                            </p>
+                        </div>
+                        <div id="tab-vyziva" class="tab-content">
+                            <h3 class="text-3xl font-black mb-6 text-[#991b1b] uppercase">Hladová armáda</h3>
+                            <p class="text-xl text-gray-700 leading-relaxed mb-6 font-medium border-l-4 border-gray-300 pl-6 italic">
+                                „Československé území je vykupováno krví sovětských vojáků...“ (V. Molotov)
+                            </p>
+                            <p class="text-gray-600 text-lg">
+                                V létě 1945 žádala Rudá armáda denně 600 tisíc dávek stravy. Československo bylo vnímáno tak, že podporovalo německé válečné úsilí, a proto jsou plody této podpory kořistí vítěze. Pobyt milionové armády hrozil okamžitým státním bankrotem.
+                            </p>
+                        </div>
+                        <div id="tab-protokol" class="tab-content">
+                            <h3 class="text-3xl font-black mb-6 text-[#991b1b] uppercase">Osudový dodatek k měně</h3>
+                            <p class="text-xl text-gray-700 leading-relaxed mb-6 font-medium border-l-4 border-gray-300 pl-6 italic">
+                                Past vsunutá do protokolu při jednání o výměně platidel.
+                            </p>
+                            <p class="text-gray-600 text-lg">
+                                Československá strana se zavázala nést náklady na vydržování Rudé armády po celou dobu pobytu v ČSR (nikoliv jen po dobu války). Vláda Z. Fierlingera jej schválila bez výhrad hned následujícího dne.
+                            </p>
                         </div>
                     </div>
-                    <div class="border border-stone-200 rounded-[2rem] bg-white shadow-xl hover:shadow-2xl transition-shadow overflow-hidden">
-                        <button class="acc-btn w-full px-10 py-8 flex justify-between items-center hover:bg-stone-50 transition-colors" onclick="toggleAcc(this)">
-                            <span class="font-black text-stone-800 uppercase text-lg tracking-tight">🚲 Loupeže a krádeže</span>
-                            <span class="acc-icon text-[#991b1b] text-2xl transition-transform duration-500">↓</span>
-                        </button>
-                        <div class="accordion-content px-10 text-stone-600 border-t border-stone-50 text-xl font-light">
-                            Legendární krádeže hodinek a jízdních kol potvrzují dobová hlášení. Ozbrojené loupeže v domech byly na denním pořádku. Bralo se vše – od peněz přes šatstvo až po dobytek.
+                </div>
+
+                <!-- Graf a Ekonomika (Sjednocené s kartami) -->
+                <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
+                    <div class="space-y-8">
+                        <h3 class="text-4xl font-black text-gray-900 uppercase">Stát před bankrotem</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            Za pouhé čtyři měsíce od května 1945 činily materiální odběry Rudé armády celkem <strong class="text-gray-900 font-bold underline decoration-[#991b1b]">10 miliard korun</strong>. Dlouhodobý pobyt osvoboditelů by znamenal jistý státní bankrot.
+                        </p>
+                        <div class="bg-gray-100 p-8 rounded-2xl border-l-8 border-[#991b1b]">
+                            <p class="text-sm font-bold text-[#991b1b] uppercase tracking-widest mb-2">Historický kontext</p>
+                            <p class="text-gray-700 italic text-lg">
+                                Armáda USA měla tehdy na našem území asi 30 tisíc vojáků, které živila velmi dobře plně z vlastních zdrojů bez zátěže pro ČSR.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-xl">
+                        <h4 class="text-center font-bold text-gray-400 uppercase text-xs tracking-widest mb-6">Měsíční bilance státu (Léto 1945)</h4>
+                        <div class="relative h-80 w-full">
+                            <canvas id="analyzaChart"></canvas>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <footer id="kontakt" class="section-padding bg-stone-900 text-white text-center rounded-t-[5rem] mt-24">
-        <h2 class="text-5xl font-black mb-10 uppercase tracking-tighter">Kontaktujte mě</h2>
-        <div class="mb-20">
-            <a href="mailto:mhesek@seznam.cz" class="inline-block px-14 py-7 border-4 border-white rounded-full font-black text-3xl hover:bg-white hover:text-stone-900 transition-all duration-500 transform hover:scale-110">
+                <!-- Harmonika: Kriminalita -->
+                <div class="max-w-4xl mx-auto">
+                    <h3 class="text-4xl font-black text-center uppercase mb-12 text-gray-900">Odvrácená tvář: Kriminalita</h3>
+                    <div class="space-y-4">
+                        
+                        <!-- Položka 1 -->
+                        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                            <button class="w-full px-8 py-6 flex justify-between items-center bg-white hover:bg-gray-50 focus:outline-none" onclick="toggleAccordion(this)">
+                                <span class="font-bold text-gray-900 text-lg flex items-center gap-4"><span class="text-3xl">⚔️</span> Násilná trestná činnost</span>
+                                <span class="text-gray-400 text-2xl transform transition-transform duration-300 indicator">↓</span>
+                            </button>
+                            <div class="acc-content border-t border-gray-100 bg-gray-50">
+                                <p class="p-8 text-gray-700 text-lg">Došlo k mnoha vraždám a zabitím, těžkým ublížením na zdraví a znásilněním. Míra surovosti byla nepředstavitelná. Sovětská justice (které vojáci výhradně podléhali) byla laxní. Případy bez totožnosti se neřešily nebo se sváděly na "pachatele v uniformě RA".</p>
+                            </div>
+                        </div>
+
+                        <!-- Položka 2 -->
+                        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                            <button class="w-full px-8 py-6 flex justify-between items-center bg-white hover:bg-gray-50 focus:outline-none" onclick="toggleAccordion(this)">
+                                <span class="font-bold text-gray-900 text-lg flex items-center gap-4"><span class="text-3xl">🚲</span> Loupeže a krádeže</span>
+                                <span class="text-gray-400 text-2xl transform transition-transform duration-300 indicator">↓</span>
+                            </button>
+                            <div class="acc-content border-t border-gray-100 bg-gray-50">
+                                <p class="p-8 text-gray-700 text-lg">Krádeže a ozbrojené loupeže probíhaly denně na ulicích i přímo v domech. Z obydlí se bralo vše, co šlo odnést. Výrazně se tradují masové krádeže jízdních kol a hodinek. Kdo se pokusil majetek bránit, byl zbit nebo zabit.</p>
+                            </div>
+                        </div>
+
+                        <!-- Položka 3 -->
+                        <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                            <button class="w-full px-8 py-6 flex justify-between items-center bg-white hover:bg-gray-50 focus:outline-none" onclick="toggleAccordion(this)">
+                                <span class="font-bold text-gray-900 text-lg flex items-center gap-4"><span class="text-3xl">🐟</span> Plenění přírody</span>
+                                <span class="text-gray-400 text-2xl transform transition-transform duration-300 indicator">↓</span>
+                            </button>
+                            <div class="acc-content border-t border-gray-100 bg-gray-50">
+                                <p class="p-8 text-gray-700 text-lg">Pytlačení a nelegální rybolov s pomocí vojenských výbušnin či vypouštěním a ničením rybníků měly mimořádné rozměry. Krutost k lidem, zvířatům a přírodě nebyla dodnes systematicky zmapována.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer id="kontakt" class="bg-gray-900 text-white pt-24 pb-12 mt-12 border-t-8 border-purple-600">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-black mb-8 uppercase tracking-widest text-gray-100">Kontakt</h2>
+            <p class="text-gray-400 mb-10 text-lg">Máte zájem o spolupráci nebo diskuzi nad historickými tématy?</p>
+            <a href="mailto:mhesek@seznam.cz" class="inline-block px-12 py-6 border-2 border-purple-500 rounded-full font-bold text-2xl hover:bg-purple-600 transition-all duration-300 mb-20 shadow-[0_0_20px_rgba(107,70,193,0.3)] hover:shadow-[0_0_30px_rgba(107,70,193,0.6)]">
                 mhesek@seznam.cz
             </a>
-        </div>
-        <div class="space-y-4">
-            <p class="text-stone-500 text-sm tracking-[0.6em] uppercase font-bold">
-                © 2026 MILOSLAV HESEK • VŠECHNA PRÁVA VYHRAZENA
-            </p>
-            <div class="flex justify-center gap-6 pt-6">
-                <a href="#" class="text-white/40 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold">Zásady ochrany</a>
-                <a href="#" class="text-white/40 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold">Zpět nahoru ↑</a>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-xs font-bold tracking-[0.3em] uppercase">
+                    © 2026 MILOSLAV HESEK • VŠECHNA PRÁVA VYHRAZENA
+                </p>
+                <a href="#top" class="text-gray-500 hover:text-white uppercase text-xs font-bold tracking-widest transition-colors">Nahoru ↑</a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Logika pro přepínání záložek
-        function openTab(evt, tabName) {
-            const contents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < contents.length; i++) {
-                contents[i].classList.remove("active-content");
-            }
-            const buttons = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove("active-tab");
-            }
-            document.getElementById(tabName).classList.add("active-content");
-            evt.currentTarget.classList.add("active-tab");
+        // Logika pro Tabs (Záložky)
+        function switchTab(evt, tabId) {
+            // Skrýt všechny obsahy
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(c => c.classList.remove('active-content'));
+            
+            // Deaktivovat všechna tlačítka
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(b => b.classList.remove('active-tab'));
+            
+            // Aktivovat kliknuté
+            document.getElementById(tabId).classList.add('active-content');
+            evt.currentTarget.classList.add('active-tab');
         }
 
-        // Logika pro harmoniku
-        function toggleAcc(btn) {
-            const content = btn.nextElementSibling;
-            const icon = btn.querySelector('.acc-icon');
+        // Logika pro Accordion (Harmoniku Kriminality)
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.indicator');
             const isOpen = content.classList.contains('open');
             
-            const allContents = document.getElementsByClassName("accordion-content");
-            for (let i = 0; i < allContents.length; i++) {
-                allContents[i].classList.remove("open");
-                allContents[i].previousElementSibling.querySelector('.acc-icon').style.transform = 'rotate(0deg)';
-            }
+            // Zavřít všechny ostatní
+            document.querySelectorAll('.acc-content').forEach(c => c.classList.remove('open'));
+            document.querySelectorAll('.indicator').forEach(i => i.style.transform = 'rotate(0deg)');
             
+            // Pokud nebyl otevřený, otevřít ho
             if (!isOpen) {
                 content.classList.add('open');
                 icon.style.transform = 'rotate(180deg)';
             }
         }
 
-        // Inicializace grafů při načtení stránky
-        window.onload = function() {
-            const ctx = document.getElementById('financeChartExpanded');
-            if (ctx) {
+        // Logika pro Vykreslení Grafu (Spustí se po načtení stránky)
+        window.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('analyzaChart');
+            if(ctx) {
                 new Chart(ctx.getContext('2d'), {
                     type: 'bar',
                     data: {
-                        labels: ['Příjem státu (Daně)', 'Náklady na Rudou armádu'],
+                        labels: ['Výběr daní (Příjem)', 'Náklady na RA (Výdej)'],
                         datasets: [{
-                            data: [1.7, 2.5],
-                            backgroundColor: ['#e2e8f0', '#991b1b'],
-                            borderRadius: 20,
-                            barThickness: 60
+                            data: [1.7, 2.5], // Miliardy Kčs
+                            backgroundColor: ['#94a3b8', '#991b1b'],
+                            borderRadius: 8,
+                            barThickness: 50
                         }]
                     },
-                    options: { 
-                        responsive: true, 
+                    options: {
+                        responsive: true,
                         maintainAspectRatio: false,
-                        plugins: { 
+                        plugins: {
                             legend: { display: false },
                             tooltip: {
-                                backgroundColor: '#1a1a1a',
-                                titleFont: { size: 16 },
-                                bodyFont: { size: 14 },
-                                padding: 15
+                                backgroundColor: '#1e293b',
+                                titleFont: { size: 14, family: 'Inter' },
+                                bodyFont: { size: 16, weight: 'bold', family: 'Inter' },
+                                padding: 12,
+                                callbacks: { label: (ctx) => `${ctx.parsed.y} miliard Kčs` }
                             }
                         },
-                        scales: { 
+                        scales: {
                             y: { 
-                                beginAtZero: true,
-                                grid: { color: '#f1f1f1' },
-                                ticks: { font: { weight: 'bold' } }
+                                beginAtZero: true, 
+                                grid: { color: '#f1f5f9' },
+                                ticks: { font: { family: 'Inter', weight: 'bold' } }
                             },
-                            x: {
+                            x: { 
                                 grid: { display: false },
-                                ticks: { font: { weight: 'bold' } }
+                                ticks: { font: { family: 'Inter', weight: 'bold', size: 13 } }
                             }
                         }
                     }
                 });
             }
-        };
 
-        // Smooth scroll pro navigaci
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+            // Obarvení aktivního odkazu v navigaci při scrollování
+            const sections = document.querySelectorAll("section");
+            const navLinks = document.querySelectorAll(".nav-link");
+
+            window.addEventListener("scroll", () => {
+                let current = "";
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (scrollY >= sectionTop - 100) {
+                        current = section.getAttribute("id");
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove("active");
+                    if (link.getAttribute("href").includes(current) && current !== "") {
+                        link.classList.add("active");
+                    }
                 });
             });
         });
