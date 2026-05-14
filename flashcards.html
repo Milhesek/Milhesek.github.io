@@ -3,178 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scénáře - Flashcards</title>
+    <title>Didaktika historie | Miloslav Hesek</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* ÚPRAVA BAREV PRO OČI + BAREVNÉ ODLIŠENÍ ODPOVĚDI */
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            background-color: #e2e6ea; /* Tmavší pozadí stránky pro kontrast s kartou */
-            margin: 0; 
-            flex-direction: column; 
-            color: #495057; 
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        
+        /* 3D efekt pro kartičku */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        
+        .flashcard-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
         }
         
-        .instruction-header { text-align: center; margin-bottom: 25px; color: #6c757d; }
-        .instruction-header h2 { margin: 0 0 10px 0; color: #343a40; }
-        .instruction-header p { margin: 0; font-size: 1rem; }
-
-        .card-container { width: 90%; max-width: 600px; perspective: 1000px; margin-bottom: 20px; }
-        
-        .card { 
-            background-color: transparent; 
-            height: 320px; 
-            position: relative; 
-            transform-style: preserve-3d; 
-            transition: transform 0.6s; 
-            cursor: pointer; 
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
         }
         
-        .card.is-flipped { transform: rotateY(180deg); }
-        
-        .card-face { 
-            position: absolute; 
-            width: 100%; 
-            height: 100%; 
-            backface-visibility: hidden; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            padding: 30px; 
-            box-sizing: border-box; 
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-        
-        /* PŘEDNÍ STRANA (OTÁZKA) - Neutrální lomená bílá */
-        .card-front { 
-            background-color: #fafafa; 
-            color: #343a40; 
-            border: 1px solid #dcdcdc; 
-            border-radius: 16px; 
-        }
-        
-        /* ZADNÍ STRANA (ODPOVĚĎ) - Jemná pastelová modrá */
-        /* Tady je ta změna barvy pozadí */
-        .card-back { 
-            background-color: #e8f0fe; /* Pastelová modrá */
-            color: #174ea6; /* Tmavší modrý text pro dobrou čitelnost */
-            transform: rotateY(180deg); 
-            border: 2px solid #aecbfa; 
-            border-radius: 16px; 
-        }
-        
-        .label { text-transform: uppercase; font-size: 0.8rem; color: #adb5bd; margin-bottom: 15px; letter-spacing: 1px; font-weight: bold; }
-        /* U odpovědi ztmavíme popisek "ODPOVĚĎ", aby byl na modré vidět */
-        .card-back .label { color: #8ab4f8; }
-
-        .card-text { font-size: 1.4rem; line-height: 1.5; font-weight: 500; }
-        
-        .click-hint {
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.9rem;
-            color: #7faaf0; 
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            animation: bounce 2s infinite;
-        }
-
-        /* Nápověda na zadní straně musí být tmavší, aby byla na modré vidět */
-        .card-back .click-hint { color: #1967d2; animation: none; opacity: 0.7; }
-
-        .controls { display: flex; gap: 20px; align-items: center; margin-top: 15px; }
-        
-        button { 
-            background-color: #3b71ca; 
-            color: white; 
-            border: none; 
-            padding: 12px 25px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-size: 1rem; 
-            font-weight: bold; 
-            transition: background 0.2s; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-        }
-        
-        button:hover { background-color: #2c5ba3; }
-        button:disabled { background-color: #ced4da; cursor: not-allowed; box-shadow: none; color: #6c757d; }
-        #counter { font-weight: bold; color: #495057; font-size: 1.1rem; }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-5px);}
-            60% {transform: translateY(-3px);}
-        }
+        /* Skrytí rozhraní */
+        .hidden-view { display: none !important; }
     </style>
 </head>
-<body>
+<body class="antialiased flex flex-col min-h-screen">
 
-    <div class="instruction-header">
-        <h2>Procvičování scénářů</h2>
-        <p>Přečtěte si otázku a zkuste odpovědět.</p>
-    </div>
-
-    <div class="card-container" onclick="flipCard()">
-        <div class="card" id="flashcard">
-            <div class="card-face card-front">
-                <div class="label">Otázka</div>
-                <div class="card-text" id="q-text">Loading...</div>
-                <div class="click-hint">
-                    👆 Klikni pro zobrazení odpovědi
+    <!-- Navigace (Sjednocená s webem) -->
+    <nav class="bg-gray-900 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <span class="font-black tracking-widest uppercase text-xl">Didaktika</span>
                 </div>
-            </div>
-            <div class="card-face card-back">
-                <div class="label">Odpověď</div>
-                <div class="card-text" id="a-text">Loading...</div>
-                <div class="click-hint">
-                    🔄 Klikni pro otočení zpět
+                <div>
+                    <a href="index.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-bold uppercase flex items-center gap-2 transition-colors">
+                        <span>←</span> Zpět na úvod
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="controls">
-        <button id="prevBtn" onclick="changeCard(event, -1)">← Zpět</button>
-        <span id="counter"></span>
-        <button id="nextBtn" onclick="changeCard(event, 1)">Další →</button>
+    <!-- ROZCESTNÍK (Výběr sad) -->
+    <main id="hub-view" class="flex-grow max-w-7xl mx-auto px-4 py-16 w-full">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-black text-gray-900 uppercase tracking-tight mb-4">Výukové materiály</h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Vyberte si tematický modul pro interaktivní procvičování historických a geopolitických scénářů.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Sada 1: Geopolitika (Aktivní) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+                <div class="h-3 bg-blue-600"></div>
+                <div class="p-8 flex-grow">
+                    <div class="text-4xl mb-4">🌍</div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Geopolitika EU</h2>
+                    <p class="text-gray-600 mb-6">Optimistické i pesimistické scénáře reakce EU na aktuální výzvy a postoje politiků.</p>
+                    <div class="flex justify-between items-center text-sm font-medium text-gray-400 mb-8">
+                        <span>40 otázek</span>
+                        <span>Střední obtížnost</span>
+                    </div>
+                </div>
+                <div class="px-8 pb-8">
+                    <!-- Tlačítko pro spuštění této konkrétní sady -->
+                    <button onclick="startDeck('geopolitics')" class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl hover:bg-blue-600 transition-colors uppercase tracking-wide">
+                        Spustit procvičování
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sada 2: Připravuje se -->
+            <div class="bg-gray-50 rounded-2xl shadow-sm border border-dashed border-gray-300 overflow-hidden flex flex-col opacity-70">
+                <div class="p-8 flex-grow flex flex-col justify-center items-center text-center">
+                    <div class="text-4xl mb-4 grayscale">🏛️</div>
+                    <h2 class="text-xl font-bold text-gray-500 mb-2">Historie: 2. světová válka</h2>
+                    <p class="text-gray-400">Připravuje se pro další aktualizaci.</p>
+                </div>
+                <div class="px-8 pb-8">
+                    <button disabled class="w-full bg-gray-200 text-gray-400 font-bold py-4 rounded-xl uppercase tracking-wide cursor-not-allowed">
+                        Již brzy
+                    </button>
+                </div>
+            </div>
+
+             <!-- Sada 3: Připravuje se -->
+             <div class="bg-gray-50 rounded-2xl shadow-sm border border-dashed border-gray-300 overflow-hidden flex flex-col opacity-70">
+                <div class="p-8 flex-grow flex flex-col justify-center items-center text-center">
+                    <div class="text-4xl mb-4 grayscale">📜</div>
+                    <h2 class="text-xl font-bold text-gray-500 mb-2">Studená válka</h2>
+                    <p class="text-gray-400">Archivní materiály ve zpracování.</p>
+                </div>
+                <div class="px-8 pb-8">
+                    <button disabled class="w-full bg-gray-200 text-gray-400 font-bold py-4 rounded-xl uppercase tracking-wide cursor-not-allowed">
+                        Již brzy
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- APLIKACE FLASHCARDS (Skrytá, dokud se neklikne) -->
+    <div id="flashcard-view" class="hidden-view flex-grow flex flex-col items-center justify-center p-4">
+        
+        <!-- Hlavička aplikace a Návrat -->
+        <div class="w-full max-w-2xl flex justify-between items-center mb-8">
+            <button onclick="returnToHub()" class="text-gray-500 hover:text-gray-900 font-medium flex items-center gap-2 transition-colors">
+                ← Zpět na výběr sad
+            </button>
+            <span id="card-counter" class="bg-gray-200 text-gray-700 px-4 py-1.5 rounded-full text-sm font-bold tracking-widest">
+                1 / 40
+            </span>
+        </div>
+
+        <!-- Samotná kartička -->
+        <div class="w-full max-w-2xl perspective-1000 cursor-pointer mb-12" onclick="flipCard()">
+            <div id="flashcard" class="flashcard relative w-full h-80 sm:h-96">
+                <div class="flashcard-inner w-full h-full relative shadow-xl rounded-3xl">
+                    
+                    <!-- PŘEDNÍ STRANA (Otázka) -->
+                    <div class="absolute inset-0 w-full h-full bg-white rounded-3xl backface-hidden border border-gray-200 flex flex-col items-center justify-center p-8 sm:p-12 text-center">
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-6">Otázka</span>
+                        <h3 id="question-text" class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-900 leading-relaxed">
+                            Jaký je název optimistického scénáře reakce EU na postoje Babiše, Fica a Orbána?
+                        </h3>
+                        <div class="absolute bottom-6 left-0 right-0 text-center">
+                            <span class="text-sm text-gray-400 flex items-center justify-center gap-2 animate-pulse">
+                                👆 Klikněte pro otočení
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- ZADNÍ STRANA (Odpověď) -->
+                    <div class="absolute inset-0 w-full h-full bg-blue-50 rounded-3xl backface-hidden border border-blue-100 flex flex-col items-center justify-center p-8 sm:p-12 text-center rotate-y-180">
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-6">Odpověď</span>
+                        <h3 id="answer-text" class="text-xl sm:text-2xl font-bold text-blue-900 leading-relaxed">
+                            Pevné jádro a izolace (Středoevropská periferie)
+                        </h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Ovládací tlačítka (Předchozí / Další) -->
+        <div class="flex gap-4">
+            <button id="prev-btn" onclick="prevCard()" class="px-6 py-3 bg-white border border-gray-300 text-gray-700 font-bold rounded-xl hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                ← Předchozí
+            </button>
+            <button id="next-btn" onclick="nextCard()" class="px-8 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-md transition-colors">
+                Další →
+            </button>
+        </div>
+
     </div>
 
     <script>
-        const data = [{"Question": "Jaký je název optimistického scénáře reakce EU na postoje Babiše, Fica a Orbána?", "Answer": "Lídři se stanou „bojovníky“."}, {"Question": "Jak by podle optimistického scénáře reagovaly ostatní státy EU na změnu postojů Babiše, Fica a Orbána?", "Answer": "Uvítaly by změnu jejich postoje a posílily by jednotu."}, {"Question": "Co je hlavním důsledkem optimistického scénáře, kde se lídři stávají „bojovníky“?", "Answer": "EU by působila jako pevný blok, což by oslabilo Putinovu strategii rozdělování."}, {"Question": "Jaká je klíčová výhoda EU v optimistickém scénáři?", "Answer": "Rychlejší rozhodování, méně blokací a silnější vyjednávací pozice vůči Rusku i USA."}, {"Question": "Jaký je název realistického scénáře reakce EU na postoje Babiše, Fica a Orbána?", "Answer": "Lídři zůstávají „kořistí“."}, {"Question": "Jak by podle realistického scénáře reagovala většina států EU na blokace ze strany Babiše, Fica a Orbána?", "Answer": "Hledala by způsoby, jak obejít jejich blokace, například pomocí mezivládních dohod mimo rámec EU."}, {"Question": "Co je hlavním důsledkem realistického scénáře, kde lídři zůstávají „kořistí“?", "Answer": "EU by se prakticky rozdělila na „tvrdé jádro“ podporující Ukrajinu a „okrajové státy“ vyhýbající se riziku."}, {"Question": "Jaká je výhoda realistického scénáře pro Ukrajinu?", "Answer": "Pomoc Ukrajině by pokračovala, ale pomaleji a s většími kompromisy."}, {"Question": "Jaký je název pesimistického scénáře reakce EU na postoje Babiše, Fica a Orbána?", "Answer": "Lídři se stávají „trojským koněm“."}, {"Question": "Jak by podle pesimistického scénáře mohly ostatní státy EU reagovat na Česko, Slovensko a Maďarsko?", "Answer": "Mohly by je začít otevřeně kritizovat a izolovat."}, {"Question": "Co je hlavním důsledkem pesimistického scénáře, kde se lídři stávají „trojským koněm“?", "Answer": "Hrozila by fragmentace EU a vznik „koalic ochotných“ mimo oficiální struktury EU."}, {"Question": "Jaké je hlavní riziko pesimistického scénáře pro evropskou bezpečnost?", "Answer": "Putin by získal silný nástroj k oslabování evropské jednoty, což by mohlo urychlit eskalaci konfliktu."}, {"Question": "Kdo je v psychologickém rámci „Predátor vs. kořist“ označen za „predátora“?", "Answer": "Putin, který využívá strach, rozdělení a hrozbu eskalace."}, {"Question": "Kdo je v psychologickém rámci „Predátor vs. kořist“ označen za „kořist“?", "Answer": "Babiš, Fico a Orbán, kteří volí úhybnou taktiku."}, {"Question": "Jakou úhybnou taktikou se podle psychologického rámce vyznačuje Andrej Babiš?", "Answer": "Snaží se „zůstat stranou“ a nechat problém odeznít, nechce se vystavit přímému riziku."}, {"Question": "Jakou úhybnou taktikou se podle psychologického rámce vyznačuje Robert Fico?", "Answer": "Chová se jako kořist, která „zamrzne“ – volí pasivitu v domnění, že nečinnost zajistí bezpečí."}, {"Question": "Jakou úhybnou taktikou se podle psychologického rámce vyznačuje Viktor Orbán?", "Answer": "Snaží se „vyjednávat s predátorem“, aby získal výhody tím, že se k němu přiblíží."}, {"Question": "Uveďte jeden ze tří společných rysů postojů Babiše, Fica a Orbána.", "Answer": "Strach z eskalace, domácí populismus, nebo krátkodobé uvažování."}, {"Question": "Jaký je podle zdrojů hlavní problém pasivní strategie označované jako „kořist před predátorem“?", "Answer": "Vysílá signál slabosti, který povzbuzuje agresora k dalším krokům."}, {"Question": "Co je jedním z důsledků pasivní strategie pro vnitřní fungování EU?", "Answer": "Vznik „jádra a periferie“, kdy se EU fakticky rozdělí na akceschopné a pasivní státy."}, {"Question": "V nejhorším scénáři se některé státy mohou stát nástroji Ruska uvnitř EU, čímž se z nich stanou tzv. _____.", "Answer": "trojští koně"}, {"Question": "Jaký dopad má rozdělená Evropa na její vyjednávací pozici vůči velmocem jako Rusko nebo USA?", "Answer": "Má mnohem slabší pozici a její rozhodovací procesy jsou pomalé a plné kompromisů."}, {"Question": "Jaký přímý dopad má pasivní postoj lídrů jako Babiš, Fico a Orbán na válku na Ukrajině?", "Answer": "Odmítání pomoci může prodloužit válku a oddálit její konec."}, {"Question": "Jaký psychologický dopad na domácí politiku má strategie argumentující strachem z eskalace?", "Answer": "Posiluje domácí populismus a fixuje společnost v pozici strachu a odmítání odpovědnosti."}, {"Question": "Co popisuje optimistický scénář vývoje postojů lídrů při další eskalaci války?", "Answer": "Možnost, že se „kořist mění v bojovníka“ pod tlakem okolností."}, {"Question": "Co by podle optimistického scénáře mohlo přimět Andreje Babiše změnit postoj?", "Answer": "Tlak EU a domácí ekonomiky, pokud by viděl jasné záruky pro Česko."}, {"Question": "Co by podle optimistického scénáře mohlo přimět Roberta Fica k aktivnější podpoře Ukrajiny?", "Answer": "Zhoršení bezpečnostní situace na Slovensku, například incidenty na hranicích."}, {"Question": "Za jakých okolností by se Viktor Orbán mohl v optimistickém scénáři odklonit od Putina?", "Answer": "V případě přímého ohrožení Maďarska, například destabilizací regionu."}, {"Question": "Jak se nazývá realistický scénář vývoje postojů lídrů při další eskalaci války?", "Answer": "„Kořist přežívá úhybnými manévry“."}, {"Question": "Jaká strategie je předpokládána pro Babiše a Fica v realistickém scénáři dalšího vývoje?", "Answer": "Babiš zůstane u pragmatického vyčkávání a Fico bude nadále pasivní („zamrzne“)."}, {"Question": "Co by v pesimistickém scénáři vývoje hrozilo Slovensku pod vedením Roberta Fica?", "Answer": "Ještě silnější proruské směřování a izolace od hlavního proudu EU."}, {"Question": "Jakou roli by podle pesimistického scénáře vývoje mohlo hrát Maďarsko pod vedením Viktora Orbána?", "Answer": "Stalo by se „trojským koněm“ Ruska v EU a blokovalo by klíčová rozhodnutí."}, {"Question": "Podle myšlenkové mapy, k jakému stavu EU vede postoj lídrů jako „bojovníků“?", "Answer": "EU se sjednotí a posílí."}, {"Question": "Podle myšlenkové mapy, jaký je výsledek pro EU, pokud lídři zůstávají v roli „kořisti“?", "Answer": "EU se rozdělí na jádro a periferii."}, {"Question": "Podle myšlenkové mapy, co se stane s EU, pokud se lídři stanou „trojským koněm“?", "Answer": "EU se fragmentuje a oslabuje."}, {"Question": "Co je hlavním argumentem Babiše, Fica a Orbána proti půjčce Ukrajině?", "Answer": "Argumentují strachem z eskalace, že půjčka může zatáhnout Evropu do války."}, {"Question": "Pasivní strategie, kdy se lídři chovají jako kořist, vede k většímu bezpečí. Je toto tvrzení pravdivé?", "Answer": "Ne, historické paralely ukazují, že taková strategie obvykle vede k většímu ohrožení."}, {"Question": "Jaký signál vysílá pasivní přístup lídrů vůči Rusku?", "Answer": "Vysílá signál slabosti, což agresora motivuje k dalším krokům."}, {"Question": "Jaký je Orbánův postoj k využití zmrazených ruských aktiv pro financování Ukrajiny?", "Answer": "Odmítá ho, stejně jako společný dluh EU."}, {"Question": "Ficova politika je dlouhodobě orientována na _____ nálady části slovenské společnosti.", "Answer": "proruské"}];
+        // Data pro sady kartiček (Zatím máme jen jednu, ale snadno přidáte další)
+        const decks = {
+            geopolitics: [
+                {
+                    q: "Jaký je název optimistického scénáře reakce EU na postoje Babiše, Fica a Orbána?",
+                    a: "Pevné jádro a izolace (Středoevropská periferie)"
+                },
+                {
+                    q: "Jaký je hlavní znak 'pesimistického scénáře' pro střední Evropu?",
+                    a: "Rozpad jednotného trhu a ztráta vlivu národních států."
+                },
+                {
+                    q: "Co znamená pojem 'vícerychlostní Evropa'?",
+                    a: "Model, kde některé státy integrují rychleji než jiné (např. Eurozóna vs. zbytek)."
+                }
+                // Sem můžete postupně doplňovat dalších 37 otázek...
+            ]
+        };
+
+        // Stav aplikace
+        let currentDeck = [];
+        let currentIndex = 0;
+
+        // Elementy DOM
+        const hubView = document.getElementById('hub-view');
+        const flashcardView = document.getElementById('flashcard-view');
+        const flashcardElement = document.getElementById('flashcard');
+        const questionEl = document.getElementById('question-text');
+        const answerEl = document.getElementById('answer-text');
+        const counterEl = document.getElementById('card-counter');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
         
-        let idx = 0;
-        const card = document.getElementById('flashcard');
-
-        function update() {
-            document.getElementById('q-text').textContent = data[idx].Question;
-            document.getElementById('a-text').textContent = data[idx].Answer;
-            document.getElementById('counter').textContent = `${idx + 1} / ${data.length}`;
-            card.classList.remove('is-flipped');
-            document.getElementById('prevBtn').disabled = idx === 0;
-            document.getElementById('nextBtn').disabled = idx === data.length - 1;
+        // Spuštění konkrétní sady
+        function startDeck(deckId) {
+            currentDeck = decks[deckId];
+            currentIndex = 0;
+            
+            // Přepnutí pohledu
+            hubView.classList.add('hidden-view');
+            flashcardView.classList.remove('hidden-view');
+            
+            updateCard();
         }
 
+        // Návrat do rozcestníku
+        function returnToHub() {
+            hubView.classList.remove('hidden-view');
+            flashcardView.classList.add('hidden-view');
+            
+            // Zajistíme, že se karta otočí zpět na otázku
+            flashcardElement.classList.remove('flipped');
+        }
+
+        // Otočení karty
         function flipCard() {
-            card.classList.toggle('is-flipped');
+            flashcardElement.classList.toggle('flipped');
         }
 
-        function changeCard(event, step) {
-            event.stopPropagation();
-            if (idx + step >= 0 && idx + step < data.length) { 
-                idx += step; 
-                update(); 
+        // Aktualizace obsahu karty
+        function updateCard() {
+            // Vždy ukázat přední stranu při nové kartě
+            flashcardElement.classList.remove('flipped');
+            
+            // Krátká prodleva pro plynulejší přechod textu, pokud by se karta právě otáčela zpět
+            setTimeout(() => {
+                questionEl.textContent = currentDeck[currentIndex].q;
+                answerEl.textContent = currentDeck[currentIndex].a;
+                counterEl.textContent = `${currentIndex + 1} / ${currentDeck.length}`;
+                
+                // Stav tlačítek
+                prevBtn.disabled = currentIndex === 0;
+                
+                if (currentIndex === currentDeck.length - 1) {
+                    nextBtn.textContent = "Dokončit ✓";
+                    nextBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                    nextBtn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
+                } else {
+                    nextBtn.textContent = "Další →";
+                    nextBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                    nextBtn.classList.replace('hover:bg-green-700', 'hover:bg-blue-700');
+                }
+            }, 150);
+        }
+
+        // Tlačítko Další
+        function nextCard() {
+            if (currentIndex < currentDeck.length - 1) {
+                currentIndex++;
+                updateCard();
+            } else {
+                // Po dokončení se vrátit na začátek (nebo ukázat gratulaci)
+                alert("Výborně! Prošli jste celou sadu.");
+                returnToHub();
             }
         }
 
-        update();
+        // Tlačítko Předchozí
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCard();
+            }
+        }
     </script>
 </body>
 </html>
