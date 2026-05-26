@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miloslav Hesek | Profesionální profil & Portfolio</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Světlé, čisté pozadí celého webu */
+            color: #1e293b;
+        }
+
+        /* Třídy pro navigaci */
+    .nav-link {
+        @apply text-gray-300 hover:text-white px-4 py-3 text-sm font-bold uppercase tracking-wider transition-colors duration-200 border-b-2 border-transparent hover:border-white shrink-0;
+    }
+    
+    .nav-link.active {
+            @apply text-white border-red-500 bg-gray-800;
+        }
+
+        /* Karty pro sekci Dovednosti (Řeší rozbité rozvrstvení) */
+        .project-card {
+            @apply bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col h-full transform hover:-translate-y-1;
+        }
+
+        /* Třídy pro záložky Analýzy */
+        .tab-btn {
+            @apply flex-1 py-4 sm:py-6 px-2 text-center font-bold text-gray-500 bg-gray-50 hover:bg-gray-200 hover:text-gray-800 transition-all uppercase tracking-wide text-xs sm:text-sm md:text-base border-b-4 border-transparent flex items-center justify-center leading-tight;
+            min-height: 85px; /* Garantuje stabilní výšku panelu - poměr cca 1:5 k oknu smluv */
+        }
+        
+        .tab-btn.active-tab {
+            @apply text-[#991b1b] bg-white border-[#991b1b];
+        }
+        
+        .tab-content { display: none; }
+        .tab-content.active-content { display: block; animation: fadeIn 0.4s ease-in; }
+
+        /* Třídy pro harmoniku Kriminality */
+        .acc-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .acc-content.open {
+            max-height: 800px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* =========================================
+   STYLY POUZE PRO ČLÁNEK: BIANCO ŠEK
+   ========================================= */
+
+.custom-article-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.custom-article-wrapper h1 {
+    font-size: 2.2em;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+.custom-article-wrapper h2 {
+    margin-top: 40px;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 10px;
+    color: #222;
+}
+
+.custom-article-wrapper h3 {
+    margin-top: 30px;
+    color: #444;
+}
+
+.custom-article-wrapper .perex {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.custom-article-wrapper p {
+    margin-bottom: 20px;
+}
+
+.custom-article-wrapper ul, 
+.custom-article-wrapper ol {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.custom-article-wrapper li {
+    margin-bottom: 10px;
+}
+
+/* --- SDÍLECÍ TLAČÍTKA --- */
+.custom-article-wrapper .share-section {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #eaeaea;
+    text-align: center;
+}
+
+.custom-article-wrapper .share-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+.custom-article-wrapper .share-btn:hover {
+    opacity: 0.8;
+}
+
+.custom-article-wrapper .btn-fb { background-color: #3b5998; }
+.custom-article-wrapper .btn-x { background-color: #000000; }
+.custom-article-wrapper .btn-in { background-color: #0077b5; }
+
+/* --- KOMENTÁŘOVÁ SEKCE --- */
+.custom-article-wrapper .comments-section {
+    margin-top: 50px;
+    background-color: #f1f5f9;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.custom-article-wrapper .comment-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-article-wrapper .comment-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.custom-article-wrapper .comment-form input, 
+.custom-article-wrapper .comment-form textarea {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.custom-article-wrapper .comment-form button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-article-wrapper .comment-form button:hover {
+    background-color: #004494;
+}
+
+/* Responzivita pro menší zařízení */
+@media (max-width: 600px) {
+    .custom-article-wrapper h1 { 
+        font-size: 1.8em; 
+    }
+    .custom-article-wrapper .comments-section {
+        padding: 15px;
+    }
+}
+    </style>
+
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Miloslav Hesek | Profesionální profil & Portfolio</title>
+  
+  <meta name="description" content="Profesionální profil a portfolio Miloslava Heska. Analytik a Občanský Auditor.">
+  
+  </head>
+  
+<body class="antialiased overflow-x-hidden">
+
+    <header class="bg-gradient-to-br from-purple-800 to-indigo-900 text-white py-20 px-4 text-center relative overflow-hidden">
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tight uppercase">Miloslav Hesek</h1>
+            <p class="text-xl md:text-2xl font-light tracking-[0.2em] uppercase opacity-90">Profesionální profil & Portfolio</p>
+        </div>
+        <!-- Dekorativní vzor na pozadí hlavičky -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+    </header>
+
+    <div class="bg-white border-b border-gray-200 shadow-sm relative z-20">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <span class="w-3 h-3 bg-red-600 rounded-full animate-pulse"></span>
+                <span class="text-sm font-bold text-gray-800 uppercase tracking-widest">Miliarda za členství v Trumpově Radě míru</span>
+            </div>
+            <div class="w-full md:w-auto">
+                <audio controls preload="auto" class="w-full md:w-96 rounded-full shadow-inner bg-gray-50">
+                    <!-- ZDE JE OPRAVENÁ CESTA - složka "audio" malými písmeny -->
+                    <source src="audio/Miliarda_za_clenstvi_v_Trumpove_Rade_miru.mp3" type="audio/mpeg">
+                    Váš prohlížeč nepodporuje přehrávání audia.
+                </audio>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bg-gray-900 sticky top-0 z-50 shadow-xl overflow-x-auto w-full">
+        <div class="max-w-7xl mx-auto px-4 flex justify-start lg:justify-center whitespace-nowrap">
+            <!-- Návrat na úvod -->
+            <a href="#top" class="nav-link active">Úvod / O mně</a>
+            <!-- Podstránky (GitHub soubory) a Kotvy -->
+            <a href="#projekty" class="nav-link">Projekty</a>
+            <a href="hasici-petrvald.html" class="nav-link">Historický objev</a>
+            <a href="rozhovory-ai.html" class="nav-link">Rozhovory s AI</a>
+            <a href="citaty.html" class="nav-link">Citáty</a>
+            <a href="news-dashboard.html" class="nav-link">Dashboard</a>
+            <a href="flashcards.html" class="nav-link">Flashcards</a>
+            <a href="#kontakt" class="nav-link">Kontakt</a>
+        </div>
+<div class="custom-article-wrapper">
+    <!-- ZÁHLAVÍ A ČLÁNEK -->
+    <article>
+        <h1>Bianco šek pro ruskou armádu: Ruský zákon, který ohrožuje Evropu v zrcadle historie</h1>
+        
+        <p class="perex">Když stát přijme zákon, který mu umožňuje vojensky zasáhnout v zahraničí pod záminkou „ochrany vlastních občanů“, může to na první pohled znít jako humanitární krok. Jak ale ukazuje historie 20. století, jde o jeden z nejnebezpečnějších nástrojů hybridní války a častou předzvěst ozbrojené agrese. Evropa už tento scénář zažila – a zaplatila za něj vysokou cenu.</p>
+
+        <p>Nedávné kroky Ruské federace, které vytvářejí právní rámec pro uplatňování síly za hranicemi s cílem „chránit Rusy a ruskojazyčné obyvatelstvo“, nejsou v evropských dějinách ničím novým. Jedná se o osvědčený mechanismus autoritářských a totalitních režimů, jak si vytvořit vnitrostátní alibi pro expanzivní zahraniční politiku.</p>
+
+        <p>Při pohledu do historie nacházíme tři mrazivě přesné paralely, ze kterých bychom se dnes měli poučit.</p>
+
+        <h2>Osvědčený nástroj totalitních režimů</h2>
+        <p>Vytvoření právní nebo ideologické záminky pro porušení suverenity jiného státu má v Evropě své temné předchůdce:</p>
+
+        <h3>1. Hitlerovo Německo a „ochrana sudetských Němců“ (1938)</h3>
+        <p>Historicky nejpřesnější paralela s dnešním ruským postupem. Nacistické Německo využilo koncept takzvaných <em>Volksdeutsche</em> (etnických Němců žijících mimo Říši) jako hlavní zbraň k destabilizaci Československa. Propaganda systematicky vytvářela obraz utlačované menšiny, což Berlínu posloužilo jako „morální“ i mocenské ospravedlnění pro Mnichovskou dohodu a následnou okupaci.</p>
+        <ul>
+            <li><strong>Mechanismus:</strong> „Chráníme naše etnické krajany.“</li>
+        </ul>
+
+        <h3>2. Sovětský svaz a doktrína „omezené suverenity“ (1968)</h3>
+        <p>Základní myšlenka takzvané Brežněvovy doktríny spočívala v tom, že SSSR má právo zasáhnout kdekoli ve svém bloku, pokud je tamní „socialismus“ (čtěte: vliv Moskvy) v ohrožení. Tento právně-ideologický konstrukt vedl k invazi do Československa v roce 1968.</p>
+        <ul>
+            <li><strong>Mechanismus:</strong> „Suverenita sousedů končí tam, kde začínají naše mocenské zájmy.“</li>
+        </ul>
+
+        <h3>3. Fašistická Itálie a intervence v Albánii (1939)</h3>
+        <p>Mussoliniho Itálie před svou invazí do Albánie argumentovala tím, že země je „ohrožena“ a že italští občané a zájmy v regionu potřebují bezprostřední ochranu. Byl to pouze uměle vytvořený rámec pro imperiální anexi.</p>
+        <ul>
+            <li><strong>Mechanismus:</strong> „Musíme vojensky obnovit pořádek a ochránit své lidi.“</li>
+        </ul>
+
+        <h2>Fatální chyby mezinárodního společenství</h2>
+        <p>Zatímco agresivní státy používaly tyto zákony a doktríny jako „bianco šeky“ pro invaze, reakce tehdejšího demokratického světa agresi často paradoxně usnadnily.</p>
+        <p>Během <strong>Mnichovské krize v roce 1938</strong> zvolily západní velmoci politiku appeasementu (ústupků). Ve snaze vyhnout se válce za každou cenu přistoupily na Hitlerovu rétoriku. Agresor to však nevyhodnotil jako mírový kompromis, ale jako fatální slabinu Západu, která ho povzbudila k rozpoutání světové války.</p>
+        <p>O rok později, při <strong>italské invazi do Albánie</strong>, se ukázala naprostá bezzubost tehdejší Společnosti národů. Kromě formálního verbálního odsouzení nepřišly žádné reálné sankce. A v <strong>roce 1968</strong> západní svět invazi do ČSSR sice diplomaticky odsoudil, ale v logice tehdejšího rozdělení světa do „sfér vlivu“ neudělal nic, co by sovětskou agresi reálně prodražilo.</p>
+
+        <h2>Tři tvrdé lekce pro dnešní dny</h2>
+        <p>Pokud srovnáme tyto historické zkušenosti s dnešním chováním Ruské federace, jasně z toho plynou tři zásadní ponaučení:</p>
+        <ol>
+            <li><strong>Právní argumenty agresora jsou jen kouřová clona.</strong> Zákony o ochraně krajanů v zahraničí mají jediný cíl: dodat nelegitimní agresi zdání legality a vytvořit takzvanou „pátou kolonu“ v sousedních státech. Jakmile mezinárodní společenství začne na tuto rétorickou hru přistupovat, agresor vyhrál první fázi hybridní války.</li>
+            <li><strong>Ústupky agresi nezastaví.</strong> Politika appeasementu nikdy nefungovala. Pokud je agresorovi dovoleno argumentovat „právem na ochranu svých lidí za hranicemi“ a získá díky tomu ústupky, vnímá to jako zelenou pro další expanzi.</li>
+            <li><strong>Papírové protesty nestačí.</strong> Stejně jako byla ve 30. letech paralyzována Společnost národů, je dnes Rada bezpečnosti OSN paralyzována právem veta. Bezpečnost Evropy nelze opírat o globální instituce, ale pouze o silné a jednotné regionální aliance, které dokážou vytvořit reálné vojenské a ekonomické odstrašení.</li>
+        </ol>
+
+        <h2>Závěr</h2>
+        <p>Historie nám nedává návody, ale nabízí důrazná varování. Zákony, které si osobují právo na vojenský zásah na cizím území pod rouškou ochrany občanů, nejsou běžnou diplomatickou praxí. Jsou varovným signálem a předzvěstí konfliktu.</p>
+        <p>Evropa nesmí opakovat chyby z let 1938 a 1939. Jedinou účinnou odpovědí na podobné kroky je jejich striktní odmítnutí z pozice síly a nezpochybnitelná podpora suverenity ohrožených států. Jen tak lze zabránit tomu, aby se temné kapitoly 20. století začaly psát znovu.</p>
+    </article>
+
+    <!-- SDÍLENÍ NA SOCIÁLNÍCH SÍTÍCH -->
+    <div class="share-section">
+        <h3>Zaujal vás tento článek? Sdílejte ho dál:</h3>
+        <!-- Nezapomeňte nahradit URL vaším skutečným odkazem -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://miloslavhesek.cz/nazev-clanku" target="_blank" class="share-btn btn-fb">Sdílet na Facebooku</a>
+        <a href="https://twitter.com/intent/tweet?url=https://miloslavhesek.cz/nazev-clanku&text=Přečtěte si tuto analýzu historických paralel:" target="_blank" class="share-btn btn-x">Sdílet na X</a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://miloslavhesek.cz/nazev-clanku" target="_blank" class="share-btn btn-in">Sdílet na LinkedIn</a>
+    </div>
+
+    <!-- SEKCE PRO KOMENTÁŘE -->
+    <section class="comments-section">
+        <h2>Komentáře a diskuze</h2>
+        <p>Jaký je váš názor na tyto historické paralely? Zapojte se do diskuze.</p>
+        
+        <form class="comment-form" action="#" method="POST">
+            <label for="name">Jméno:</label>
+            <input type="text" id="name" name="name" required placeholder="Vaše jméno">
+
+            <label for="comment">Váš komentář:</label>
+            <textarea id="comment" name="comment" rows="5" required placeholder="Napište svůj názor..."></textarea>
+
+            <button type="submit">Odeslat komentář</button>
+        </form>
+    </section>
+</div>
