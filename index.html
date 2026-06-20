@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miloslav Hesek | Profesionální profil & Portfolio</title>
     
+    <meta name="description" content="Profesionální profil a portfolio Miloslava Heska. Analytik a Občanský Auditor.">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
@@ -17,15 +19,15 @@
         }
 
         /* Třídy pro navigaci */
-    .nav-link {
-        @apply text-gray-300 hover:text-white px-4 py-3 text-sm font-bold uppercase tracking-wider transition-colors duration-200 border-b-2 border-transparent hover:border-white shrink-0;
-    }
-    
-    .nav-link.active {
+        .nav-link {
+            @apply text-gray-300 hover:text-white px-4 py-3 text-sm font-bold uppercase tracking-wider transition-colors duration-200 border-b-2 border-transparent hover:border-white shrink-0;
+        }
+        
+        .nav-link.active {
             @apply text-white border-red-500 bg-gray-800;
         }
 
-        /* Karty pro sekci Dovednosti (Řeší rozbité rozvrstvení) */
+        /* Karty pro sekci Dovednosti */
         .project-card {
             @apply bg-white p-8 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col h-full transform hover:-translate-y-1;
         }
@@ -33,7 +35,7 @@
         /* Třídy pro záložky Analýzy */
         .tab-btn {
             @apply flex-1 py-4 sm:py-6 px-2 text-center font-bold text-gray-500 bg-gray-50 hover:bg-gray-200 hover:text-gray-800 transition-all uppercase tracking-wide text-xs sm:text-sm md:text-base border-b-4 border-transparent flex items-center justify-center leading-tight;
-            min-height: 85px; /* Garantuje stabilní výšku panelu - poměr cca 1:5 k oknu smluv */
+            min-height: 85px; 
         }
         
         .tab-btn.active-tab {
@@ -59,16 +61,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
-
-  <meta charset="UTF-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Miloslav Hesek | Profesionální profil & Portfolio</title>
-  
-  <meta name="description" content="Profesionální profil a portfolio Miloslava Heska. Analytik a Občanský Auditor.">
-  
-  </head>
+</head>
   
 <body class="antialiased overflow-x-hidden">
 
@@ -77,7 +70,6 @@
             <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tight uppercase">Miloslav Hesek</h1>
             <p class="text-xl md:text-2xl font-light tracking-[0.2em] uppercase opacity-90">Profesionální profil & Portfolio</p>
         </div>
-        <!-- Dekorativní vzor na pozadí hlavičky -->
         <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
     </header>
 
@@ -89,7 +81,6 @@
             </div>
             <div class="w-full md:w-auto">
                 <audio controls preload="auto" class="w-full md:w-96 rounded-full shadow-inner bg-gray-50">
-                    <!-- ZDE JE OPRAVENÁ CESTA - složka "audio" malými písmeny -->
                     <source src="audio/Miliarda_za_clenstvi_v_Trumpove_Rade_miru.mp3" type="audio/mpeg">
                     Váš prohlížeč nepodporuje přehrávání audia.
                 </audio>
@@ -99,9 +90,7 @@
 
     <nav class="bg-gray-900 sticky top-0 z-50 shadow-xl overflow-x-auto w-full">
         <div class="max-w-7xl mx-auto px-4 flex justify-start lg:justify-center whitespace-nowrap">
-            <!-- Návrat na úvod -->
             <a href="#top" class="nav-link active">Úvod / O mně</a>
-            <!-- Podstránky (GitHub soubory) a Kotvy -->
             <a href="#projekty" class="nav-link">Projekty</a>
             <a href="hasici-petrvald.html" class="nav-link">Historický objev</a>
             <a href="rozhovory-ai.html" class="nav-link">Rozhovory s AI</a>
@@ -115,20 +104,14 @@
     <main id="top">
         <section class="max-w-6xl mx-auto px-4 py-20">
             <div class="bg-white rounded-3xl shadow-xl p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 border border-gray-100">
-                
-                <!-- Profilový obrázek - GARANTUJE DOKONALÝ KRUH -->
                 <div class="shrink-0 relative mx-auto lg:mx-0 w-56 h-56 md:w-64 md:h-64">
                     <div class="w-full h-full rounded-full border-4 border-gray-100 bg-white shadow-xl relative z-10 overflow-hidden">
-                        <!-- Nejlepší je "miloslav.jpg", protože je to dokonalý čtverec -->
                         <img src="images/miloslav.jpg" alt="Miloslav Hesek" 
                              onerror="this.src='https://placehold.co/400x400/6b46c1/ffffff?text=MH'" 
                              class="w-full h-full object-cover">
                     </div>
-                    <!-- Dekorativní fialový stín na pozadí -->
                     <div class="absolute inset-0 bg-purple-600 blur-2xl opacity-20 rounded-full -z-10 scale-105"></div>
                 </div>
-
-                <!-- Textový obsah Profilu -->
                 <div class="space-y-6 text-center lg:text-left">
                     <div>
                         <h2 class="text-4xl font-black uppercase text-gray-900 tracking-tight">O mně</h2>
@@ -154,10 +137,7 @@
                     <p class="text-gray-500 mt-4">Vyberte si projekt z mého portfolia a kliknutím přejděte na detailní stránku.</p>
                 </div>
                 
-                <!-- CSS Grid přeskupen na 3 sloupce a 6 nezávislých karet -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <!-- Karta 1: Historický výzkum (Hasiči) -->
                     <a href="hasici-petrvald.html" class="project-card group">
                         <div class="text-5xl mb-6 bg-blue-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">🔍</div>
                         <h3 class="text-xl font-black uppercase tracking-wide text-gray-900 mb-3">Historický výzkum 1: Objev</h3>
@@ -165,7 +145,6 @@
                         <span class="text-blue-600 font-bold text-sm uppercase mt-6 inline-block">Zobrazit výzkum →</span>
                     </a>
 
-                    <!-- Karta 2: Historický výzkum (Sonda 1945) - Začleněno pod historii -->
                     <a href="#analyza1945" class="project-card group border-red-100 shadow-[0_0_15px_rgba(153,27,27,0.05)]">
                         <div class="text-5xl mb-6 bg-red-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">📜</div>
                         <h3 class="text-xl font-black uppercase tracking-wide text-[#991b1b] mb-3">Historický výzkum 2: Sonda</h3>
@@ -173,7 +152,6 @@
                         <span class="text-[#991b1b] font-bold text-sm uppercase mt-6 inline-block">Přečíst studii na této stránce ↓</span>
                     </a>
 
-                    <!-- Karta 3: Vizualizace dat -->
                     <a href="news-dashboard.html" class="project-card group">
                         <div class="text-5xl mb-6 bg-green-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">📊</div>
                         <h3 class="text-xl font-black uppercase tracking-wide text-gray-900 mb-3">Vizualizace dat</h3>
@@ -181,7 +159,6 @@
                         <span class="text-green-600 font-bold text-sm uppercase mt-6 inline-block">Otevřít grafy →</span>
                     </a>
 
-                    <!-- Karta 4: Didaktika historie -->
                     <a href="flashcards.html" class="project-card group">
                         <div class="text-5xl mb-6 bg-orange-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">🎓</div>
                         <h3 class="text-xl font-black uppercase tracking-wide text-gray-900 mb-3">Didaktika historie</h3>
@@ -189,7 +166,6 @@
                         <span class="text-orange-600 font-bold text-sm uppercase mt-6 inline-block">Vyzkoušet výuku →</span>
                     </a>
 
-                    <!-- Karta 5: Implementace AI (Samostatně bez citátů) -->
                     <a href="rozhovory-ai.html" class="project-card group">
                         <div class="text-5xl mb-6 bg-purple-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">🤖</div>
                         <h3 class="text-xl font-black uppercase tracking-wide text-gray-900 mb-3">Implementace AI</h3>
@@ -197,102 +173,98 @@
                         <span class="text-purple-600 font-bold text-sm uppercase mt-6 inline-block">Číst rozhovory →</span>
                     </a>
 
-                    <!-- Karta 6: Citáty slavných (Nová samostatná záložka) -->
                     <a href="citaty.html" class="project-card group">
                         <div class="text-5xl mb-6 bg-yellow-50 w-20 h-20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">✍️</div>
                         <h3 class="text-xl font-black uppercase tracking-wide text-gray-900 mb-3">Citáty slavných</h3>
                         <p class="text-gray-600 flex-grow">Výběr inspirativních a provokativních citátů historických osobností, novinářů a myslitelů.</p>
                         <span class="text-yellow-600 font-bold text-sm uppercase mt-6 inline-block">Číst citáty →</span>
                     </a>
-
                 </div>
             </div>
         </section>
 
-<section id="kauza-viktorka" class="content-section">
-  
-  <h2>Kauza Viktorka: Občanský audit a právní kroky proti selhání státu</h2>
-  
-  <p>
-    Tragická smrt tříleté Viktorky z 21. března 2026 odhalila fatální selhání justice a orgánů sociálně-právní ochrany dětí (OSPOD). Přestože soudkyně i zástupkyně OSPODu měly k dispozici varovné informace o závislosti a duševním stavu otce, rozhodly o svěření dítěte do jeho péče. Na základě těchto veřejně dostupných faktů a vlastního šetření jsem se rozhodl aktivně zasáhnout a podat oficiální podněty k vyvození osobní a trestní odpovědnosti konkrétních úředních osob.
-  </p>
-
- <div class="audio-box">
-    <h3>Audio shrnutí: Analýza selhání justice a systému OSPOD</h3>
-    
-    <audio controls style="width: 100%; margin: 15px 0;">
-      <source src="public/audio/Proč_soud_svěřil_tříletou_Viktorii_vrahovi.m4a" type="audio/mp4">
-      Váš prohlížeč nepodporuje přehrávání audia.
-    </audio>
-    
-    <p>
-      <strong>O nahrávce:</strong> Zvukový záznam představuje syntetizovanou případovou studii (AI NotebookLM) vytvořenou na základě shromážděných důkazů, právních podání a veřejně dostupných faktů k případu.
-    </p>
-  </div>
-   
-  <div class="legal-steps">
-    <h3>Moje právní kroky a intervence</h3>
-    <ul>
-      <li><strong>Trestní oznámení (Policie ČR):</strong> Pro podezření z maření úkolu úřední osoby a podílu na usmrcení z nedbalosti.</li>
-      <li><strong>Podnět ke kárnému řízení (Ministerstvo spravedlnosti):</strong> Proti soudkyni OS v Benešově.</li>
-      <li><strong>Podnět k prošetření OSPOD (MPSV):</strong> Vyvození odpovědnosti vůči zástupkyni OSPOD Kladno.</li>
-    </ul>
-    
-    <p>
-      <strong>Aktuální stav šetření:</strong> Policie ČR, Územní odbor Benešov, oficiálně zahájila úkony trestního řízení. Č. j. KRPS-116478-7/TČ-2026-010171.
-    </p>
-  </div>
-
-  <div class="documents-list">
-    <h3>Důkazní materiály k prostudování</h3>
-    <ul>
-      <li><a href="public/documents/trestni-oznameni.pdf" target="_blank">📄 Trestní oznámení – Policie ČR (PDF)</a></li>
-      <li><a href="public/documents/podnet-ms.pdf" target="_blank">📄 Podnět k zahájení kárného řízení – MS ČR (PDF)</a></li>
-    </ul>
-  </div>
-
-</section>
-        <section id="analyza-rusky-zakon" class="py-12 scroll-mt-16">
-    <div class="max-w-6xl mx-auto px-4">
-        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-gray-200 hover:shadow-2xl transition-shadow duration-300">
-            <span class="text-[#991b1b] font-black tracking-[0.3em] uppercase text-xs sm:text-sm bg-red-50 px-4 py-2 rounded-full mb-6 inline-block">Nová analýza</span>
-            
-            <h3 class="text-2xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight">Bianco šek pro ruskou armádu</h3>
-            
-            <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl leading-relaxed">
-                Když stát přijme zákon umožňující vojenský zásah v zahraničí pod záminkou „ochrany občanů“, jde o předzvěst agrese. Srovnání současného ruského zákona s postupy Hitlerova Německa (1938) a SSSR (1968).
-            </p>
-            
-            <a href="analyza-rusky-zakon.html" class="inline-flex items-center text-white bg-[#991b1b] hover:bg-red-900 font-bold px-8 py-4 rounded-xl transition-colors duration-200 uppercase tracking-wider text-sm">
-                Přečíst celou analýzu
-                <svg class="w-5 h-5 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
-        </div>
-    </div>
-</section>
-        <section id="analyza1945" class="py-24 scroll-mt-16">
-            <div class="max-w-6xl mx-auto px-4">
-                
-                <!-- Hlavička analýzy - OPRAVA NADPISU PRO MOBIL -->
-            <div class="text-center mb-20">
-                <span class="text-[#991b1b] font-black tracking-[0.3em] uppercase text-sm bg-red-50 px-4 py-2 rounded-full">Hloubková historická sonda</span>
-                <!-- Zde je úprava velikosti text-2xl pro mobily a zalomení <br> jen pro desktop -->
-                <h2 class="text-2xl sm:text-4xl md:text-6xl font-black mt-8 mb-6 uppercase tracking-tight text-gray-900 break-words">Tíha osvobození: <br class="hidden sm:block"><span class="text-[#991b1b]">Československo 1945</span></h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Pro Rudou armádu bylo Československo válečná kořist. Interaktivní analýza pramenů historika Prokopa Tomka dokládající drsnou podobu každodenní sovětské vojenské přítomnosti.
-                </p>
+        <section id="analyzy-audity" class="max-w-7xl mx-auto px-4 py-24 scroll-mt-16">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black uppercase text-gray-900 tracking-tight">Analytická činnost & Případové studie</h2>
+                <p class="text-gray-500 mt-4">Nejnovější rozbory z oblasti spravedlnosti, financí a bezpečnosti.</p>
             </div>
 
-            <!-- Záložky: Smlouvy (Sjednocený design) - OPRAVA TLAČÍTEK SMLUV -->
-            <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-24 border border-gray-200">
-                <!-- Tlačítka záložek natvrdo v jednom řádku, text se na mobilu může zalamovat -->
-                <div class="flex w-full border-b border-gray-300 bg-gray-50 flex-nowrap">
-                    <button class="tab-btn active-tab flex-1 whitespace-normal px-1 py-4 sm:px-4 sm:py-6 leading-snug" onclick="switchTab(event, 'tab-korist')">📜 Válečná kořist (31.3.)</button>
-                    <button class="tab-btn flex-1 whitespace-normal px-1 py-4 sm:px-4 sm:py-6 leading-snug" onclick="switchTab(event, 'tab-vyziva')">🍞 Výživa armády</button>
-                    <button class="tab-btn flex-1 whitespace-normal px-1 py-4 sm:px-4 sm:py-6 leading-snug" onclick="switchTab(event, 'tab-protokol')">🖊️ Protokol (30.10.)</button>
-                </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 
-                <div class="p-10 md:p-16">
+                <article class="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-gray-100 flex flex-col hover:shadow-2xl transition-shadow duration-300">
+                    <div class="mb-6">
+                        <span class="text-red-700 font-black tracking-widest uppercase text-xs bg-red-50 px-4 py-2 rounded-full">Občanský audit / Justice</span>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black text-gray-900 mb-4 uppercase tracking-tight">Kauza Viktorka: Právní kroky proti selhání státu</h3>
+                    
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        Tragická smrt tříleté Viktorky odhalila fatální selhání justice a orgánů sociálně-právní ochrany dětí (OSPOD). Přestože státní instituce měly k dispozici varovné informace o závislosti a duševním stavu otce, rozhodly o svěření dítěte do jeho péče. Na základě těchto veřejně dostupných faktů a vlastního šetření jsem podal oficiální podněty k vyvození osobní a trestní odpovědnosti konkrétních úředních osob.
+                    </p>
+
+                    <div class="bg-gray-50 p-6 rounded-2xl border-l-4 border-gray-800 mb-8">
+                        <h4 class="font-bold text-gray-900 mb-4 text-sm uppercase tracking-wide">Audio analýza případu (AI NotebookLM)</h4>
+                        <audio controls class="w-full">
+                            <source src="public/audio/Proč_soud_svěřil_tříletou_Viktorii_vrahovi.m4a" type="audio/mp4">
+                            Váš prohlížeč nepodporuje přehrávání audia.
+                        </audio>
+                    </div>
+
+                    <div class="mb-8">
+                        <p class="text-sm bg-blue-50 text-blue-800 p-4 rounded-xl border border-blue-100">
+                            <strong>Aktuální stav:</strong> Policie ČR, Územní odbor Benešov, zahájila úkony trestního řízení (Č. j. KRPS-116478-7/TČ-2026-010171).
+                        </p>
+                    </div>
+
+                    <div class="border-t border-gray-100 pt-6 mt-auto">
+                        <h4 class="font-bold text-gray-400 uppercase text-xs tracking-widest mb-4">Důkazní materiály k prostudování:</h4>
+                        <div class="flex flex-col gap-3">
+                            <a href="public/documents/trestni-oznameni.pdf" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold transition-colors">📄 Trestní oznámení (PDF)</a>
+                            <a href="public/documents/podnet-ms.pdf" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold transition-colors">📄 Podnět kárného řízení MS (PDF)</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-gray-100 flex flex-col hover:shadow-2xl transition-shadow duration-300">
+                    <div class="mb-6">
+                        <span class="text-orange-700 font-black tracking-widest uppercase text-xs bg-orange-50 px-4 py-2 rounded-full">Finanční analýza / Bezpečnost</span>
+                    </div>
+                    
+                    <h3 class="text-2xl font-black text-gray-900 mb-4 uppercase tracking-tight">Bianco šek pro ruskou armádu</h3>
+                    
+                    <p class="text-gray-600 leading-relaxed mb-8 flex-grow">
+                        Když stát přijme zákon umožňující vojenský zásah v zahraničí pod záminkou „ochrany občanů“, jde o předzvěst agrese. Srovnání současného ruského zákona s postupy Hitlerova Německa (1938) a SSSR (1968). Nová analytická studie rozkrývající finanční toky, skryté mechanismy a legislativní trhliny, které umožňují obcházení mezinárodních sankcí. Tato analýza detailně mapuje, jakým způsobem mohou zdánlivě legální operace sloužit jako nepřímá podpora vojenských kapacit.
+                    </p>
+
+                    <div class="border-t border-gray-100 pt-6 mt-auto">
+                        <a href="analyza-rusky-zakon.html" class="inline-flex items-center justify-center w-full text-white bg-gray-900 hover:bg-gray-800 font-bold px-6 py-4 rounded-xl transition-colors duration-200 uppercase tracking-wider text-sm shadow-md hover:shadow-lg">
+                            Přečíst celou analýzu
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="analyza1945" class="bg-gray-50 py-24 scroll-mt-16 border-t border-gray-200">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-20">
+                    <span class="text-[#991b1b] font-black tracking-[0.3em] uppercase text-sm bg-red-50 px-4 py-2 rounded-full">Hloubková historická sonda</span>
+                    <h2 class="text-2xl sm:text-4xl md:text-6xl font-black mt-8 mb-6 uppercase tracking-tight text-gray-900 break-words">Tíha osvobození: <br class="hidden sm:block"><span class="text-[#991b1b]">Československo 1945</span></h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                        Pro Rudou armádu bylo Československo válečná kořist. Interaktivní analýza pramenů historika Prokopa Tomka dokládající drsnou podobu každodenní sovětské vojenské přítomnosti.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-24 border border-gray-200">
+                    <div class="flex w-full border-b border-gray-300 bg-gray-50 flex-nowrap">
+                        <button class="tab-btn active-tab flex-1 whitespace-normal px-1 py-4 sm:px-4 sm:py-6 leading-snug" onclick="switchTab(event, 'tab-korist')">📜 Válečná kořist (31.3.)</button>
+                        <button class="tab-btn flex-1 whitespace-normal px-1 py-4 sm:px-4 sm:py-6 leading-snug" onclick="switchTab(event, 'tab-vyziva')">🍞 Výživa armády</button>
+                        <button class="tab-btn flex-1 whitespace-normal px-1 py-4 sm:px-4 sm:py-6 leading-snug" onclick="switchTab(event, 'tab-protokol')">🖊️ Protokol (30.10.)</button>
+                    </div>
+                    
+                    <div class="p-10 md:p-16">
                         <div id="tab-korist" class="tab-content active-content">
                             <h3 class="text-3xl font-black mb-6 text-[#991b1b] uppercase">"Trofejní smlouva"</h3>
                             <p class="text-xl text-gray-700 leading-relaxed mb-6 font-medium border-l-4 border-gray-300 pl-6 italic">
@@ -323,14 +295,13 @@
                     </div>
                 </div>
 
-                <!-- Graf a Ekonomika (Sjednocené s kartami) -->
                 <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
                     <div class="space-y-8">
                         <h3 class="text-4xl font-black text-gray-900 uppercase">Stát před bankrotem</h3>
                         <p class="text-lg text-gray-600 leading-relaxed">
                             Za pouhé čtyři měsíce od května 1945 činily materiální odběry Rudé armády celkem <strong class="text-gray-900 font-bold underline decoration-[#991b1b]">10 miliard korun</strong>. Dlouhodobý pobyt osvoboditelů by znamenal jistý státní bankrot.
                         </p>
-                        <div class="bg-gray-100 p-8 rounded-2xl border-l-8 border-[#991b1b]">
+                        <div class="bg-white p-8 rounded-2xl border-l-8 border-[#991b1b] shadow-sm">
                             <p class="text-sm font-bold text-[#991b1b] uppercase tracking-widest mb-2">Historický kontext</p>
                             <p class="text-gray-700 italic text-lg">
                                 Armáda USA měla tehdy na našem území asi 30 tisíc vojáků, které živila velmi dobře plně z vlastních zdrojů bez zátěže pro ČSR.
@@ -345,12 +316,9 @@
                     </div>
                 </div>
 
-                <!-- Harmonika: Kriminalita -->
                 <div class="max-w-4xl mx-auto">
                     <h3 class="text-4xl font-black text-center uppercase mb-12 text-gray-900">Odvrácená tvář: Kriminalita</h3>
                     <div class="space-y-4">
-                        
-                        <!-- Položka 1 -->
                         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                             <button class="w-full px-8 py-6 flex justify-between items-center bg-white hover:bg-gray-50 focus:outline-none" onclick="toggleAccordion(this)">
                                 <span class="font-bold text-gray-900 text-lg flex items-center gap-4"><span class="text-3xl">⚔️</span> Násilná trestná činnost</span>
@@ -361,7 +329,6 @@
                             </div>
                         </div>
 
-                        <!-- Položka 2 -->
                         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                             <button class="w-full px-8 py-6 flex justify-between items-center bg-white hover:bg-gray-50 focus:outline-none" onclick="toggleAccordion(this)">
                                 <span class="font-bold text-gray-900 text-lg flex items-center gap-4"><span class="text-3xl">🚲</span> Loupeže a krádeže</span>
@@ -372,7 +339,6 @@
                             </div>
                         </div>
 
-                        <!-- Položka 3 -->
                         <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                             <button class="w-full px-8 py-6 flex justify-between items-center bg-white hover:bg-gray-50 focus:outline-none" onclick="toggleAccordion(this)">
                                 <span class="font-bold text-gray-900 text-lg flex items-center gap-4"><span class="text-3xl">🐟</span> Plenění přírody</span>
@@ -382,7 +348,6 @@
                                 <p class="p-8 text-gray-700 text-lg">Pytlačení a nelegální rybolov s pomocí vojenských výbušnin či vypouštěním a ničením rybníků měly mimořádné rozměry. Krutost k lidem, zvířatům a přírodě nebyla dodnes systematicky zmapována.</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -390,7 +355,7 @@
         </section>
     </main>
 
-    <footer id="kontakt" class="bg-gray-900 text-white pt-24 pb-12 mt-12 border-t-8 border-purple-600">
+    <footer id="kontakt" class="bg-gray-900 text-white pt-24 pb-12 border-t-8 border-purple-600">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-4xl font-black mb-8 uppercase tracking-widest text-gray-100">Kontakt</h2>
             <p class="text-gray-400 mb-10 text-lg">Máte zájem o spolupráci nebo diskuzi nad historickými tématy?</p>
@@ -409,15 +374,12 @@
     <script>
         // Logika pro Tabs (Záložky)
         function switchTab(evt, tabId) {
-            // Skrýt všechny obsahy
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(c => c.classList.remove('active-content'));
             
-            // Deaktivovat všechna tlačítka
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(b => b.classList.remove('active-tab'));
             
-            // Aktivovat kliknuté
             document.getElementById(tabId).classList.add('active-content');
             evt.currentTarget.classList.add('active-tab');
         }
@@ -428,18 +390,16 @@
             const icon = button.querySelector('.indicator');
             const isOpen = content.classList.contains('open');
             
-            // Zavřít všechny ostatní
             document.querySelectorAll('.acc-content').forEach(c => c.classList.remove('open'));
             document.querySelectorAll('.indicator').forEach(i => i.style.transform = 'rotate(0deg)');
             
-            // Pokud nebyl otevřený, otevřít ho
             if (!isOpen) {
                 content.classList.add('open');
                 icon.style.transform = 'rotate(180deg)';
             }
         }
 
-        // Logika pro Vykreslení Grafu (Spustí se po načtení stránky)
+        // Logika pro Vykreslení Grafu
         window.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('analyzaChart');
             if(ctx) {
@@ -448,7 +408,7 @@
                     data: {
                         labels: ['Výběr daní (Příjem)', 'Náklady na RA (Výdej)'],
                         datasets: [{
-                            data: [1.7, 2.5], // Miliardy Kčs
+                            data: [1.7, 2.5], 
                             backgroundColor: ['#94a3b8', '#991b1b'],
                             borderRadius: 8,
                             barThickness: 50
@@ -482,7 +442,7 @@
                 });
             }
 
-            // Obarvení aktivního odkazu v navigaci při scrollování
+            // Obarvení aktivního odkazu v navigaci
             const sections = document.querySelectorAll("section");
             const navLinks = document.querySelectorAll(".nav-link");
 
